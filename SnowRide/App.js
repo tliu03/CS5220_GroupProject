@@ -15,7 +15,7 @@ import {
   Ionicons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+import { Colors } from "./Constants/colors";
 
 function PostOverview() {
   const BottomTabs = createBottomTabNavigator();
@@ -23,10 +23,10 @@ function PostOverview() {
     <BottomTabs.Navigator
       screenOptions={({ navigation }) => ({
         headerTintColor: Colors.tertiary100,
-        headerStyle: { backgroundColor: Colors.primary200 },
-        tabBarStyle: { backgroundColor: Colors.primary200 },
-        tabBarActiveTintColor: Colors.primary201,
-        tabBarInactiveTintColor: Colors.secondary100,
+        headerStyle: { backgroundColor: Colors.primary100 },
+        tabBarStyle: { backgroundColor: Colors.primary100 },
+        tabBarActiveTintColor: Colors.tertiary100,
+        tabBarInactiveTintColor: Colors.secondary200,
         headerRight: ({ tintColor }) => (
           <Ionicons
             name="chatbox-ellipses-outline"
