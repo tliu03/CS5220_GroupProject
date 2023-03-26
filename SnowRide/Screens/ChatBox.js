@@ -4,7 +4,7 @@ import React from "react";
 export default function ChatBox() {
   return (
     <View>
-      <Text>ChatBox</Text>
+      <Text>ChatList here</Text>
     </View>
   );
 }
