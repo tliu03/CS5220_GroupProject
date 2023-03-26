@@ -50,20 +50,20 @@ function PostOverview() {
       })}
     >
       <BottomTabs.Screen
-        name="DriverPost"
+        name="Driver Posts"
         component={DriverPost}
         options={{
-          tabBarLabel: "Driver Posts",
+          tabBarLabel: "DriverPosts",
           tabBarIcon: ({ color, size }) => {
             return <Ionicons name="car" size={size} color={color} />;
           },
         }}
       />
       <BottomTabs.Screen
-        name="PassengerPost"
+        name="Passenger Posts"
         component={PassengerPost}
         options={{
-          tabBarLabel: "Passenger Posts",
+          tabBarLabel: "PassengerPosts",
           tabBarIcon: ({ color, size }) => {
             return (
               <MaterialCommunityIcons
