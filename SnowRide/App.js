@@ -9,6 +9,7 @@ import PassengerPost from "./Screens/PassengerPost";
 import Welcome from "./Screens/Welcome";
 import User from "./Screens/User";
 import ChatBox from "./Screens/ChatList";
+// import AddPost from "./Screens/AddPost";
 
 import {
   SimpleLineIcons,
@@ -99,6 +100,7 @@ export default function App() {
           <Stack.Screen name="Welcome" component={Welcome} />
           <Stack.Screen name="User" component={User} />
           <Stack.Screen name="Messages" component={ChatBox} />
+          {/* <Stack.Screen name="AddPost" component={AddPost} /> */}
         </Stack.Navigator>
       </NavigationContainer>
     </>

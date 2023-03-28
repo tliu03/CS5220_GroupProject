@@ -1,23 +1,16 @@
 import { StyleSheet, Text, View } from "react-native";
-import PostForm from "../Components/Post/PostForm";
-import { onSnapshot, collection, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { onSnapshot, collection, query, where } from "firebase/firestore";
 import { firestore } from "../FireBase/firebase-setup";
+import PostList from "../Components/Post/PostList";
+import PostForm from "../Components/Post/PostForm";
+import IconButton from "../Components/UI/IconButton";
+import { Colors } from "../Constants/colors";
 
-export default function DriverPost() {
+export default function DriverPost({ navigation }) {
+  // Query Data
   const [posts, setPosts] = useState([]);
 
-  // const q = query(
-  //   collection(firestore, "posts"),
-  //   where("category", "==", "driver")
-  // );
-  // const unsubscribe = onSnapshot(q, (querySnapshot) => {
-  //   const posts = [];
-  //   querySnapshot.forEach((doc) => {
-  //     posts.push(doc.data().name);
-  //   });
-  //   console.log("Driver posts:", posts.join(","));
-  // });
   useEffect(() => {
     const q = query(
       collection(firestore, "posts"),
@@ -41,7 +34,25 @@ export default function DriverPost() {
       unsubscribe();
     };
   }, []);
-  return <PostForm posts={posts} />;
+
+  // Input Modal
+  const [modalVisible, setModalVisible] = useState(false);
+
+  function addHandler() {
+    setModalVisible(true);
+  }
+  return (
+    <>
+      <IconButton
+        name="add"
+        size={22}
+        color={Colors.tertiary100}
+        onPress={addHandler}
+      />
+      <PostForm modalIsVisible={modalVisible} driverPost={true} />
+      <PostList posts={posts} />
+    </>
+  );
 }
 
 const styles = StyleSheet.create({});
