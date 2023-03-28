@@ -8,7 +8,7 @@ import DriverPost from "./Screens/DriverPost";
 import PassengerPost from "./Screens/PassengerPost";
 import Welcome from "./Screens/Welcome";
 import User from "./Screens/User";
-import ChatBox from "./Screens/ChatBox";
+import ChatBox from "./Screens/ChatList";
 
 import {
   SimpleLineIcons,
