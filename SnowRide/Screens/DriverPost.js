@@ -49,7 +49,11 @@ export default function DriverPost({ navigation }) {
         color={Colors.tertiary100}
         onPress={addHandler}
       />
-      <PostForm modalIsVisible={modalVisible} driverPost={true} />
+      <PostForm
+        modalIsVisible={modalVisible}
+        driverPost={true}
+        setModalVisibile={setModalVisible}
+      />
       <PostList posts={posts} />
     </>
   );
