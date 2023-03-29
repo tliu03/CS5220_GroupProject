@@ -4,6 +4,7 @@ import PostItem from "./PostItem";
 
 // post form
 export default function PostList({ posts }) {
+  // console.log(posts);
   return (
     <View>
       <FlatList

@@ -2,9 +2,10 @@ import { StyleSheet, Text, View, Pressable } from "react-native";
 import React from "react";
 import { Colors } from "../../../Constants/colors";
 import { useNavigation } from "@react-navigation/native";
+import { formatDateTime } from "../../../Utils/date";
 
 export default function PostItem({ post }) {
-  const date = post.date.toString();
+  const date = formatDateTime(post.date);
   const navigation = useNavigation();
 
   function checkPostHanlder() {

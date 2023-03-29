@@ -1,13 +1,13 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { Colors } from "../../../Constants/colors";
 import Button from "../../UI/Button";
+import { formatDateTime } from "../../../Utils/date";
 
 // post item detail
 export default function PostDetail({ route }) {
   // console.log(route);
   const post = route.params;
-  const date = post.date.toString();
-  // console.log(post.pickupLocation);
+  const date = formatDateTime(post.date);
 
   function boookConfirmationHandler() {
     console.log("book");
@@ -24,7 +24,10 @@ export default function PostDetail({ route }) {
         <Text>Destination: {post.destination}</Text>
         <Text>Pick Up Location: {post.pickupLocation}</Text>
         <Text>Date: {date}</Text>
-        <Text>Spots: {post.availableSpots} seat/s</Text>
+        <Text>
+          Spots: {post.availableSpots}{" "}
+          {post.availableSpots === 1 ? <Text>seat</Text> : <Text>seats</Text>}
+        </Text>
         <Text>Price: ${post.price}</Text>
         <Text>
           Room for Equipments:{" "}

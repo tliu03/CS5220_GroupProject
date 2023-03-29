@@ -7,35 +7,33 @@ import PostForm from "../Components/Post/ManageEntry/PostForm";
 import IconButton from "../Components/UI/IconButton";
 import { Colors } from "../Constants/colors";
 
-import { posts_list } from "../Utils/data";
-
 export default function DriverPost({ navigation }) {
   // Query Data
-  const [posts, setPosts] = useState(posts_list);
+  const [posts, setPosts] = useState();
 
-  // useEffect(() => {
-  //   const q = query(
-  //     collection(firestore, "posts"),
-  //     where("category", "==", "driver")
-  //   );
-  //   const unsubscribe = onSnapshot(q, (querySnapshot) => {
-  //     if (querySnapshot.empty) {
-  //       setPosts([]);
-  //       console.log("empty");
-  //     } else {
-  //       let docs = [];
-  //       querySnapshot.docs.forEach((snap) => {
-  //         console.log(snap.id);
-  //         docs.push({ ...snap.data(), id: snap.id });
-  //       });
-  //       console.log(docs);
-  //       setPosts(docs);
-  //     }
-  //   });
-  //   return () => {
-  //     unsubscribe();
-  //   };
-  // }, []);
+  useEffect(() => {
+    const q = query(
+      collection(firestore, "posts"),
+      where("category", "==", "driver")
+    );
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      if (querySnapshot.empty) {
+        setPosts([]);
+        // console.log("empty");
+      } else {
+        let docs = [];
+        querySnapshot.docs.forEach((snap) => {
+          // console.log(snap.id);
+          docs.push({ ...snap.data(), id: snap.id });
+        });
+        // console.log(docs);
+        setPosts(docs);
+      }
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   // Input Modal
   const [modalVisible, setModalVisible] = useState(false);
