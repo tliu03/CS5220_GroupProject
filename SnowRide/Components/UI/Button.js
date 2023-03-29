@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.tertiary100,
     marginHorizontal: 20,
     marginVertical: 20,
-    width: 100,
   },
   buttonText: {
     color: "white",

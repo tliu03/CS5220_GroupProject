@@ -55,10 +55,14 @@ export default function PostForm({
   );
 
   const PassengerInputForm = (
-    <View>
-      <Text style={styles.title}>Passenger Post</Text>
-      <Input label="Driver" />
-    </View>
+    <>
+      <Input label="Date" />
+      <Input label="Destination" />
+      <Input label="Pick Up Location" />
+      <Input label="Price" />
+      <Input label="Seats Needed" />
+      <Input label="Need Room for Equipment" />
+    </>
   );
 
   function returnToPostHandler() {
@@ -75,12 +79,22 @@ export default function PostForm({
         />
         <View style={styles.contentContainer}>
           <View style={styles.titleContainer}>
-            <Text style={styles.title}>Driver Post</Text>
+            <Text style={styles.title}>
+              {driverPost ? (
+                <Text>Add Driver Post</Text>
+              ) : (
+                <Text>Add Passenger Post</Text>
+              )}
+            </Text>
           </View>
           <View>{driverPost ? DriverInputForm : PassengerInputForm}</View>
           <View style={styles.buttonContainer}>
-            <Button onPress={resetFormHandler}>Reset</Button>
-            <Button onPress={submitFormHanlder}>Submit</Button>
+            <Button onPress={resetFormHandler} style={styles.buttonStyle}>
+              Reset
+            </Button>
+            <Button onPress={submitFormHanlder} style={styles.buttonStyle}>
+              Submit
+            </Button>
           </View>
         </View>
       </View>
@@ -112,5 +126,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     // alignItems: "center",
+  },
+  buttonStyle: {
+    width: 100,
   },
 });

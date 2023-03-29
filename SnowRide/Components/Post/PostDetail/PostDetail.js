@@ -14,7 +14,7 @@ export default function PostDetail({ route }) {
   }
 
   function initialChatHandler() {
-    console.log("chat with driver");
+    console.log("chat initiated");
   }
 
   let PostItemView;
@@ -49,11 +49,19 @@ export default function PostDetail({ route }) {
         <Text>Destination: {post.destination}</Text>
         <Text>Pick Up Location: {post.pickupLocation}</Text>
         <Text>Date: {date}</Text>
-        <Text>Seat/s Needed: {post.availableSpots} seat/s</Text>
+        <Text>Seat/s Needed: {post.seatsNeeded}</Text>
         <Text>
-          Need Room for Equipments:
-          {post.equipmentRoom ? <Text>Yes</Text> : <Text>No</Text>}
+          Need Room for Equipments:{" "}
+          {post.roomForEquipment ? <Text>Yes</Text> : <Text>No</Text>}
         </Text>
+        <View style={styles.buttonPassengerContainer}>
+          <Button
+            onPress={initialChatHandler}
+            style={styles.buttonPassengerStyle}
+          >
+            Chat with Passenger
+          </Button>
+        </View>
       </View>
     );
   }
@@ -75,8 +83,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     // alignItems: "center",
   },
+
   buttonStyle: {
     width: 100,
+    height: 50,
+    justifyContent: "center",
+  },
+  buttonPassengerContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  buttonPassengerStyle: {
+    width: 200,
     height: 50,
     justifyContent: "center",
   },

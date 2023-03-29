@@ -54,7 +54,6 @@ export default function PassengerPost() {
 
       <PostForm
         modalIsVisible={modalVisible}
-        driverPost={true}
         setModalVisibile={setModalVisible}
       />
       <PostList posts={posts} />
