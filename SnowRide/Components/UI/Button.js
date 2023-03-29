@@ -6,7 +6,11 @@ export default function Button({ children, onPress, style }) {
     <View>
       <Pressable
         onPress={onPress}
-        style={({ pressed }) => [styles.buttonStyle, pressed && styles.pressed]}
+        style={({ pressed }) => [
+          style,
+          styles.buttonStyle,
+          pressed && styles.pressed,
+        ]}
       >
         <Text style={styles.buttonText}>{children}</Text>
       </Pressable>

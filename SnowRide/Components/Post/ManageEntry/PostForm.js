@@ -1,10 +1,10 @@
 import { View, Text, Modal, StyleSheet } from "react-native";
 import { useState } from "react";
-import { Colors } from "../../Constants/colors";
+import { Colors } from "../../../Constants/colors";
 
 import Input from "./Input";
-import IconButton from "../UI/IconButton";
-import Button from "../UI/Button";
+import IconButton from "../../UI/IconButton";
+import Button from "../../UI/Button";
 
 // Add form
 export default function PostForm({

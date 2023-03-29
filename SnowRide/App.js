@@ -17,6 +17,7 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 import { Colors } from "./Constants/colors";
+import PostDetail from "./Components/Post/PostDetail/PostDetail";
 
 function PostOverview() {
   const BottomTabs = createBottomTabNavigator();
@@ -97,6 +98,7 @@ export default function App() {
             component={PostOverview}
             options={{ headerShown: false }}
           />
+          <Stack.Screen name="PostDetails" component={PostDetail} />
           <Stack.Screen name="Welcome" component={Welcome} />
           <Stack.Screen name="User" component={User} />
           <Stack.Screen name="Messages" component={ChatBox} />

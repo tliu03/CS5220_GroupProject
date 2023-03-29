@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TextInput } from "react-native";
 import React from "react";
-import { Colors } from "../../Constants/colors";
+import { Colors } from "../../../Constants/colors";
 
 export default function Input({ label, style, textInputConfig, inValid }) {
   let inputStyle = [styles.inputTextBox];
@@ -24,8 +24,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   label: {
-    size: 22,
-    fontWeight: "bold",
+    fontSize: 15,
     color: "black",
     width: "40%",
   },
