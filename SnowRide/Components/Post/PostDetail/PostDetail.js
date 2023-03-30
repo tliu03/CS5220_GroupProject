@@ -49,10 +49,10 @@ export default function PostDetail({ route }) {
         <Text>Destination: {post.destination}</Text>
         <Text>Pick Up Location: {post.pickupLocation}</Text>
         <Text>Date: {date}</Text>
-        <Text>Seat/s Needed: {post.seatsNeeded}</Text>
+        <Text>Seat/s Needed: {post.availableSpots}</Text>
         <Text>
           Need Room for Equipments:{" "}
-          {post.roomForEquipment ? <Text>Yes</Text> : <Text>No</Text>}
+          {post.equipmentRoom ? <Text>Yes</Text> : <Text>No</Text>}
         </Text>
         <View style={styles.buttonPassengerContainer}>
           <Button

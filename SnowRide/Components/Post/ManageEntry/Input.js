@@ -1,16 +1,30 @@
 import { View, Text, StyleSheet, TextInput } from "react-native";
 import React from "react";
 import { Colors } from "../../../Constants/colors";
+import Button from "../../UI/Button";
+import OptionPicker from "./OptionPicker";
+import DatePicker from "react-native-datepicker";
 
-export default function Input({ label, style, textInputConfig, inValid }) {
-  let inputStyle = [styles.inputTextBox];
-  if (textInputConfig && textInputConfig.multiline) {
-    inputStyle.push(styles.inputMultiline);
-  }
+export default function Input({
+  label,
+  style,
+  textInputConfig,
+  inputBox,
+  optionBox,
+  timePicker,
+}) {
   return (
     <View style={styles.inputContainer}>
       <Text style={styles.label}>{label}: </Text>
-      <TextInput style={inputStyle} {...textInputConfig} />
+      {inputBox && (
+        <TextInput style={styles.inputTextBox} {...textInputConfig} />
+      )}
+      {optionBox && (
+        <OptionPicker style={styles.pickerContainer} {...textInputConfig} />
+      )}
+      {timePicker && (
+        <DatePicker style={styles.pickerContainer} {...textInputConfig} />
+      )}
     </View>
   );
 }
@@ -39,5 +53,10 @@ const styles = StyleSheet.create({
   },
   inputMultiline: {
     minHeight: 200,
+  },
+  pickerContainer: {
+    backgroundColor: "white",
+    width: "70%",
+    height: 30,
   },
 });

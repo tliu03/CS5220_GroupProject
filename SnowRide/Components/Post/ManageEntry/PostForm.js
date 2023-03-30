@@ -6,64 +6,53 @@ import Input from "./Input";
 import IconButton from "../../UI/IconButton";
 import Button from "../../UI/Button";
 
+// import DateTimePick from "./DateTimePick";
+
 // Add form
 export default function PostForm({
   modalIsVisible,
-  driverPost,
+  postType,
   setModalVisibile,
 }) {
-  const [postEntry, setPostEntry] = useState({});
+  const [postEntry, setPostEntry] = useState({
+    category: "driver",
+    date: null,
+    destination: "",
+    pickupLocation: "",
+    price: 0,
+    availableSpots: 0,
+    equipmentRoom: true,
+  });
 
-  // if (driverPost) {
-  //   setPostEntry({
-  //     category: "driver",
-  //     date: new Date(),
-  //     destination: "",
-  //     pickupLocation: "",
-  //     price: 0,
-  //     spotsAvailable: 0,
-  //     roomForEquipments: true,
-  //   });
-  // } else {
-  //   setPostEntry({
-  //     category: "passenger",
-  //     date: new Date(),
-  //     destination: "",
-  //     pickupLocation: "",
-  //     spotsNeeded: 0,
-  //     needRoomForEquipment: true,
-  //   });
-  // }
+  let driverPost;
+  if (postType === "driver") {
+    driverPost = true;
+  }
+
+  function entryInputHandler(inputIdentifier, enteredValue) {
+    setPostEntry((currValue) => {
+      return {
+        ...currValue,
+        [inputIdentifier]: enteredValue,
+      };
+    });
+  }
 
   function resetFormHandler() {
-    console.log("reset");
+    setPostEntry({
+      category: "driver",
+      date: null,
+      destination: "",
+      pickupLocation: "",
+      price: 0,
+      availableSpots: 0,
+      equipmentRoom: true,
+    });
   }
 
   function submitFormHanlder() {
     console.log("submit");
   }
-
-  const DriverInputForm = (
-    <>
-      <Input label="Date" />
-      <Input label="Destination" />
-      <Input label="Pick Up Location" />
-      <Input label="Price" />
-      <Input label="Spots" />
-      <Input label="Room for Equipment" />
-    </>
-  );
-
-  const PassengerInputForm = (
-    <>
-      <Input label="Date" />
-      <Input label="Destination" />
-      <Input label="Pick Up Location" />
-      <Input label="Price" />
-      <Input label="Seats Needed" />
-      <Input label="Need Room for Equipment" />
-    </>
-  );
 
   function returnToPostHandler() {
     setModalVisibile(false);
@@ -87,7 +76,66 @@ export default function PostForm({
               )}
             </Text>
           </View>
-          <View>{driverPost ? DriverInputForm : PassengerInputForm}</View>
+          <View>
+            <Input
+              label="Date"
+              timePicker={true}
+              textInputConfig={{
+                date: postEntry.date,
+                mode: "datetime",
+                format: "YYYY-MM-DD @HH:mm",
+                onDateChange: entryInputHandler.bind(this, "date"),
+                useNativeDriver: true,
+                value: postEntry.date,
+              }}
+            />
+            <Input
+              label="Destination"
+              inputBox={true}
+              textInputConfig={{
+                onChangeText: entryInputHandler.bind(this, "destination"),
+                value: postEntry.destination,
+              }}
+            />
+            <Input
+              label="Pick Up Location"
+              inputBox={true}
+              textInputConfig={{
+                onChangeText: entryInputHandler.bind(this, "pickupLocation"),
+                value: postEntry.pickupLocation,
+              }}
+            />
+            {driverPost && (
+              <Input
+                label="Price"
+                inputBox={true}
+                textInputConfig={{
+                  keybordType: "decimal-pad",
+                  onChangeText: entryInputHandler.bind(this, "price"),
+                  value: postEntry.price,
+                }}
+              />
+            )}
+            <Input
+              label={driverPost ? "Spots Available" : "Seats Needed"}
+              inputBox={true}
+              textInputConfig={{
+                keybordType: "numeric",
+                onChangeText: entryInputHandler.bind(this, "availableSpots"),
+                value: postEntry.availableSpots,
+              }}
+            />
+            <Input
+              label={
+                driverPost ? "Room for Equipment" : "Need Room for Equipment"
+              }
+              optionBox={true}
+              textInputConfig={{
+                onChangeText: entryInputHandler.bind(this, "equipmentRoom"),
+                value: postEntry.equipmentRoom,
+              }}
+            />
+          </View>
           <View style={styles.buttonContainer}>
             <Button onPress={resetFormHandler} style={styles.buttonStyle}>
               Reset

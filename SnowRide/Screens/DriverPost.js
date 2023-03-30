@@ -54,7 +54,7 @@ export default function DriverPost({ navigation }) {
 
       <PostForm
         modalIsVisible={modalVisible}
-        driverPost={true}
+        postType={"driver"}
         setModalVisibile={setModalVisible}
       />
       <PostList posts={posts} />
