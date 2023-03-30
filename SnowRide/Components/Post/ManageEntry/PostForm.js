@@ -1,10 +1,12 @@
-import { View, Text, Modal, StyleSheet } from "react-native";
+import { View, Text, Modal, StyleSheet, Alert } from "react-native";
 import { useState } from "react";
 import { Colors } from "../../../Constants/colors";
 
 import Input from "./Input";
 import IconButton from "../../UI/IconButton";
 import Button from "../../UI/Button";
+
+import { writeToDB } from "../../../FireBase/firebase-helper";
 
 // import DateTimePick from "./DateTimePick";
 
@@ -15,7 +17,7 @@ export default function PostForm({
   setModalVisibile,
 }) {
   const [postEntry, setPostEntry] = useState({
-    category: "driver",
+    category: "",
     date: null,
     destination: "",
     pickupLocation: "",
@@ -31,6 +33,7 @@ export default function PostForm({
 
   function entryInputHandler(inputIdentifier, enteredValue) {
     setPostEntry((currValue) => {
+      // console.log(enteredValue);
       return {
         ...currValue,
         [inputIdentifier]: enteredValue,
@@ -40,7 +43,7 @@ export default function PostForm({
 
   function resetFormHandler() {
     setPostEntry({
-      category: "driver",
+      category: "",
       date: null,
       destination: "",
       pickupLocation: "",
@@ -51,11 +54,49 @@ export default function PostForm({
   }
 
   function submitFormHanlder() {
-    console.log("submit");
+    const entryPostData = {
+      category: driverPost ? "driver" : "passenger",
+      date: postEntry.date,
+      destination: postEntry.destination,
+      pickupLocation: postEntry.pickupLocation,
+      price: +postEntry.price,
+      availableSpots: +postEntry.availableSpots,
+      equipmentRoom: postEntry.equipmentRoom === "yes" ? true : false,
+    };
+    const availableSpotsIsValid =
+      !isNaN(entryPostData.availableSpots) && entryPostData.availableSpots >= 1;
+    const destinationIsValid = entryPostData.destination.trim().length > 0;
+    const pickupLocationIsValid =
+      entryPostData.pickupLocation.trim().length > 0;
+    const priceIsValid = !isNaN(entryPostData.price);
+    const equipmentRoomIsValid =
+      typeof entryPostData.equipmentRoom === "boolean";
+
+    if (
+      !availableSpotsIsValid ||
+      !destinationIsValid ||
+      !pickupLocationIsValid ||
+      !priceIsValid ||
+      !equipmentRoomIsValid
+    ) {
+      Alert.alert("Invalid Input, Please Re-enter");
+    } else {
+      writeToDB(entryPostData);
+      returnToPostHandler();
+    }
   }
 
   function returnToPostHandler() {
     setModalVisibile(false);
+    setPostEntry({
+      category: "driver",
+      date: null,
+      destination: "",
+      pickupLocation: "",
+      price: 0,
+      availableSpots: 0,
+      equipmentRoom: true,
+    });
   }
 
   return (
@@ -131,7 +172,7 @@ export default function PostForm({
               }
               optionBox={true}
               textInputConfig={{
-                onChangeText: entryInputHandler.bind(this, "equipmentRoom"),
+                onSelect: entryInputHandler.bind(this, "equipmentRoom"),
                 value: postEntry.equipmentRoom,
               }}
             />

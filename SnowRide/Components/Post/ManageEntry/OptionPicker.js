@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Colors } from "../../../Constants/colors";
 
-const OptionPicker = ({ style }) => {
+const OptionPicker = ({ style, onSelect }) => {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const handleOptionPress = (option) => {
     setSelectedOption(option);
+    onSelect(option);
   };
 
   return (

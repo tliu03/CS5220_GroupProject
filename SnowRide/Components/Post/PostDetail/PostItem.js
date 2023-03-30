@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { formatDateTime } from "../../../Utils/date";
 
 export default function PostItem({ post }) {
-  const date = formatDateTime(post.date);
+  // const date = formatDateTime(post.date);
   const navigation = useNavigation();
 
   function checkPostHanlder() {
@@ -20,7 +20,7 @@ export default function PostItem({ post }) {
       >
         <Text>Destination: {post.destination}</Text>
         <Text>Pick Up Location: {post.pickupLocation}</Text>
-        <Text>Date: {date}</Text>
+        <Text>Date: {post.date}</Text>
       </Pressable>
     </View>
   );
