@@ -7,7 +7,7 @@ import { formatDateTime } from "../../../Utils/date";
 export default function PostDetail({ route }) {
   // console.log(route);
   const post = route.params;
-  const date = formatDateTime(post.date);
+  // const date = formatDateTime(post.date);
 
   function boookConfirmationHandler() {
     console.log("book");
@@ -48,11 +48,11 @@ export default function PostDetail({ route }) {
       <View>
         <Text>Destination: {post.destination}</Text>
         <Text>Pick Up Location: {post.pickupLocation}</Text>
-        <Text>Date: {date}</Text>
-        <Text>Seat/s Needed: {post.seatsNeeded}</Text>
+        <Text>Date: {post.date}</Text>
+        <Text>Seat/s Needed: {post.availableSpots}</Text>
         <Text>
           Need Room for Equipments:{" "}
-          {post.roomForEquipment ? <Text>Yes</Text> : <Text>No</Text>}
+          {post.equipmentRoom ? <Text>Yes</Text> : <Text>No</Text>}
         </Text>
         <View style={styles.buttonPassengerContainer}>
           <Button
