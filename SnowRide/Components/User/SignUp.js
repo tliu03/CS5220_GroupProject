@@ -1,33 +1,66 @@
-import { KeyboardAvoidingView, StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
-import { useNavigation } from '@react-navigation/core'
-import React, { useState } from 'react'
-import { auth } from '../firebase'
-import { useEffect } from 'react/cjs/react.production.min'
+import {
+  KeyboardAvoidingView,
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  Pressable,
+  Alert,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import React, { useState, useEffect } from "react";
+import { auth } from "../../FireBase/firebase-setup";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
-const SignUpScreen = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+export default function SignUpScreen() {
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [confirmPassword, setConfirmPassword] = useState(null);
 
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      if (user) {
-        navigation.navigate("User")
-      }
-    })
-    return unsubscribe
-  }, [])
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       navigation.navigate("User");
+  //     }
+  //   });
+  //   return unsubscribe;
+  // }, []);
 
-  const handleSignUp = () => {
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then(userCredentials => {
-        const user = userCredentials.user;
-        console.log('Registered with:', user.email);
-      })
-      .catch(error => alert(error.message))
-  }
+  const LoginHandler = () => {
+    navigation.replace("LogIn");
+  };
+
+  const signupHandler = async () => {
+    if (password !== confirmPassword) {
+      Alert.alert("The passwords don't match");
+    }
+    try {
+      const userCred = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      // console.log(userCred);
+    } catch (err) {
+      console.log("Auth error ", err);
+    }
+  };
+
+  // const handleSignUp = (email, password) => {
+  //   if (!email || !password) {
+  //     Alert.alert("Please Enter Valid Information!");
+  //   }
+  //   auth
+  //     .createUserWithEmailAndPassword(email, password)
+  //     .then((userCredentials) => {
+  //       const user = userCredentials.user;
+  //       console.log("Registered with:", user.email);
+  //     })
+  //     .catch((error) => alert(error.message));
+  // };
 
   return (
     <KeyboardAvoidingView
@@ -40,70 +73,81 @@ const SignUpScreen = () => {
         <TextInput
           placeholder="Email"
           value={email}
-          onChangeText={text => setEmail(text)}
+          onChangeText={(text) => setEmail(text)}
           style={styles.input}
         />
         <TextInput
           placeholder="Password"
           value={password}
-          onChangeText={text => setPassword(text)}
+          onChangeText={(text) => setPassword(text)}
           style={styles.input}
           secureTextEntry
         />
+        <TextInput
+          placeholder="Confirm Password"
+          value={confirmPassword}
+          onChangeText={(text) => setConfirmPassword(text)}
+          style={styles.input}
+          secusecureTextEntry
+        />
       </View>
+      <Pressable onPress={LoginHandler} style={styles.backtologin}>
+        <Text>Already have an account? Log In Here</Text>
+      </Pressable>
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          onPress={handleSignUp}
+          onPress={signupHandler}
           style={[styles.button, styles.buttonOutline]}
         >
           <Text style={styles.buttonOutlineText}>Register</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
-  )
+  );
 }
-
-export default LoginScreen
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   inputContainer: {
-    width: '80%',
+    width: "80%",
   },
   input: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 10,
     marginTop: 5,
   },
+  backtologin: {
+    marginTop: 30,
+  },
   buttonContainer: {
-    width: '60%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: "60%",
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 40,
   },
   button: {
-    backgroundColor: '#0782F9',
-    width: '100%',
+    backgroundColor: "#0782F9",
+    width: "100%",
     padding: 15,
     borderRadius: 10,
-    alignItems: 'center',
+    alignItems: "center",
   },
   buttonOutline: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     marginTop: 5,
-    borderColor: '#0782F9',
+    borderColor: "#0782F9",
     borderWidth: 2,
   },
   buttonOutlineText: {
-    color: '#0782F9',
-    fontWeight: '700',
+    color: "#0782F9",
+    fontWeight: "700",
     fontSize: 16,
   },
-})
+});

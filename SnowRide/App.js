@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -10,6 +10,9 @@ import PassengerPost from "./Screens/PassengerPost";
 import Welcome from "./Screens/Welcome";
 import User from "./Screens/User";
 import ChatBox from "./Screens/ChatList";
+
+import LoginScreen from "./Components/User/Login";
+import SignUpScreen from "./Components/User/SignUp";
 // import AddPost from "./Screens/AddPost";
 
 import {
@@ -94,13 +97,23 @@ export default function App() {
         }}
       >
         <Stack.Navigator>
+          <Stack.Screen name="Welcome" component={Welcome} />
           <Stack.Screen
             name="Posts"
             component={PostOverview}
             options={{ headerShown: false }}
           />
           <Stack.Screen name="PostDetails" component={PostDetail} />
-          <Stack.Screen name="Welcome" component={Welcome} />
+          <Stack.Screen
+            name="LogIn"
+            component={LoginScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="SignUp"
+            component={SignUpScreen}
+            options={{ headerShown: false }}
+          />
           <Stack.Screen name="User" component={User} />
           <Stack.Screen name="Messages" component={ChatBox} />
           {/* <Stack.Screen name="AddPost" component={AddPost} /> */}

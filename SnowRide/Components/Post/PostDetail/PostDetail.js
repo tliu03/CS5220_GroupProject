@@ -23,7 +23,7 @@ export default function PostDetail({ route }) {
       <View>
         <Text>Destination: {post.destination}</Text>
         <Text>Pick Up Location: {post.pickupLocation}</Text>
-        <Text>Date: {date}</Text>
+        <Text>Date: {post.date}</Text>
         <Text>
           Spots: {post.availableSpots}{" "}
           {post.availableSpots === 1 ? <Text>seat</Text> : <Text>seats</Text>}
