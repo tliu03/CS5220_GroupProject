@@ -1,15 +1,13 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { Colors } from "../../../Constants/colors";
 import Button from "../../UI/Button";
-import { formatDateTime } from "../../../Utils/date";
+import { deleteFromDB } from "../../../FireBase/firebase-helper";
 
 // post item detail
-export default function PostDetail({ route }) {
-  // console.log(route);
+export default function PostDetail({ route, navigation }, myPosts) {
   const post = route.params;
-  // const date = formatDateTime(post.date);
 
-  function boookConfirmationHandler() {
+  function bookConfirmationHandler() {
     console.log("book");
   }
 
@@ -17,7 +15,27 @@ export default function PostDetail({ route }) {
     console.log("chat initiated");
   }
 
-  let PostItemView;
+  function EditPostHandler() {}
+
+  function DeletePostHandler() {
+    deleteFromDB(post.id);
+    navigation.navigate("UserPosts");
+  }
+
+  let PostItemView, myPostView;
+  myPostView = (
+    <>
+      <View style={styles.buttonContainer}>
+        <Button onPress={EditPostHandler} style={styles.buttonStyle}>
+          Edit
+        </Button>
+        <Button onPress={DeletePostHandler} style={styles.buttonStyle}>
+          Delete
+        </Button>
+      </View>
+    </>
+  );
+
   if (post.category === "driver") {
     PostItemView = (
       <View>
@@ -33,14 +51,21 @@ export default function PostDetail({ route }) {
           Room for Equipments:{" "}
           {post.equipmentRoom ? <Text>Yes</Text> : <Text>No</Text>}
         </Text>
-        <View style={styles.buttonContainer}>
-          <Button onPress={boookConfirmationHandler} style={styles.buttonStyle}>
-            Book
-          </Button>
-          <Button onPress={initialChatHandler} style={styles.buttonStyle}>
-            Chat with Driver
-          </Button>
-        </View>
+        {myPosts ? (
+          myPostView
+        ) : (
+          <View style={styles.buttonContainer}>
+            <Button
+              onPress={bookConfirmationHandler}
+              style={styles.buttonStyle}
+            >
+              Book
+            </Button>
+            <Button onPress={initialChatHandler} style={styles.buttonStyle}>
+              Chat with Driver
+            </Button>
+          </View>
+        )}
       </View>
     );
   } else {
@@ -54,14 +79,18 @@ export default function PostDetail({ route }) {
           Need Room for Equipments:{" "}
           {post.equipmentRoom ? <Text>Yes</Text> : <Text>No</Text>}
         </Text>
-        <View style={styles.buttonPassengerContainer}>
-          <Button
-            onPress={initialChatHandler}
-            style={styles.buttonPassengerStyle}
-          >
-            Chat with Passenger
-          </Button>
-        </View>
+        {myPosts ? (
+          myPostView
+        ) : (
+          <View style={styles.buttonPassengerContainer}>
+            <Button
+              onPress={initialChatHandler}
+              style={styles.buttonPassengerStyle}
+            >
+              Chat with Passenger
+            </Button>
+          </View>
+        )}
       </View>
     );
   }

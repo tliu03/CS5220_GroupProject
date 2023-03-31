@@ -1,6 +1,5 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -13,6 +12,7 @@ import ChatBox from "./Screens/ChatList";
 
 import LoginScreen from "./Components/User/Login";
 import SignUpScreen from "./Components/User/SignUp";
+import UserPost from "./Components/User/UserPost";
 // import AddPost from "./Screens/AddPost";
 
 import {
@@ -115,6 +115,7 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen name="User" component={User} />
+          <Stack.Screen name="UserPosts" component={UserPost} />
           <Stack.Screen name="Messages" component={ChatBox} />
           {/* <Stack.Screen name="AddPost" component={AddPost} /> */}
         </Stack.Navigator>
