@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { auth } from '../firebase'
 import { useEffect } from 'react/cjs/react.production.min'
 
-const SignUpScreen = () => {
+const LoginScreen = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -19,12 +19,12 @@ const SignUpScreen = () => {
     return unsubscribe
   }, [])
 
-  const handleSignUp = () => {
+  const handleLogin = () => {
     auth
-      .createUserWithEmailAndPassword(email, password)
+      .signInWithEmailAndPassword(email, password)
       .then(userCredentials => {
         const user = userCredentials.user;
-        console.log('Registered with:', user.email);
+        console.log('Logged in with:', user.email);
       })
       .catch(error => alert(error.message))
   }
@@ -54,10 +54,10 @@ const SignUpScreen = () => {
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          onPress={handleSignUp}
-          style={[styles.button, styles.buttonOutline]}
+          onPress={handleLogin}
+          style={styles.button}
         >
-          <Text style={styles.buttonOutlineText}>Register</Text>
+          <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
@@ -95,14 +95,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
   },
-  buttonOutline: {
-    backgroundColor: 'white',
-    marginTop: 5,
-    borderColor: '#0782F9',
-    borderWidth: 2,
-  },
-  buttonOutlineText: {
-    color: '#0782F9',
+  buttonText: {
+    color: 'white',
     fontWeight: '700',
     fontSize: 16,
   },
