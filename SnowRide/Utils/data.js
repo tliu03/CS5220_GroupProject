@@ -1,0 +1,32 @@
+export const posts_list = [
+  {
+    id: 1,
+    category: "driver",
+    date: new Date(),
+    pickupLocation: "Vancouver",
+    desitnation: "Cypress",
+    availableSpots: 3,
+    equipmentRoom: true,
+    price: 20,
+  },
+  {
+    id: 2,
+    category: "driver",
+    date: new Date(),
+    pickupLocation: "Burnaby",
+    desitnation: "Whislter",
+    availableSpots: 2,
+    equipmentRoom: true,
+    price: 40,
+  },
+  {
+    id: 3,
+    category: "driver",
+    date: new Date(),
+    pickupLocation: "Surrey",
+    desitnation: "Big white",
+    availableSpots: 1,
+    equipmentRoom: true,
+    price: 40,
+  },
+];
