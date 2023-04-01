@@ -36,24 +36,26 @@ Iteration 1 update: modified the post label to make it more accurate
 
 ### Screen 1
 
-User log in or sign up
-![image](https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/welcome.png)![image](https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/signUp.png)![image](https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/logIn.png)
+User log in or sign up  
+<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/welcome.png">
+<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/signUp.png">
+<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/logIn.png">
 
 ### Screen 2
 
 Look through driver posts and passenger posts  
-<img src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/driverPost.png" width="150px">
-<img src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/passengerPost.png" width="150px">
-<img src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/postDeatil.png" width="150px">
+<img src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/driverPost.png" width="200px">
+<img src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/passengerPost.png" width="200px">
+<img src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/postDeatil.png" width="200px">
 
 ### Screen 3
 
-Add posts
-![image](https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/addDriverPost.png)
-![image](https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/addPassengerPost.png)
+Add posts  
+<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/addDriverPost.png">
+<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/addPassengerPost.png">
 
 ### Screen 4
 
-Access the user page, edit, update or delete their posts
-![image](https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/user.png)
-![image](https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/userPostDetail.png)
+Access the user page, edit, update or delete their posts  
+<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/user.png">
+<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/userPostDetail.png">
