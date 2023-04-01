@@ -125,7 +125,7 @@ export default function PostForm({ route, navigation }) {
             />
             {post.category === "driver" && (
               <Input
-                label="Price"
+                label="Price per Person"
                 inputBox={true}
                 textInputConfig={{
                   keybordType: "decimal-pad",
