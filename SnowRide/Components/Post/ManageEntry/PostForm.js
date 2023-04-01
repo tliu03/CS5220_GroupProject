@@ -7,33 +7,23 @@ import IconButton from "../../UI/IconButton";
 import Button from "../../UI/Button";
 
 import { writeToDB } from "../../../FireBase/firebase-helper";
-
-// import DateTimePick from "./DateTimePick";
+import { updateDB } from "../../../FireBase/firebase-helper";
 
 // Add form
-export default function PostForm({
-  modalIsVisible,
-  postType,
-  setModalVisibile,
-}) {
+export default function PostForm({ route, navigation }) {
+  const post = route.params;
   const [postEntry, setPostEntry] = useState({
-    category: "",
-    date: null,
-    destination: "",
-    pickupLocation: "",
-    price: 0,
-    availableSpots: 0,
-    equipmentRoom: true,
+    category: post.category ? post.category : "",
+    date: post.date ? post.date : "",
+    destination: post.destination ? post.destination : "",
+    pickupLocation: post.pickupLocation ? post.pickupLocation : "",
+    price: post.price ? +post.price : 0,
+    availableSpots: post.availableSpots ? +post.availableSpots : 0,
+    equipmentRoom: post.equipmentRoom ? "yes" : "no",
   });
-
-  let driverPost;
-  if (postType === "driver") {
-    driverPost = true;
-  }
 
   function entryInputHandler(inputIdentifier, enteredValue) {
     setPostEntry((currValue) => {
-      // console.log(enteredValue);
       return {
         ...currValue,
         [inputIdentifier]: enteredValue,
@@ -54,23 +44,14 @@ export default function PostForm({
   }
 
   function submitFormHanlder() {
-    const entryPostData = {
-      category: driverPost ? "driver" : "passenger",
-      date: postEntry.date,
-      destination: postEntry.destination,
-      pickupLocation: postEntry.pickupLocation,
-      price: +postEntry.price,
-      availableSpots: +postEntry.availableSpots,
-      equipmentRoom: postEntry.equipmentRoom === "yes" ? true : false,
-    };
+    // const dataIsValid = !postEntry.date === "";
     const availableSpotsIsValid =
-      !isNaN(entryPostData.availableSpots) && entryPostData.availableSpots >= 1;
-    const destinationIsValid = entryPostData.destination.trim().length > 0;
-    const pickupLocationIsValid =
-      entryPostData.pickupLocation.trim().length > 0;
-    const priceIsValid = !isNaN(entryPostData.price);
+      !isNaN(postEntry.availableSpots) && postEntry.availableSpots >= 1;
+    const destinationIsValid = postEntry.destination.trim().length > 0;
+    const pickupLocationIsValid = postEntry.pickupLocation.trim().length > 0;
+    const priceIsValid = !isNaN(postEntry.price);
     const equipmentRoomIsValid =
-      typeof entryPostData.equipmentRoom === "boolean";
+      postEntry.equipmentRoom === "yes" || postEntry.equipmentRoom === "no";
 
     if (
       !availableSpotsIsValid ||
@@ -81,26 +62,22 @@ export default function PostForm({
     ) {
       Alert.alert("Invalid Input, Please Re-enter");
     } else {
-      writeToDB(entryPostData);
-      returnToPostHandler();
+      writeToDB(postEntry);
+      navigation.goBack();
     }
   }
 
   function returnToPostHandler() {
-    setModalVisibile(false);
-    setPostEntry({
-      category: "driver",
-      date: null,
-      destination: "",
-      pickupLocation: "",
-      price: 0,
-      availableSpots: 0,
-      equipmentRoom: true,
-    });
+    navigation.replace("UserPosts");
+  }
+
+  function submitChangeHanlder() {
+    updateDB(post.id, postEntry);
+    navigation.replace("UserPosts");
   }
 
   return (
-    <Modal visible={modalIsVisible} animationType="slide">
+    <Modal animationType="slide">
       <View style={styles.Card}>
         <IconButton
           name="close-circle-outline"
@@ -110,7 +87,7 @@ export default function PostForm({
         <View style={styles.contentContainer}>
           <View style={styles.titleContainer}>
             <Text style={styles.title}>
-              {driverPost ? (
+              {post.category === "driver" ? (
                 <Text>Add Driver Post</Text>
               ) : (
                 <Text>Add Passenger Post</Text>
@@ -146,7 +123,7 @@ export default function PostForm({
                 value: postEntry.pickupLocation,
               }}
             />
-            {driverPost && (
+            {post.category === "driver" && (
               <Input
                 label="Price"
                 inputBox={true}
@@ -158,7 +135,9 @@ export default function PostForm({
               />
             )}
             <Input
-              label={driverPost ? "Spots Available" : "Seats Needed"}
+              label={
+                post.category === "driver" ? "Spots Available" : "Seats Needed"
+              }
               inputBox={true}
               textInputConfig={{
                 keybordType: "numeric",
@@ -168,7 +147,9 @@ export default function PostForm({
             />
             <Input
               label={
-                driverPost ? "Room for Equipment" : "Need Room for Equipment"
+                post.category === "driver"
+                  ? "Room for Equipment"
+                  : "Need Room for Equipment"
               }
               optionBox={true}
               textInputConfig={{
@@ -181,9 +162,15 @@ export default function PostForm({
             <Button onPress={resetFormHandler} style={styles.buttonStyle}>
               Reset
             </Button>
-            <Button onPress={submitFormHanlder} style={styles.buttonStyle}>
-              Submit
-            </Button>
+            {post.id ? (
+              <Button onPress={submitChangeHanlder} style={styles.buttonStyle}>
+                Submit Change
+              </Button>
+            ) : (
+              <Button onPress={submitFormHanlder} style={styles.buttonStyle}>
+                Submit
+              </Button>
+            )}
           </View>
         </View>
       </View>

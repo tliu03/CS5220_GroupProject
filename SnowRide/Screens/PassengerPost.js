@@ -4,10 +4,9 @@ import { onSnapshot, collection, query, where } from "firebase/firestore";
 import { firestore } from "../FireBase/firebase-setup";
 import { Colors } from "../Constants/colors";
 import IconButton from "../Components/UI/IconButton";
-import PostForm from "../Components/Post/ManageEntry/PostForm";
 import PostList from "../Components/Post/PostDetail/PostList";
 
-export default function PassengerPost() {
+export default function PassengerPost({ navigation }) {
   // Query Data
   const [posts, setPosts] = useState();
 
@@ -36,10 +35,9 @@ export default function PassengerPost() {
   }, []);
 
   // Input Modal
-  const [modalVisible, setModalVisible] = useState(false);
 
   function addHandler() {
-    setModalVisible(true);
+    navigation.navigate("AddPost", { category: "passenger" });
   }
   return (
     <>
@@ -51,12 +49,6 @@ export default function PassengerPost() {
           onPress={addHandler}
         />
       </View>
-
-      <PostForm
-        modalIsVisible={modalVisible}
-        postType={"passenger"}
-        setModalVisibile={setModalVisible}
-      />
       <PostList posts={posts} />
     </>
   );

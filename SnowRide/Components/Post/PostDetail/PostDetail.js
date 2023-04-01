@@ -2,9 +2,10 @@ import { View, Text, StyleSheet, Pressable } from "react-native";
 import { Colors } from "../../../Constants/colors";
 import Button from "../../UI/Button";
 import { deleteFromDB } from "../../../FireBase/firebase-helper";
+import { auth } from "../../../FireBase/firebase-setup";
 
 // post item detail
-export default function PostDetail({ route, navigation }, myPosts) {
+export default function PostDetail({ route, navigation }) {
   const post = route.params;
 
   function bookConfirmationHandler() {
@@ -15,7 +16,9 @@ export default function PostDetail({ route, navigation }, myPosts) {
     console.log("chat initiated");
   }
 
-  function EditPostHandler() {}
+  function EditPostHandler() {
+    navigation.navigate("AddPost", post);
+  }
 
   function DeletePostHandler() {
     deleteFromDB(post.id);
@@ -51,7 +54,7 @@ export default function PostDetail({ route, navigation }, myPosts) {
           Room for Equipments:{" "}
           {post.equipmentRoom ? <Text>Yes</Text> : <Text>No</Text>}
         </Text>
-        {myPosts ? (
+        {auth.currentUser.uid === post.user ? (
           myPostView
         ) : (
           <View style={styles.buttonContainer}>
@@ -79,7 +82,7 @@ export default function PostDetail({ route, navigation }, myPosts) {
           Need Room for Equipments:{" "}
           {post.equipmentRoom ? <Text>Yes</Text> : <Text>No</Text>}
         </Text>
-        {myPosts ? (
+        {auth.currentUser.uid === post.user ? (
           myPostView
         ) : (
           <View style={styles.buttonPassengerContainer}>

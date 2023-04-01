@@ -13,6 +13,7 @@ import ChatBox from "./Screens/ChatList";
 import LoginScreen from "./Components/User/Login";
 import SignUpScreen from "./Components/User/SignUp";
 import UserPost from "./Components/User/UserPost";
+import PostForm from "./Components/Post/ManageEntry/PostForm";
 // import AddPost from "./Screens/AddPost";
 
 import {
@@ -116,6 +117,11 @@ export default function App() {
           />
           <Stack.Screen name="User" component={User} />
           <Stack.Screen name="UserPosts" component={UserPost} />
+          <Stack.Screen
+            name="AddPost"
+            component={PostForm}
+            options={{ headerShown: false }}
+          />
           <Stack.Screen name="Messages" component={ChatBox} />
           {/* <Stack.Screen name="AddPost" component={AddPost} /> */}
         </Stack.Navigator>

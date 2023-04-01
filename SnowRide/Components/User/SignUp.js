@@ -13,21 +13,10 @@ import React, { useState, useEffect } from "react";
 import { auth } from "../../FireBase/firebase-setup";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
-export default function SignUpScreen() {
+export default function SignUpScreen({ navigation }) {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState(null);
-
-  const navigation = useNavigation();
-
-  // useEffect(() => {
-  //   const unsubscribe = auth.onAuthStateChanged((user) => {
-  //     if (user) {
-  //       navigation.navigate("User");
-  //     }
-  //   });
-  //   return unsubscribe;
-  // }, []);
 
   const LoginHandler = () => {
     navigation.replace("LogIn");
@@ -44,23 +33,11 @@ export default function SignUpScreen() {
         password
       );
       // console.log(userCred);
+      navigation.navigate("Posts");
     } catch (err) {
       console.log("Auth error ", err);
     }
   };
-
-  // const handleSignUp = (email, password) => {
-  //   if (!email || !password) {
-  //     Alert.alert("Please Enter Valid Information!");
-  //   }
-  //   auth
-  //     .createUserWithEmailAndPassword(email, password)
-  //     .then((userCredentials) => {
-  //       const user = userCredentials.user;
-  //       console.log("Registered with:", user.email);
-  //     })
-  //     .catch((error) => alert(error.message));
-  // };
 
   return (
     <KeyboardAvoidingView
@@ -88,7 +65,7 @@ export default function SignUpScreen() {
           value={confirmPassword}
           onChangeText={(text) => setConfirmPassword(text)}
           style={styles.input}
-          secusecureTextEntry
+          secureTextEntry
         />
       </View>
       <Pressable onPress={LoginHandler} style={styles.backtologin}>

@@ -35,11 +35,8 @@ export default function DriverPost({ navigation }) {
     };
   }, []);
 
-  // Input Modal
-  const [modalVisible, setModalVisible] = useState(false);
-
   function addHandler() {
-    setModalVisible(true);
+    navigation.navigate("AddPost", { category: "driver" });
   }
   return (
     <>
@@ -51,12 +48,6 @@ export default function DriverPost({ navigation }) {
           onPress={addHandler}
         />
       </View>
-
-      <PostForm
-        modalIsVisible={modalVisible}
-        postType={"driver"}
-        setModalVisibile={setModalVisible}
-      />
       <PostList posts={posts} />
     </>
   );
