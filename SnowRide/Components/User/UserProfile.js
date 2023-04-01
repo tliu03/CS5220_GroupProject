@@ -8,5 +8,6 @@ export default function UserProfile() {
       <Text>{auth.currentUser.email}</Text>
       <Text>{auth.currentUser.uid}</Text>
     </View>
+    
   );
 }

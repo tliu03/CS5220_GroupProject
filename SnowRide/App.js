@@ -22,6 +22,7 @@ import {
 } from "@expo/vector-icons";
 import { Colors } from "./Constants/colors";
 import PostDetail from "./Components/Post/PostDetail/PostDetail";
+import EditProfile from "./Screens/EditProfile";
 
 function PostOverview() {
   const BottomTabs = createBottomTabNavigator();
@@ -115,6 +116,20 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen name="User" component={User} />
+          <Stack.Screen
+            name="EditProfile"
+            component={EditProfile}
+            options={{
+              headerTitle: 'Edit Your Profile',
+              headerBackTitleVisible: false,
+              headerTitleAlign: 'center',
+              headerStyle: {
+                backgroundColor: Colors.primary100,
+                shadowColor: '#fff',
+                elevation: 0,
+              }
+            }}
+          />
           <Stack.Screen name="Messages" component={ChatBox} />
           {/* <Stack.Screen name="AddPost" component={AddPost} /> */}
         </Stack.Navigator>
