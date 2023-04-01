@@ -96,8 +96,17 @@ export default function App() {
           headerTintColor: Colors.tertiary100,
         }}
       >
-        <Stack.Navigator>
-          <Stack.Screen name="Welcome" component={Welcome} />
+        <Stack.Navigator
+          screenOptions={{
+            headerStyle: { backgroundColor: Colors.primary100 },
+            headerTintColor: Colors.tertiary100,
+          }}
+        >
+          <Stack.Screen
+            name="Welcome"
+            options={{ headerShown: false }}
+            component={Welcome}
+          />
           <Stack.Screen
             name="Posts"
             component={PostOverview}
