@@ -148,7 +148,7 @@ export default function PostForm({
             />
             {driverPost && (
               <Input
-                label="Price"
+                label="Price per Person"
                 inputBox={true}
                 textInputConfig={{
                   keybordType: "decimal-pad",
