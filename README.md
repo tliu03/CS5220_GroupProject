@@ -1,6 +1,10 @@
-# CS5220_GroupProject: SnowRide
+# CS5220_GroupProject
 
-## Team Members
+## App Name
+
+SnowRide
+
+### Team Members
 
 Jingling Ma, Luocheng Zhu, Shaohua(Teresa) Liu
 
