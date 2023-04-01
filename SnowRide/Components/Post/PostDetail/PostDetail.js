@@ -49,7 +49,7 @@ export default function PostDetail({ route, navigation }) {
           Spots: {post.availableSpots}{" "}
           {post.availableSpots === 1 ? <Text>seat</Text> : <Text>seats</Text>}
         </Text>
-        <Text>Price: ${post.price}</Text>
+        <Text>Price per Person: ${post.price}</Text>
         <Text>
           Room for Equipments:{" "}
           {post.equipmentRoom ? <Text>Yes</Text> : <Text>No</Text>}
