@@ -57,6 +57,7 @@ export default function PassengerPost({ navigation }) {
 const styles = StyleSheet.create({
   IconContainer: {
     // flex: 1,
+
     justifyContent: "center",
     alignItems: "center",
     marginTop: 10,
