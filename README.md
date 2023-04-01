@@ -41,9 +41,10 @@ User log in or sign up
 
 ### Screen 2
 
-Look through driver posts and passenger posts
-<img src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/driverPost.png" width="100px">
-<img src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/passengerPost.png" width="100px"><img src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/postDeatil.png" width="100px">
+Look through driver posts and passenger posts  
+<img src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/driverPost.png" width="150px">
+<img src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/passengerPost.png" width="150px">
+<img src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/postDeatil.png" width="150px">
 
 ### Screen 3
 
