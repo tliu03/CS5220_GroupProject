@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Map from "./Components/Post/ManageEntry/Map";
 
 import DriverPost from "./Screens/DriverPost";
 import PassengerPost from "./Screens/PassengerPost";
@@ -150,6 +151,7 @@ export default function App() {
             }}
           />
           <Stack.Screen name="Messages" component={ChatBox} />
+          <Stack.Screen name="Map" component={Map} />
           {/* <Stack.Screen name="AddPost" component={AddPost} /> */}
         </Stack.Navigator>
       </NavigationContainer>
