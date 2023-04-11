@@ -15,6 +15,7 @@ import SignUpScreen from "./Components/User/SignUp";
 import UserPost from "./Components/User/UserPost";
 import UserProfile from "./Components/User/UserProfile";
 import PostForm from "./Components/Post/ManageEntry/PostForm";
+import Confirmation from "./Components/Post/Confirmation";
 // import AddPost from "./Screens/AddPost";
 
 import {
@@ -116,6 +117,7 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen name="PostDetails" component={PostDetail} />
+          <Stack.Screen name="ConfrimBook" component={Confirmation} />
           <Stack.Screen
             name="LogIn"
             component={LoginScreen}
