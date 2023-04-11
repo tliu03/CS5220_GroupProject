@@ -21,7 +21,7 @@ export default function LoginScreen() {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        navigation.navigate("User");
+        navigation.navigate("Home");
       }
     });
     return unsubscribe;

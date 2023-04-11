@@ -69,12 +69,12 @@ export default function PostForm({ route, navigation }) {
   }
 
   function returnToPostHandler() {
-    navigation.replace("UserPosts");
+    navigation.replace("Home");
   }
 
   function submitChangeHanlder() {
     updateDB(post.id, postEntry);
-    navigation.replace("UserPosts");
+    navigation.replace("Home");
   }
 
   return (

@@ -33,7 +33,7 @@ export default function SignUpScreen({ navigation }) {
         password
       );
       // console.log(userCred);
-      navigation.navigate("Posts");
+      navigation.navigate("Home");
     } catch (err) {
       console.log("Auth error ", err);
     }

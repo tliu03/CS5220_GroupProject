@@ -133,12 +133,10 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="User"
+            name="Home"
             component={AppDrawer}
             options={{ headerShown: false }}
           />
-          {/* <Stack.Screen name="UserPosts" component={UserPost} /> */}
-          {/* <Stack.Screen name="UserProfile" component={UserProfile} /> */}
 
           <Stack.Screen
             name="AddPost"
@@ -161,7 +159,6 @@ export default function App() {
           />
           <Stack.Screen name="Messages" component={ChatBox} />
           <Stack.Screen name="Map" component={Map} />
-          {/* <Stack.Screen name="AddPost" component={AddPost} /> */}
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
