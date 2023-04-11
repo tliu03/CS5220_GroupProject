@@ -15,7 +15,9 @@ import SignUpScreen from "./Components/User/SignUp";
 import UserPost from "./Components/User/UserPost";
 import UserProfile from "./Components/User/UserProfile";
 import PostForm from "./Components/Post/ManageEntry/PostForm";
-// import AddPost from "./Screens/AddPost";
+import Confirmation from "./Components/Post/Confirmation";
+import Map from "./Components/Post/ManageEntry/Map";
+
 
 import {
   SimpleLineIcons,
@@ -116,6 +118,7 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen name="PostDetails" component={PostDetail} />
+          <Stack.Screen name="ConfrimBook" component={Confirmation} />
           <Stack.Screen
             name="LogIn"
             component={LoginScreen}
@@ -150,6 +153,7 @@ export default function App() {
             }}
           />
           <Stack.Screen name="Messages" component={ChatBox} />
+          <Stack.Screen name="Map" component={Map} />
           {/* <Stack.Screen name="AddPost" component={AddPost} /> */}
         </Stack.Navigator>
       </NavigationContainer>

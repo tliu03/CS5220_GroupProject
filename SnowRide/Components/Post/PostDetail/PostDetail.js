@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable, Alert } from "react-native";
 import { Colors } from "../../../Constants/colors";
 import Button from "../../UI/Button";
 import { deleteFromDB } from "../../../FireBase/firebase-helper";
@@ -9,7 +9,7 @@ export default function PostDetail({ route, navigation }) {
   const post = route.params;
 
   function bookConfirmationHandler() {
-    console.log("book");
+    navigation.navigate("ConfrimBook", post);
   }
 
   function initialChatHandler() {

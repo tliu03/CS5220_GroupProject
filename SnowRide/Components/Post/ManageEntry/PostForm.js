@@ -8,6 +8,7 @@ import Button from "../../UI/Button";
 
 import { writeToDB } from "../../../FireBase/firebase-helper";
 import { updateDB } from "../../../FireBase/firebase-helper";
+import LocationManager from "./LocationManager";
 
 // Add form
 export default function PostForm({ route, navigation }) {
@@ -123,6 +124,7 @@ export default function PostForm({ route, navigation }) {
                 value: postEntry.pickupLocation,
               }}
             />
+            <LocationManager />
             {post.category === "driver" && (
               <Input
                 label="Price per Person"
