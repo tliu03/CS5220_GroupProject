@@ -10,9 +10,9 @@ Jingling Ma, Luocheng Zhu, Shaohua(Teresa) Liu
 
 ### Contribution
 
-Shaohua(Teresa) Liu: Firebase setup and CRUD operations, components, navigation between screens  
-Luocheng Zhu: Sign up and Log in pages  
-Jingjing Ma: Unify styles, Readme
+Shaohua(Teresa) Liu: Firebase setup and CRUD operations, components, navigation between screens, Notification use  
+Luocheng Zhu: Sign up, Log in, Edit Profile, Drawer navigation, and Camera use  
+Jingjing Ma: Unify styles, Readme, location use, Geocoding api use
 
 ## App Intro
 
@@ -32,14 +32,17 @@ You are a driver looking for passengers to share the ride to Whistler.
 
 ## App Progress
 
-Iteration 1 update: modified the post label to make it more accurate
+Iteration 1 update: modified the post label to make it more accurate  
+Iteration 2 update: added userProfile and the following functionality: Camera use, Location use, Notification, Geocoding api use
 
 ### Screen 1
 
-User log in or sign up  
+User log in, sign up, profile, edit profile  
 <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/welcome.png">
 <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/signUp.png">
 <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/logIn.png">
+<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationTwo/SnowRide/assets/UserProfile.png">
+<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationTwo/SnowRide/assets/EditProfile.png">
 
 ### Screen 2
 

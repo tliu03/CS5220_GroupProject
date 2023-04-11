@@ -16,7 +16,8 @@ import UserPost from "./Components/User/UserPost";
 import UserProfile from "./Components/User/UserProfile";
 import PostForm from "./Components/Post/ManageEntry/PostForm";
 import Confirmation from "./Components/Post/Confirmation";
-// import AddPost from "./Screens/AddPost";
+import Map from "./Components/Post/ManageEntry/Map";
+
 
 import {
   SimpleLineIcons,
@@ -152,6 +153,7 @@ export default function App() {
             }}
           />
           <Stack.Screen name="Messages" component={ChatBox} />
+          <Stack.Screen name="Map" component={Map} />
           {/* <Stack.Screen name="AddPost" component={AddPost} /> */}
         </Stack.Navigator>
       </NavigationContainer>
