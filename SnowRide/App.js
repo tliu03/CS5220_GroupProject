@@ -3,7 +3,6 @@ import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Map from "./Components/Post/ManageEntry/Map";
 
 import DriverPost from "./Screens/DriverPost";
 import PassengerPost from "./Screens/PassengerPost";
@@ -16,6 +15,7 @@ import SignUpScreen from "./Components/User/SignUp";
 import UserPost from "./Components/User/UserPost";
 import UserProfile from "./Components/User/UserProfile";
 import PostForm from "./Components/Post/ManageEntry/PostForm";
+import Map from "./Components/Post/ManageEntry/Map";
 // import AddPost from "./Screens/AddPost";
 
 import {

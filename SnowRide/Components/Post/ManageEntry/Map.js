@@ -5,7 +5,7 @@ import { Marker } from "react-native-maps";
 
 export default function Map({ navigation, route }) {
   const [selectedLocation, setSelectedLocation] = useState(null);
-  console.log(route.params);
+  // console.log(route.params);
   return (
     <>
       <MapView
@@ -35,7 +35,7 @@ export default function Map({ navigation, route }) {
         title="confirm selected location"
         disabled={!selectedLocation}
         onPress={() => {
-          navigation.navigate("DriverPost", {
+          navigation.navigate("PostForm", {
             selectedLocation: selectedLocation,
           });
         }}

@@ -1,7 +1,7 @@
 // This function should allow user to either locate their current location
 // or select location off a map when adding a new post // imported under PostForm
 
-import { View, Image, Button, Alert } from "react-native";
+import { View, Image, Button, Alert, Text } from "react-native";
 import React, { useEffect, useState } from "react";
 import * as Location from "expo-location";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -13,6 +13,8 @@ export default function LocationManager() {
   const [permissionResponse, requestPermission] =
     Location.useForegroundPermissions();
   const [location, setLocation] = useState(null);
+  const [address, setAddress] = useState(null);
+
   useEffect(() => {
     if (route.params) {
       setLocation(route.params.selectedLocation);
@@ -37,25 +39,47 @@ export default function LocationManager() {
     }
     try {
       const result = await Location.getCurrentPositionAsync();
+      console.log(result);
       setLocation({
         latitude: result.coords.latitude,
         longitude: result.coords.longitude,
       });
+      // call new function to get address
+      getAddress(result.coords.latitude, result.coords.longitude);
     } catch (err) {
       console.log("locate user error ", err);
     }
   }
-  function locationSelectHandler() {
-    // navigate to Map.js
-    if (location) {
-      navigation.navigate("Map", { currentLocation: location });
-    } else {
-      navigation.navigate("Map");
+
+  // function locationSelectHandler() {
+  //   // navigate to Map.js
+  //   if (location) {
+  //     navigation.navigate("Map", { currentLocation: location });
+  //     // console.log("navigate map");
+  //   } else {
+  //     navigation.navigate("Map");
+  //   }
+  // }
+
+  async function getAddress(latitude, longitude) {
+    // new function to get address
+    try {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${MAPS_API_KEY}`
+      );
+      const data = await response.json();
+      console.log(data);
+      setAddress(data.results[0].formatted_address);
+    } catch (err) {
+      console.log("get address error ", err);
     }
   }
+
   return (
     <View>
-      <Button title="Locate Me!" onPress={locateUserHandler} />
+      <Button title="Get Current Location" onPress={locateUserHandler} />
+      {address && <Text>{address}</Text>}
+
       {location && (
         <Image
           source={{
@@ -64,7 +88,8 @@ export default function LocationManager() {
           style={{ width: "100%", height: 200 }}
         />
       )}
-      <Button title="Let me choose!" onPress={locationSelectHandler} />
+      {/* <Button title="Let me choose!" onPress={locationSelectHandler} /> */}
     </View>
   );
 }
+//////////
