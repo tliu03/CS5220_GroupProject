@@ -32,8 +32,8 @@ You are a driver looking for passengers to share the ride to Whistler.
 
 ## App Progress
 
-Iteration 1 update: modified the post label to make it more accurate
-Iteration 2 update: added following functionality: Camera use, Location use, Notification, Geocoding api use
+Iteration 1 update: modified the post label to make it more accurate  
+Iteration 2 update: added userProfile and the following functionality: Camera use, Location use, Notification, Geocoding api use
 
 ### Screen 1
 
