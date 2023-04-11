@@ -37,10 +37,12 @@ Iteration 2 update: added userProfile and the following functionality: Camera us
 
 ### Screen 1
 
-User log in or sign up  
+User log in, sign up, profile, edit profile  
 <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/welcome.png">
 <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/signUp.png">
 <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/logIn.png">
+<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationTwo/SnowRide/assets/UserProfile.png">
+<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationTwo/SnowRide/assets/EditProfile.png">
 
 ### Screen 2
 
