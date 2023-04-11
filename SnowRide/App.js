@@ -12,7 +12,7 @@ import ChatBox from "./Screens/ChatList";
 import DriverPost from "./Screens/DriverPost";
 import PassengerPost from "./Screens/PassengerPost";
 
-import PostOverview from "./Routes/homeStack";
+// import PostOverview from "./Routes/homeStack";
 import LoginScreen from "./Components/User/Login";
 import SignUpScreen from "./Components/User/SignUp";
 import UserPost from "./Components/User/UserPost";
@@ -35,97 +35,9 @@ const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
 
-function HomeStack() {
+function BottomTab() {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerStyle: { backgroundColor: Colors.primary100 },
-        headerTintColor: Colors.tertiary100,
-      }}
-    >
-      <Stack.Screen
-        name="Welcome"
-        options={{ headerShown: false }}
-        component={Welcome}
-      />
-      <Stack.Screen
-        name="Posts"
-        component={PostOverview}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen name="PostDetails" component={PostDetail} />
-      <Stack.Screen name="ConfrimBook" component={Confirmation} />
-      <Stack.Screen
-        name="LogIn"
-        component={LoginScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="SignUp"
-        component={SignUpScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen name="User" component={User} />
-      {/* <Stack.Screen name="UserPosts" component={UserPost} /> */}
-      {/* <Stack.Screen name="UserProfile" component={UserProfile} /> */}
-
-      <Stack.Screen
-        name="AddPost"
-        component={PostForm}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="EditProfile"
-        component={EditProfile}
-        options={{
-          headerTitle: "Edit Your Profile",
-          headerBackTitleVisible: false,
-          headerTitleAlign: "center",
-          headerStyle: {
-            backgroundColor: Colors.primary100,
-            shadowColor: "#fff",
-            elevation: 0,
-          },
-        }}
-      />
-      <Stack.Screen name="Messages" component={ChatBox} />
-      <Stack.Screen name="Map" component={Map} />
-      {/* <Stack.Screen name="AddPost" component={AddPost} /> */}
-    </Stack.Navigator>
-  );
-}
-
-function bottomTab() {
-  return (
-    <BottomTabs.Navigator
-      screenOptions={({ navigation }) => ({
-        headerTintColor: Colors.tertiary100,
-        headerStyle: { backgroundColor: Colors.primary100 },
-        tabBarStyle: { backgroundColor: Colors.primary100 },
-        tabBarActiveTintColor: Colors.tertiary100,
-        tabBarInactiveTintColor: Colors.secondary200,
-        headerRight: ({ tintColor }) => (
-          <Ionicons
-            name="chatbox-ellipses-outline"
-            size={22}
-            color={tintColor}
-            onPress={() => {
-              navigation.navigate("Messages");
-            }}
-          />
-        ),
-        headerLeft: ({ tintColor }) => (
-          <SimpleLineIcons
-            name="user"
-            size={22}
-            color={tintColor}
-            onPress={() => {
-              navigation.navigate("User");
-            }}
-          />
-        ),
-      })}
-    >
+    <BottomTabs.Navigator>
       <BottomTabs.Screen
         name="Driver Posts"
         component={DriverPost}
@@ -158,8 +70,30 @@ function bottomTab() {
 
 function AppDrawer() {
   return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="Home" component={bottomTab} />
+    <Drawer.Navigator
+      screenOptions={({ navigation }) => ({
+        headerTintColor: Colors.tertiary100,
+        headerStyle: { backgroundColor: Colors.primary100 },
+        tabBarStyle: { backgroundColor: Colors.primary100 },
+        tabBarActiveTintColor: Colors.tertiary100,
+        tabBarInactiveTintColor: Colors.secondary200,
+        headerRight: ({ tintColor }) => (
+          <Ionicons
+            name="chatbox-ellipses-outline"
+            size={22}
+            color={tintColor}
+            onPress={() => {
+              navigation.navigate("Messages");
+            }}
+          />
+        ),
+      })}
+    >
+      <Drawer.Screen
+        name="SnowRide"
+        component={BottomTab}
+        options={{ headerShown: true }}
+      />
       <Drawer.Screen name="UserProfile" component={UserProfile} />
       <Drawer.Screen name="UserPosts" component={UserPost} />
     </Drawer.Navigator>
@@ -175,7 +109,60 @@ export default function App() {
           headerTintColor: Colors.tertiary100,
         }}
       >
-        <AppDrawer />
+        <Stack.Navigator
+          screenOptions={{
+            headerStyle: { backgroundColor: Colors.primary100 },
+            headerTintColor: Colors.tertiary100,
+          }}
+        >
+          <Stack.Screen
+            name="Welcome"
+            options={{ headerShown: false }}
+            component={Welcome}
+          />
+          <Stack.Screen name="PostDetails" component={PostDetail} />
+          <Stack.Screen name="ConfrimBook" component={Confirmation} />
+          <Stack.Screen
+            name="LogIn"
+            component={LoginScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="SignUp"
+            component={SignUpScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="User"
+            component={AppDrawer}
+            options={{ headerShown: false }}
+          />
+          {/* <Stack.Screen name="UserPosts" component={UserPost} /> */}
+          {/* <Stack.Screen name="UserProfile" component={UserProfile} /> */}
+
+          <Stack.Screen
+            name="AddPost"
+            component={PostForm}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="EditProfile"
+            component={EditProfile}
+            options={{
+              headerTitle: "Edit Your Profile",
+              headerBackTitleVisible: false,
+              headerTitleAlign: "center",
+              headerStyle: {
+                backgroundColor: Colors.primary100,
+                shadowColor: "#fff",
+                elevation: 0,
+              },
+            }}
+          />
+          <Stack.Screen name="Messages" component={ChatBox} />
+          <Stack.Screen name="Map" component={Map} />
+          {/* <Stack.Screen name="AddPost" component={AddPost} /> */}
+        </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
   );
