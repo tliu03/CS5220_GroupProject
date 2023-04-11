@@ -33,7 +33,7 @@ export default function Confirmation({ route, navigation }) {
       ...post,
       availableSpots: post.availableSpots - seatNeeded,
     });
-    console.log("booked successfully");
+    // console.log("booked successfully");
   }
 
   return (
