@@ -19,6 +19,18 @@ export async function writeToDB(post) {
   }
 }
 
+export async function writeToDBBooking(booking) {
+  try {
+    const docRef = await addDoc(collection(firestore, "bookings"), {
+      ...booking,
+      post_book_user: auth.currentUser.uid,
+    });
+    // console.log(docRef.id);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export async function updateDB(id, newData) {
   try {
     const updateRef = await updateDoc(doc(firestore, "posts", id), newData);

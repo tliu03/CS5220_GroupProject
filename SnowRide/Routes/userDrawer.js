@@ -1,9 +1,7 @@
-import { createDrawerNavigator } from 'react-navigation-drawer';
-import { createAppContainer } from 'react-navigation';
-import React from 'react';
-import PostOverview from './homeStack';
-import myProfileStack from './myProfileStack';
+import { createAppContainer } from "react-navigation";
 
+import PostOverview from "./homeStack";
+import myProfileStack from "./myProfileStack";
 
 const RootDrawerNavigator = createDrawerNavigator({
   Home: {
@@ -11,7 +9,7 @@ const RootDrawerNavigator = createDrawerNavigator({
   },
   MyProfile: {
     screen: myProfileStack,
-  }
+  },
 });
 
 export default createAppContainer(RootDrawerNavigator);

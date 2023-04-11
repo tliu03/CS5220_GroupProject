@@ -1,9 +1,6 @@
 import { auth } from "../FireBase/firebase-setup";
 import Button from "../Components/UI/Button";
-import { View, Text, Image, StyleSheet } from "react-native";
-import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { View, StyleSheet } from "react-native";
 
 export default function User({ navigation }) {
   function MyPostHandler() {

@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import { useState, useEffect } from "react";
-import { onSnapshot, collection, query, where } from "firebase/firestore";
+import { onSnapshot, collection, query, where, and } from "firebase/firestore";
 import { firestore } from "../FireBase/firebase-setup";
 import { Colors } from "../Constants/colors";
 import IconButton from "../Components/UI/IconButton";
@@ -13,7 +13,7 @@ export default function PassengerPost({ navigation }) {
   useEffect(() => {
     const q = query(
       collection(firestore, "posts"),
-      where("category", "==", "passenger")
+      and(where("category", "==", "passenger"), where("availableSpots", ">", 0))
     );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       if (querySnapshot.empty) {
