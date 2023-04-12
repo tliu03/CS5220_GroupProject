@@ -1,11 +1,30 @@
-import { Button, StyleSheet } from "react-native";
-import React, { useState } from "react";
+import { Button, StyleSheet, Text } from "react-native";
+import React, { useEffect, useState } from "react";
 import MapView from "react-native-maps";
 import { Marker } from "react-native-maps";
+import { MAPS_API_KEY } from "@env";
 
 export default function Map({ navigation, route }) {
   const [selectedLocation, setSelectedLocation] = useState(null);
+  const [address, setAddress] = useState(null);
+
+  useEffect(() => {
+    if (selectedLocation) {
+      getAddress(selectedLocation.latitude, selectedLocation.longitude);
+    }
+  }, [selectedLocation]);
   // console.log(route.params);
+  async function getAddress(latitude, longitude) {
+    try {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${MAPS_API_KEY}`
+      );
+      const data = await response.json();
+      setAddress(data.results[0].formatted_address);
+    } catch (err) {
+      console.log("get address error ", err);
+    }
+  }
   return (
     <>
       <MapView
@@ -29,17 +48,19 @@ export default function Map({ navigation, route }) {
         }}
       >
         {/* {route.params && <Marker coordinate={route.params.currentLocation} />} */}
-        <Marker coordinate={selectedLocation} />
+        {selectedLocation && <Marker coordinate={selectedLocation} />}
       </MapView>
       <Button
         title="confirm selected location"
         disabled={!selectedLocation}
         onPress={() => {
-          navigation.navigate("PostForm", {
+          navigation.navigate("AddPost", {
             selectedLocation: selectedLocation,
+            address: address,
           });
         }}
       />
+      {address && <Text>{address}</Text>}
     </>
   );
 }

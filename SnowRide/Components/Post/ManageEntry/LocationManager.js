@@ -14,10 +14,11 @@ export default function LocationManager() {
     Location.useForegroundPermissions();
   const [location, setLocation] = useState(null);
   const [address, setAddress] = useState(null);
-
+  console.log(route.params);
   useEffect(() => {
     if (route.params) {
       setLocation(route.params.selectedLocation);
+      setAddress(route.params.address);
     }
   }, [route]);
   async function verifyPermission() {
@@ -51,15 +52,16 @@ export default function LocationManager() {
     }
   }
 
-  // function locationSelectHandler() {
-  //   // navigate to Map.js
-  //   if (location) {
-  //     navigation.navigate("Map", { currentLocation: location });
-  //     // console.log("navigate map");
-  //   } else {
-  //     navigation.navigate("Map");
-  //   }
-  // }
+  function locationSelectHandler() {
+    // navigate to Map.js
+    if (location) {
+      navigation.navigate("Map", { currentLocation: location });
+
+      // console.log("navigate map");
+    } else {
+      navigation.navigate("Map");
+    }
+  }
 
   async function getAddress(latitude, longitude) {
     // new function to get address
@@ -74,7 +76,11 @@ export default function LocationManager() {
       console.log("get address error ", err);
     }
   }
-
+  if (location) {
+    console.log(
+      `https://maps.googleapis.com/maps/api/staticmap?center=${location.latitude},${location.longitude}&zoom=14&size=400x200&maptype=roadmap&markers=color:red%7Clabel:L%7C${location.latitude},${location.longitude}&key=${MAPS_API_KEY}`
+    );
+  }
   return (
     <View>
       <Button title="Get Current Location" onPress={locateUserHandler} />
@@ -88,7 +94,7 @@ export default function LocationManager() {
           style={{ width: "100%", height: 200 }}
         />
       )}
-      {/* <Button title="Let me choose!" onPress={locationSelectHandler} /> */}
+      <Button title="Let me choose!" onPress={locationSelectHandler} />
     </View>
   );
 }
