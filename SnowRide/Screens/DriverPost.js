@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { onSnapshot, collection, query, where, and } from "firebase/firestore";
 import { firestore } from "../FireBase/firebase-setup";
 import PostList from "../Components/Post/PostDetail/PostList";
-import PostForm from "../Components/Post/ManageEntry/PostForm";
 import IconButton from "../Components/UI/IconButton";
 import { Colors } from "../Constants/colors";
 

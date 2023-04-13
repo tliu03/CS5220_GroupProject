@@ -1,16 +1,19 @@
 import "react-native-gesture-handler";
 import { StyleSheet } from "react-native";
+import { useEffect, useState, useRef } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import * as Notifications from "expo-notifications";
+import * as Device from "expo-device";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-
 import Welcome from "./Screens/Welcome";
-import ChatBox from "./Screens/ChatList";
+import ChatBox from "./Screens/ChatBox";
+import ChatWindow from "./Components/Chat/ChatWindow";
 import DriverPost from "./Screens/DriverPost";
 import PassengerPost from "./Screens/PassengerPost";
-
 // import PostOverview from "./Routes/homeStack";
 import LoginScreen from "./Components/User/Login";
 import SignUpScreen from "./Components/User/SignUp";
@@ -19,12 +22,10 @@ import UserProfile from "./Components/User/UserProfile";
 import PostForm from "./Components/Post/ManageEntry/PostForm";
 import Confirmation from "./Components/Post/Confirmation";
 import Map from "./Components/Post/ManageEntry/Map";
-
 import { Colors } from "./Constants/colors";
 import PostDetail from "./Components/Post/PostDetail/PostDetail";
 import EditProfile from "./Screens/EditProfile";
-
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { registerForPushNotificationsAsync } from "./Components/Notification/NotificationManager";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -96,7 +97,35 @@ function AppDrawer() {
   );
 }
 
-export default function App() {
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
+
+export default function App({ navigation }) {
+  const notificationListener = useRef();
+  const responseListener = useRef();
+
+  useEffect(() => {
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener();
+
+    responseListener.current =
+      Notifications.addNotificationResponseReceivedListener((response) => {
+        console.log(response);
+      });
+
+    return () => {
+      Notifications.removeNotificationSubscription(
+        notificationListener.current
+      );
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
+
   return (
     <SafeAreaProvider>
       <NavigationContainer
@@ -154,6 +183,7 @@ export default function App() {
             }}
           />
           <Stack.Screen name="Messages" component={ChatBox} />
+          <Stack.Screen name="ChatWindow" component={ChatWindow} />
           <Stack.Screen
             name="Map"
             component={Map}

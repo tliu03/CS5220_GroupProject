@@ -17,27 +17,27 @@ export default function Input({
   optionBox,
   timePicker,
 }) {
+  let inputStyle = [styles.inputTextBox];
+  if (textInputConfig && textInputConfig.multiline) {
+    inputStyle.push(styles.inputMultiline);
+  }
   return (
     <>
       <View style={styles.inputContainer}>
         <Text style={styles.label}>{label}: </Text>
-        {inputBox && (
-          <TextInput style={styles.inputTextBox} {...textInputConfig} />
-        )}
+        {inputBox && <TextInput style={inputStyle} {...textInputConfig} />}
 
-        {optionBox && (
-          <OptionPicker style={styles.inputTextBox} {...textInputConfig} />
-        )}
+        {optionBox && <OptionPicker style={inputStyle} {...textInputConfig} />}
         {timePicker && (
           <DatePicker
-            style={styles.inputTextBox}
+            style={inputStyle}
             customStyles={styles.customStyles}
             {...textInputConfig}
           />
         )}
         {locationInput && (
           <>
-            <View style={[styles.inputTextBox, styles.location]}>
+            <View style={[inputStyle, styles.location]}>
               <TextInput {...textInputConfig} style={{ flex: 4 }} />
               <LocationPicker style={{ flex: 1 }} />
             </View>

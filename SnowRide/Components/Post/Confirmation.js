@@ -15,6 +15,7 @@ export default function Confirmation({ route, navigation }) {
 
   let post = route.params;
   console.log("booking cofirm", post);
+
   async function ConfirmBookingHandler() {
     console.log(post.availableSpots);
     console.log(seatNeeded);
@@ -33,7 +34,7 @@ export default function Confirmation({ route, navigation }) {
       ...post,
       availableSpots: post.availableSpots - seatNeeded,
     });
-    // console.log("booked successfully");
+    // set up notification here: 1) notify the post_owner, there's a booking; 
   }
 
   return (

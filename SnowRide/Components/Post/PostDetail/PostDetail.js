@@ -13,7 +13,7 @@ export default function PostDetail({ route, navigation }) {
   }
 
   function initialChatHandler() {
-    console.log("chat initiated");
+    navigation.navigate("ChatWindow");
   }
 
   function EditPostHandler() {

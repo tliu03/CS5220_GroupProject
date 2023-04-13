@@ -4,8 +4,12 @@ import { Colors } from "../../../Constants/colors";
 import Input from "./Input";
 import IconButton from "../../UI/IconButton";
 import Button from "../../UI/Button";
-import { writeToDB } from "../../../FireBase/firebase-helper";
-import { updateDB } from "../../../FireBase/firebase-helper";
+import {
+  writeToDB,
+  updateDB,
+  saveUserInfo,
+} from "../../../FireBase/firebase-helper";
+import { registerForPushNotificationsAsync } from "../../Notification/NotificationManager";
 
 // Add form
 export default function PostForm({ route, navigation }) {
@@ -41,17 +45,27 @@ export default function PostForm({ route, navigation }) {
     });
   }
 
-  function submitFormHanlder() {
-    // const dataIsValid = !postEntry.date === "";
+  async function submitFormHanlder() {
+    const entryData = {
+      category: postEntry.category,
+      date: postEntry.date,
+      destination: postEntry.destination,
+      pickupLocation: postEntry.pickupLocation,
+      price: +postEntry.price,
+      availableSpots: +postEntry.availableSpots,
+      equipmentRoom: postEntry.equipmentRoom,
+    };
+    const dateIsValid = entryData.date.length > 0;
     const availableSpotsIsValid =
-      !isNaN(postEntry.availableSpots) && postEntry.availableSpots >= 1;
-    const destinationIsValid = postEntry.destination.trim().length > 0;
-    const pickupLocationIsValid = postEntry.pickupLocation.trim().length > 0;
-    const priceIsValid = !isNaN(postEntry.price);
+      !isNaN(entryData.availableSpots) && entryData.availableSpots >= 1;
+    const destinationIsValid = entryData.destination.trim().length > 0;
+    const pickupLocationIsValid = entryData.pickupLocation.trim().length > 0;
+    const priceIsValid = !isNaN(entryData.price);
     const equipmentRoomIsValid =
-      postEntry.equipmentRoom === "yes" || postEntry.equipmentRoom === "no";
+      entryData.equipmentRoom === "yes" || entryData.equipmentRoom === "no";
 
     if (
+      !dateIsValid ||
       !availableSpotsIsValid ||
       !destinationIsValid ||
       !pickupLocationIsValid ||
@@ -60,7 +74,9 @@ export default function PostForm({ route, navigation }) {
     ) {
       Alert.alert("Invalid Input, Please Re-enter");
     } else {
-      writeToDB(postEntry);
+      writeToDB(entryData);
+      const token = await registerForPushNotificationsAsync();
+      saveUserInfo({ expoPushToken: token });
       navigation.goBack();
     }
   }
