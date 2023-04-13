@@ -1,31 +1,50 @@
 import { View, Text, StyleSheet, TextInput } from "react-native";
-import React from "react";
+import { useState } from "react";
 import { Colors } from "../../../Constants/colors";
+import MapView, { Marker } from "react-native-maps";
 import Button from "../../UI/Button";
 import OptionPicker from "./OptionPicker";
 import DatePicker from "react-native-datepicker";
+import LocationPicker from "./LocationPicker";
+import Map from "./Map";
 
 export default function Input({
   label,
   style,
   textInputConfig,
   inputBox,
+  locationInput,
   optionBox,
   timePicker,
 }) {
   return (
-    <View style={styles.inputContainer}>
-      <Text style={styles.label}>{label}: </Text>
-      {inputBox && (
-        <TextInput style={styles.inputTextBox} {...textInputConfig} />
-      )}
-      {optionBox && (
-        <OptionPicker style={styles.pickerContainer} {...textInputConfig} />
-      )}
-      {timePicker && (
-        <DatePicker style={styles.pickerContainer} {...textInputConfig} />
-      )}
-    </View>
+    <>
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>{label}: </Text>
+        {inputBox && (
+          <TextInput style={styles.inputTextBox} {...textInputConfig} />
+        )}
+
+        {optionBox && (
+          <OptionPicker style={styles.inputTextBox} {...textInputConfig} />
+        )}
+        {timePicker && (
+          <DatePicker
+            style={styles.inputTextBox}
+            customStyles={styles.customStyles}
+            {...textInputConfig}
+          />
+        )}
+        {locationInput && (
+          <>
+            <View style={[styles.inputTextBox, styles.location]}>
+              <TextInput {...textInputConfig} style={{ flex: 4 }} />
+              <LocationPicker style={{ flex: 1 }} />
+            </View>
+          </>
+        )}
+      </View>
+    </>
   );
 }
 
@@ -45,18 +64,26 @@ const styles = StyleSheet.create({
   inputTextBox: {
     backgroundColor: "white",
     width: "70%",
-    height: 30,
+    height: "auto",
+    minHeight: 36,
     borderRadius: 5,
-    padding: 6,
-    fontSize: 16,
+    padding: 2,
+    fontSize: 14,
     textAlignVertical: "top",
+    overflow: "hidden",
   },
   inputMultiline: {
     minHeight: 200,
   },
-  pickerContainer: {
-    backgroundColor: "white",
-    width: "70%",
-    height: 30,
+  customStyles: {
+    dateText: {
+      fontSize: 13,
+      color: "#333",
+      marginHorizontal: 0,
+    },
+  },
+
+  location: {
+    flexDirection: "row",
   },
 });

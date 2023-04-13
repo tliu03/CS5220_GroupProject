@@ -7,7 +7,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import Welcome from "./Screens/Welcome";
-import User from "./Screens/User";
 import ChatBox from "./Screens/ChatList";
 import DriverPost from "./Screens/DriverPost";
 import PassengerPost from "./Screens/PassengerPost";
@@ -25,11 +24,7 @@ import { Colors } from "./Constants/colors";
 import PostDetail from "./Components/Post/PostDetail/PostDetail";
 import EditProfile from "./Screens/EditProfile";
 
-import {
-  SimpleLineIcons,
-  Ionicons,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -37,12 +32,12 @@ const BottomTabs = createBottomTabNavigator();
 
 function BottomTab() {
   return (
-    <BottomTabs.Navigator>
+    <BottomTabs.Navigator screenOptions={{ headerShown: false }}>
       <BottomTabs.Screen
         name="Driver Posts"
         component={DriverPost}
         options={{
-          tabBarLabel: "DriverPosts",
+          tabBarLabel: "Driver Posts",
           tabBarIcon: ({ color, size }) => {
             return <Ionicons name="car" size={size} color={color} />;
           },
@@ -52,7 +47,7 @@ function BottomTab() {
         name="Passenger Posts"
         component={PassengerPost}
         options={{
-          tabBarLabel: "PassengerPosts",
+          tabBarLabel: "Passenger Posts",
           tabBarIcon: ({ color, size }) => {
             return (
               <MaterialCommunityIcons
@@ -90,12 +85,13 @@ function AppDrawer() {
       })}
     >
       <Drawer.Screen
-        name="SnowRide"
+        name="SnowRides"
         component={BottomTab}
         options={{ headerShown: true }}
       />
-      <Drawer.Screen name="UserProfile" component={UserProfile} />
-      <Drawer.Screen name="UserPosts" component={UserPost} />
+      <Drawer.Screen name="My Profile" component={UserProfile} />
+      <Drawer.Screen name="My Posts" component={UserPost} />
+      <Drawer.Screen name="My Bookings" component={UserPost} />
     </Drawer.Navigator>
   );
 }
@@ -141,7 +137,7 @@ export default function App() {
           <Stack.Screen
             name="AddPost"
             component={PostForm}
-            options={{ headerShown: false }}
+            options={{ headerShown: true }}
           />
           <Stack.Screen
             name="EditProfile"
@@ -158,7 +154,11 @@ export default function App() {
             }}
           />
           <Stack.Screen name="Messages" component={ChatBox} />
-          <Stack.Screen name="Map" component={Map} />
+          <Stack.Screen
+            name="Map"
+            component={Map}
+            // options={{ headerShown: true }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

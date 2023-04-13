@@ -24,7 +24,7 @@ export default function UserPost({ UserID }) {
             console.log(snap.id);
             docs.push({ ...snap.data(), id: snap.id });
           });
-          console.log(docs);
+          // console.log(docs);
           setMyposts(docs);
         }
       },
@@ -47,7 +47,7 @@ export default function UserPost({ UserID }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginVertical: 100,
+    marginVertical: 40,
     marginHorizontal: 20,
   },
 });
