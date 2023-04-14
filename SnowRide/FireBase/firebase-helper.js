@@ -56,6 +56,8 @@ export async function updateDB(id, newData) {
 export async function getUserInfo(id) {
   try {
     const user = await getDoc(doc(firestore, "users", id));
+    return user._document.data.value.mapValue.fields;
+    // return user.data;
   } catch (err) {
     console.log("GetUser", err);
   }

@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Pressable, Alert } from "react-native";
 import { Colors } from "../../../Constants/colors";
 import Button from "../../UI/Button";
-import { deleteFromDB } from "../../../FireBase/firebase-helper";
+import { deleteFromDB, getUserInfo } from "../../../FireBase/firebase-helper";
 import { auth } from "../../../FireBase/firebase-setup";
 
 // post item detail
@@ -12,11 +12,15 @@ export default function PostDetail({ route, navigation }) {
     navigation.navigate("ConfrimBook", post);
   }
 
-  function initialChatHandler() {
+  async function initialChatHandler() {
+    const user = await getUserInfo(post.user);
+    // console.log(user.expoPushToken.stringValue);
+    // console.log(user.name.mapValue.fields.firstname.stringValue);
     navigation.navigate("ChatWindow", {
       ReceiverId: post.user,
+      receiver: user.name.mapValue.fields.firstname.stringValue,
       SenderId: auth.currentUser.uid,
-      // pushToken: post.
+      pushToken: user.expoPushToken.stringValue,
     });
   }
 

@@ -6,10 +6,11 @@ import { sendPushNotification } from "../Notification/NotificationManager";
 import { writeToDBMessage } from "../../FireBase/firebase-helper";
 import { Colors } from "../../Constants/colors";
 
-export default function ChatWindow({ route, navigation, pushToken }) {
+export default function ChatWindow({ route, navigation }) {
   console.log(route);
   const [message, setMessage] = useState({
-    senderName: "",
+    senderName: '',
+    receiverName:route.params.receiver,
     subject: "",
     detail: "",
     sender: route.params.SenderId,
@@ -28,7 +29,7 @@ export default function ChatWindow({ route, navigation, pushToken }) {
   async function submitMessageHandler() {
     console.log("Send Message");
     writeToDBMessage(message);
-    // await sendPushNotification( message, pushToken )
+    await sendPushNotification( message, pushToken )
     navigation.replace("ChatBox");
   }
 

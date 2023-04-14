@@ -4,9 +4,7 @@ import { Colors } from "../../Constants/colors";
 
 export default function Messages({ message, myMessage }) {
   // console.log(message);
-  function clickIntoMessageHandler(){
-    
-  }
+  function clickIntoMessageHandler() {}
   return (
     <>
       <View style={styles.container}>
@@ -15,7 +13,7 @@ export default function Messages({ message, myMessage }) {
           onPress={clickIntoMessageHandler}
         >
           {myMessage ? (
-            <Text>To: </Text>
+            <Text>To: {message.receiverName}</Text>
           ) : (
             <Text>From: {message.senderName}</Text>
           )}
