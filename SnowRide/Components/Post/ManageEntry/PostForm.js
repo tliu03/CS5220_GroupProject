@@ -77,7 +77,7 @@ export default function PostForm({ route, navigation }) {
       writeToDB(entryData);
       const token = await registerForPushNotificationsAsync();
       saveUserInfo({ expoPushToken: token });
-      navigation.goBack();
+      navigation.navigate("Home");
     }
   }
 

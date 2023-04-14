@@ -23,10 +23,7 @@ export async function writeToDB(post) {
 
 export async function writeToDBBooking(booking) {
   try {
-    const docRef = await addDoc(collection(firestore, "bookings"), {
-      ...booking,
-      post_book_user: auth.currentUser.uid,
-    });
+    const docRef = await addDoc(collection(firestore, "bookings"), booking);
     // console.log(docRef.id);
   } catch (err) {
     console.log(err);
@@ -77,6 +74,14 @@ export async function saveUserInfo(data) {
 export async function deleteFromDB(id) {
   try {
     await deleteDoc(doc(firestore, "posts", id));
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function deleteFromDBMessage(id) {
+  try {
+    await deleteDoc(doc(firestore, "messages", id));
   } catch (err) {
     console.log(err);
   }

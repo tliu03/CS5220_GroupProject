@@ -5,8 +5,9 @@ import Button from "../UI/Button";
 import { auth } from "../../FireBase/firebase-setup";
 import { updateDB, writeToDBBooking } from "../../FireBase/firebase-helper";
 import { useState } from "react";
+import { sendPushNotificationBooking } from "../Notification/NotificationManager";
 
-export default function Confirmation({ route, navigation }) {
+export default function Confirmation({ route }) {
   const [seatNeeded, setSeatNeeded] = useState(0);
 
   function seatHandler(current) {
@@ -14,7 +15,10 @@ export default function Confirmation({ route, navigation }) {
   }
 
   let post = route.params;
-  console.log("booking cofirm", post);
+  console.log("booking cofirm", {
+    ...post,
+    postBookedBy: auth.currentUser.uid,
+  });
 
   async function ConfirmBookingHandler() {
     console.log(post.availableSpots);
@@ -29,12 +33,23 @@ export default function Confirmation({ route, navigation }) {
       );
       return;
     }
-    await writeToDBBooking(post);
-    await updateDB(post.id, {
-      ...post,
-      availableSpots: post.availableSpots - seatNeeded,
-    });
-    // set up notification here: 1) notify the post_owner, there's a booking; 
+
+    // await writeToDBBooking({ ...post, postBookedBy: auth.currentUser.uid });
+    // await updateDB(post.id, {
+    //   ...post,
+    //   availableSpots: post.availableSpots - seatNeeded,
+    // });
+    // set up notification here: 1) notify the post_owner, there's a booking;
+    await sendPushNotificationBooking(
+      {
+        postId: post.id,
+        postPostedBy: post.user,
+        bookedSpot: seatNeeded,
+        postBookedBy: auth.currentUser.uid,
+        bookedByUserfirstname: post.bookedByUserfirstname,
+      },
+      route.params.pushToken
+    );
   }
 
   return (

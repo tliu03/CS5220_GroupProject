@@ -1,10 +1,14 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import React from "react";
 import { Colors } from "../../Constants/colors";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Messages({ message, myMessage }) {
   // console.log(message);
-  function clickIntoMessageHandler() {}
+  const navigation = useNavigation();
+  function clickIntoMessageHandler() {
+    navigation.navigate("MessageDetail", message);
+  }
   return (
     <>
       <View style={styles.container}>

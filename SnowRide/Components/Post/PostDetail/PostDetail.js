@@ -8,8 +8,14 @@ import { auth } from "../../../FireBase/firebase-setup";
 export default function PostDetail({ route, navigation }) {
   const post = route.params;
 
-  function bookConfirmationHandler() {
-    navigation.navigate("ConfrimBook", post);
+  async function bookConfirmationHandler() {
+    const user = await getUserInfo(post.user);
+    console.log(user.name.mapValue.fields.firstname.stringValue);
+    navigation.navigate("ConfrimBook", {
+      ...post,
+      bookedByUserfirstname: user.name.mapValue.fields.firstname.stringValue,
+      pushToken: user.expoPushToken.stringValue,
+    });
   }
 
   async function initialChatHandler() {
@@ -30,7 +36,7 @@ export default function PostDetail({ route, navigation }) {
 
   function DeletePostHandler() {
     deleteFromDB(post.id);
-    navigation.navigate("UserPosts");
+    navigation.navigate("Home");
   }
 
   let PostItemView, myPostView;

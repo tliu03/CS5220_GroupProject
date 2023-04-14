@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Alert, StyleSheet, Text, View } from "react-native";
 import { useState } from "react";
 import Button from "../UI/Button";
 import Input from "../Post/ManageEntry/Input";
@@ -7,15 +7,18 @@ import { writeToDBMessage } from "../../FireBase/firebase-helper";
 import { Colors } from "../../Constants/colors";
 
 export default function ChatWindow({ route, navigation }) {
+  console.log(route.params.senderName);
+  const replying = route.params.senderName;
+  console.log(replying);
   const pushToken = route.params.pushToken;
-  // console.log(pushToken);
   const [message, setMessage] = useState({
-    senderName: "",
-    receiverName: route.params.receiver,
-    subject: "",
+    senderName: replying ? route.params.receiverName : "",
+    receiverName: replying ? route.params.senderName : route.params.receiver,
+    subject: replying ? `Replying to Message ${route.params.subject}` : "",
     detail: "",
-    sender: route.params.SenderId,
-    receiver: route.params.ReceiverId,
+    sender: replying ? route.params.ReceiverId : route.params.SenderId,
+    receiver: replying ? route.params.SenderId : route.params.ReceiverId,
+    replyingToMessage: replying ? route.params.id : "",
   });
 
   function entryInputHandler(inputIdentifier, enteredValue) {
@@ -28,6 +31,13 @@ export default function ChatWindow({ route, navigation }) {
   }
 
   async function submitMessageHandler() {
+    const senderNameIsValid = message.senderName.trim().length > 0;
+    const subjectIsValid = message.subject.trim().length > 0;
+    const messageDetailIsValid = message.detail.trim().length > 0;
+    if (!senderNameIsValid || !subjectIsValid || messageDetailIsValid) {
+      Alert.alert("Please Enter Valid Information");
+      return;
+    }
     try {
       console.log("Send Message");
       writeToDBMessage(message);
