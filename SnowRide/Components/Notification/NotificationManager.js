@@ -65,7 +65,7 @@ export async function registerForPushNotificationsAsync() {
   return token;
 }
 
-async function sendPushNotification({ messageFrom, pushToken }) {
+export async function sendPushNotification({ messageFrom, pushToken }) {
   const message = {
     to: pushToken,
     sound: "default",

@@ -13,7 +13,10 @@ export default function PostDetail({ route, navigation }) {
   }
 
   function initialChatHandler() {
-    navigation.navigate("ChatWindow");
+    navigation.navigate("ChatWindow", {
+      ReceiverId: post.user,
+      SenderId: auth.currentUser.uid,
+    });
   }
 
   function EditPostHandler() {
