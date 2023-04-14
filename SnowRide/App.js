@@ -27,6 +27,7 @@ import PostDetail from "./Components/Post/PostDetail/PostDetail";
 import EditProfile from "./Screens/EditProfile";
 import { registerForPushNotificationsAsync } from "./Components/Notification/NotificationManager";
 import MessageDetail from "./Components/Chat/MessageDetail";
+import UserBooking from "./Components/User/UserBooking";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -113,7 +114,7 @@ function AppDrawer({ navigation }) {
       />
       <Drawer.Screen name="My Profile" component={UserProfile} />
       <Drawer.Screen name="My Posts" component={UserPost} />
-      <Drawer.Screen name="My Bookings" component={UserPost} />
+      <Drawer.Screen name="My Bookings" component={UserBooking} />
     </Drawer.Navigator>
   );
 }
