@@ -6,10 +6,11 @@ import { sendPushNotification } from "../Notification/NotificationManager";
 import { writeToDBMessage } from "../../FireBase/firebase-helper";
 import { Colors } from "../../Constants/colors";
 
-export default function ChatWindow({ route }) {
+export default function ChatWindow({ route, navigation, pushToken }) {
   console.log(route);
   const [message, setMessage] = useState({
-    name: "",
+    senderName: "",
+    subject: "",
     detail: "",
     sender: route.params.SenderId,
     receiver: route.params.ReceiverId,
@@ -27,18 +28,27 @@ export default function ChatWindow({ route }) {
   async function submitMessageHandler() {
     console.log("Send Message");
     writeToDBMessage(message);
-    // await sendPushNotification()
+    // await sendPushNotification( message, pushToken )
+    navigation.replace("ChatBox");
   }
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Leave a Message</Text>
       <Input
-        label="Name"
+        label="Your Name"
         inputBox={true}
         textInputConfig={{
-          onChangeText: entryInputHandler.bind(this, "name"),
-          value: message.name,
+          onChangeText: entryInputHandler.bind(this, "senderName"),
+          value: message.senderName,
+        }}
+      />
+      <Input
+        label="Subject"
+        inputBox={true}
+        textInputConfig={{
+          onChangeText: entryInputHandler.bind(this, "subject"),
+          value: message.subject,
         }}
       />
       <Input

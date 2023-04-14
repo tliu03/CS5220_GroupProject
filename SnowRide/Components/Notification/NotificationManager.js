@@ -65,13 +65,17 @@ export async function registerForPushNotificationsAsync() {
   return token;
 }
 
-export async function sendPushNotification({ messageFrom, pushToken }) {
+export async function sendPushNotification({ messageContent, pushToken }) {
   const message = {
     to: pushToken,
     sound: "default",
     title: "New Booking",
     body: "You got a new booking!",
-    data: { url: "Messages", message: `You got a message: ${messageFrom}` },
+    data: {
+      url: "ChatDetail",
+      subject: messageContent.subject,
+      message: messageContent.detail,
+    },
   };
 
   await fetch("https://exp.host/--/api/v2/push/send", {

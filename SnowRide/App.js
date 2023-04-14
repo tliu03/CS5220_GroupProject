@@ -79,7 +79,7 @@ function AppDrawer() {
             size={22}
             color={tintColor}
             onPress={() => {
-              navigation.navigate("Messages");
+              navigation.navigate("ChatBox");
             }}
           />
         ),
@@ -182,7 +182,7 @@ export default function App({ navigation }) {
               },
             }}
           />
-          <Stack.Screen name="Messages" component={ChatBox} />
+          <Stack.Screen name="ChatBox" component={ChatBox} />
           <Stack.Screen name="ChatWindow" component={ChatWindow} />
           <Stack.Screen
             name="Map"

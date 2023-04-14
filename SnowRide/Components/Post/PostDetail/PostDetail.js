@@ -16,6 +16,7 @@ export default function PostDetail({ route, navigation }) {
     navigation.navigate("ChatWindow", {
       ReceiverId: post.user,
       SenderId: auth.currentUser.uid,
+      // pushToken: post.
     });
   }
 
