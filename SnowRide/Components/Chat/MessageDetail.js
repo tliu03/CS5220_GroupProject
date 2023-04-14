@@ -4,7 +4,7 @@ import { deleteFromDBMessage } from "../../FireBase/firebase-helper";
 import { Colors } from "../../Constants/colors";
 
 export default function MessageDetail({ route, navigation }) {
-  console.log(route.params);
+  console.log("message", route.params);
 
   function deleteMessageHandler() {
     deleteFromDBMessage(route.params.id);
@@ -12,7 +12,7 @@ export default function MessageDetail({ route, navigation }) {
   }
 
   function replyMessageHander() {
-    navigation.navigate('ChatWindow', route.params)
+    navigation.navigate("ChatWindow", route.params);
   }
   return (
     <View style={styles.container}>

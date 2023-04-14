@@ -7,9 +7,9 @@ import { writeToDBMessage } from "../../FireBase/firebase-helper";
 import { Colors } from "../../Constants/colors";
 
 export default function ChatWindow({ route, navigation }) {
-  console.log(route.params.senderName);
+  // console.log(route.params.senderName);
   const replying = route.params.senderName;
-  console.log(replying);
+  // console.log(replying);
   const pushToken = route.params.pushToken;
   const [message, setMessage] = useState({
     senderName: replying ? route.params.receiverName : "",
@@ -31,10 +31,11 @@ export default function ChatWindow({ route, navigation }) {
   }
 
   async function submitMessageHandler() {
-    const senderNameIsValid = message.senderName.trim().length > 0;
-    const subjectIsValid = message.subject.trim().length > 0;
-    const messageDetailIsValid = message.detail.trim().length > 0;
-    if (!senderNameIsValid || !subjectIsValid || messageDetailIsValid) {
+    const senderNameIsValid = message.senderName !== "";
+    const subjectIsValid = message.subject !== "";
+    const messageDetailIsValid = message.detail !== "";
+    if (!senderNameIsValid || !subjectIsValid || !messageDetailIsValid) {
+      // console.log(senderNameIsValid, subjectIsValid, messageDetailIsValid);
       Alert.alert("Please Enter Valid Information");
       return;
     }

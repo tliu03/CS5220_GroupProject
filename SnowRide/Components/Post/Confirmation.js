@@ -34,11 +34,17 @@ export default function Confirmation({ route }) {
       return;
     }
 
-    // await writeToDBBooking({ ...post, postBookedBy: auth.currentUser.uid });
-    // await updateDB(post.id, {
-    //   ...post,
-    //   availableSpots: post.availableSpots - seatNeeded,
-    // });
+    await writeToDBBooking({
+      postId: post.id,
+      postPostedBy: post.user,
+      bookedSpot: seatNeeded,
+      postBookedBy: auth.currentUser.uid,
+      bookedByUserfirstname: post.bookedByUserfirstname,
+    });
+    await updateDB(post.id, {
+      ...post,
+      availableSpots: post.availableSpots - seatNeeded,
+    });
     // set up notification here: 1) notify the post_owner, there's a booking;
     await sendPushNotificationBooking(
       {
