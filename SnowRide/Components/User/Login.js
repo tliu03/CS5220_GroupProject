@@ -21,7 +21,7 @@ export default function LoginScreen() {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        navigation.navigate("Posts");
+        navigation.navigate("Home");
       }
     });
     return unsubscribe;
@@ -34,7 +34,7 @@ export default function LoginScreen() {
   const loginHandler = async () => {
     try {
       const userCred = await signInWithEmailAndPassword(auth, email, password);
-      console.log(userCred);
+      console.log("@login: ", userCred);
     } catch (err) {
       console.log("login err ", err);
     }

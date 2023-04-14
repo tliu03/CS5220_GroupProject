@@ -1,6 +1,3 @@
-// This function should allow user to either locate their current location
-// or select location off a map when adding a new post // imported under PostForm
-
 import { View, Image, Button, Alert, Text } from "react-native";
 import React, { useEffect, useState } from "react";
 import * as Location from "expo-location";
@@ -14,7 +11,7 @@ export default function LocationManager() {
     Location.useForegroundPermissions();
   const [location, setLocation] = useState(null);
   const [address, setAddress] = useState(null);
-  console.log(route.params);
+  // console.log(route.params);
   useEffect(() => {
     if (route.params) {
       setLocation(route.params.selectedLocation);
@@ -98,3 +95,4 @@ export default function LocationManager() {
     </View>
   );
 }
+

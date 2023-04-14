@@ -2,9 +2,8 @@ import { StyleSheet, Text, View, Pressable } from "react-native";
 import React from "react";
 import { Colors } from "../../../Constants/colors";
 import { useNavigation } from "@react-navigation/native";
-import { formatDateTime } from "../../../Utils/date";
 
-export default function PostItem({ post }) {
+export default function PostItem({ post, showCategory }) {
   // const date = formatDateTime(post.date);
   const navigation = useNavigation();
 
@@ -18,6 +17,7 @@ export default function PostItem({ post }) {
         style={({ pressed }) => pressed && styles.pressed}
         onPress={checkPostHanlder}
       >
+        {showCategory && <Text>Category: {post.category}</Text>}
         <Text>Destination: {post.destination}</Text>
         <Text>Pick Up Location: {post.pickupLocation}</Text>
         <Text>Date: {post.date}</Text>

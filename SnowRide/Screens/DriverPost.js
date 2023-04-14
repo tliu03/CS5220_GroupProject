@@ -1,9 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
 import { useEffect, useState } from "react";
-import { onSnapshot, collection, query, where } from "firebase/firestore";
+import { onSnapshot, collection, query, where, and } from "firebase/firestore";
 import { firestore } from "../FireBase/firebase-setup";
 import PostList from "../Components/Post/PostDetail/PostList";
-import PostForm from "../Components/Post/ManageEntry/PostForm";
 import IconButton from "../Components/UI/IconButton";
 import { Colors } from "../Constants/colors";
 
@@ -15,6 +14,7 @@ export default function DriverPost({ navigation }) {
     const q = query(
       collection(firestore, "posts"),
       where("category", "==", "driver")
+      // and(where("availableSpots", ">=", 1), where("category", "==", "driver"))
     );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       if (querySnapshot.empty) {

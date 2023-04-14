@@ -1,6 +1,9 @@
-import { StyleSheet, Text, View, TextInput } from 'react-native'
-import React, { useState } from 'react'
-import Button from '../Components/UI/Button'
+import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import React, { useState } from 'react';
+// import Button from '../Components/UI/Button'
+import ImagePicker from 'react-native-image-picker';
+// import { launchImageLibrary } from "react-native-image-picker";
+import ImageManager from '../Components/User/ImageManager';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -10,6 +13,21 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 const EditProfile = () => {
 
   const [userData, setUserData] = useState(null);
+  const [imageUri, setImageUri] = useState("");
+  const imageUriHandler = (uri) => {
+    setImageUri(uri);
+  };
+  // handleChoosePhoto = () => {
+  //   const options = {
+  //     // noData: true,
+  //   };
+  //   ImagePicker.launchImageLibrary(options, response => {
+  //     // if (response.uri) {
+  //     //   setUserData({ ...userData, userImg: response });
+  //   //   }
+  //     console.log("response", response);
+  //   });
+  // }
 
   // const handleUpdate = async() => {
   //   let imgUrl = await uploadImage();
@@ -42,7 +60,14 @@ const EditProfile = () => {
 
   return (
     <View style={styles.container}>
-      <Text>EditProfile</Text>
+      <View>
+        {/* <Button
+          title="Choose Profile Picture"
+          onPress={handleChoosePhoto}
+        /> */}
+        <ImageManager imageUriHandler={imageUriHandler} />
+
+      </View>
       <View style={styles.action}>
           <FontAwesome name="user-o" color="#333333" size={20} />
           <TextInput

@@ -1,19 +1,32 @@
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable, Alert } from "react-native";
 import { Colors } from "../../../Constants/colors";
 import Button from "../../UI/Button";
-import { deleteFromDB } from "../../../FireBase/firebase-helper";
+import { deleteFromDB, getUserInfo } from "../../../FireBase/firebase-helper";
 import { auth } from "../../../FireBase/firebase-setup";
 
 // post item detail
 export default function PostDetail({ route, navigation }) {
   const post = route.params;
 
-  function bookConfirmationHandler() {
-    console.log("book");
+  async function bookConfirmationHandler() {
+    const user = await getUserInfo(post.user);
+    navigation.navigate("ConfrimBook", {
+      ...post,
+      bookedByUserfirstname: user.name.mapValue.fields.firstname.stringValue,
+      pushToken: user.expoPushToken.stringValue,
+    });
   }
 
-  function initialChatHandler() {
-    console.log("chat initiated");
+  async function initialChatHandler() {
+    const user = await getUserInfo(post.user);
+    // console.log(user.expoPushToken.stringValue);
+    // console.log(user.name.mapValue.fields.firstname.stringValue);
+    navigation.navigate("ChatWindow", {
+      ReceiverId: post.user,
+      receiver: user.name.mapValue.fields.firstname.stringValue,
+      SenderId: auth.currentUser.uid,
+      pushToken: user.expoPushToken.stringValue,
+    });
   }
 
   function EditPostHandler() {
@@ -22,7 +35,7 @@ export default function PostDetail({ route, navigation }) {
 
   function DeletePostHandler() {
     deleteFromDB(post.id);
-    navigation.navigate("UserPosts");
+    navigation.navigate("Home");
   }
 
   let PostItemView, myPostView;
