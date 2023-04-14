@@ -1,12 +1,14 @@
-import React, { useState } from "react";
-import { StyleSheet, View, Text, Modal } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import Button from "../../UI/Button";
 import { Colors } from "../../../Constants/colors";
+import { MAPS_API_KEY } from "@env";
 
 export default function Map({ navigation, route }) {
   const [markerTitle, setMarkerTitle] = useState();
   const [selectedLocation, setSelectedLocation] = useState(null);
+  const [address, setAddress] = useState(null);
 
   const handleMapPress = (event) => {
     setSelectedLocation({
@@ -14,6 +16,24 @@ export default function Map({ navigation, route }) {
       longitude: event.nativeEvent.coordinate.longitude,
     });
   };
+
+  useEffect(() => {
+    if (selectedLocation) {
+      getAddress(selectedLocation.latitude, selectedLocation.longitude);
+    }
+  }, [selectedLocation]);
+  // console.log(route.params);
+  async function getAddress(latitude, longitude) {
+    try {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${MAPS_API_KEY}`
+      );
+      const data = await response.json();
+      setAddress(data.results[0].formatted_address);
+    } catch (err) {
+      console.log("get address error ", err);
+    }
+  }
 
   return (
     <>

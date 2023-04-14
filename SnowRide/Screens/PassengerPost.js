@@ -13,7 +13,8 @@ export default function PassengerPost({ navigation }) {
   useEffect(() => {
     const q = query(
       collection(firestore, "posts"),
-      and(where("category", "==", "passenger"), where("availableSpots", ">", 0))
+      where("category", "==", "passenger")
+      // and(where("category", "==", "passenger"), where("availableSpots", ">", 0))
     );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       if (querySnapshot.empty) {

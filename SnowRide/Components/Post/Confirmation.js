@@ -7,22 +7,23 @@ import { updateDB, writeToDBBooking } from "../../FireBase/firebase-helper";
 import { useState } from "react";
 import { sendPushNotificationBooking } from "../Notification/NotificationManager";
 
-export default function Confirmation({ route }) {
-  const [seatNeeded, setSeatNeeded] = useState(0);
+export default function Confirmation({ route, navigation }) {
+  const [seatNeeded, setSeatNeeded] = useState();
 
   function seatHandler(current) {
+    // console.log(current);
     return setSeatNeeded(current);
   }
 
   let post = route.params;
-  console.log("booking cofirm", {
-    ...post,
-    postBookedBy: auth.currentUser.uid,
-  });
+  // console.log("booking cofirm", {
+  //   ...post,
+  //   postBookedBy: auth.currentUser.uid,
+  // });
 
   async function ConfirmBookingHandler() {
-    console.log(post.availableSpots);
-    console.log(seatNeeded);
+    // console.log(post.availableSpots);
+    // console.log(seatNeeded);
     if (auth.currentUser.uid === post.user) {
       Alert.alert("You Cannot Book Your Own Post!!! ");
       return;
@@ -56,6 +57,7 @@ export default function Confirmation({ route }) {
       },
       route.params.pushToken
     );
+    navigation.navigate("My Bookings");
   }
 
   return (

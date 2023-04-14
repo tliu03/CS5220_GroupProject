@@ -13,6 +13,7 @@ import { registerForPushNotificationsAsync } from "../../Notification/Notificati
 
 // Add form
 export default function PostForm({ route, navigation }) {
+  // console.log(route.params);
   const post = route.params;
   const [postEntry, setPostEntry] = useState({
     category: post.category ? post.category : "",
@@ -87,7 +88,7 @@ export default function PostForm({ route, navigation }) {
 
   function submitChangeHanlder() {
     updateDB(post.id, postEntry);
-    navigation.replace("Home");
+    navigation.navigate("Home");
   }
 
   return (

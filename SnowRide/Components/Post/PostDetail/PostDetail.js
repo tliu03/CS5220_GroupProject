@@ -10,7 +10,6 @@ export default function PostDetail({ route, navigation }) {
 
   async function bookConfirmationHandler() {
     const user = await getUserInfo(post.user);
-    console.log(user.name.mapValue.fields.firstname.stringValue);
     navigation.navigate("ConfrimBook", {
       ...post,
       bookedByUserfirstname: user.name.mapValue.fields.firstname.stringValue,
