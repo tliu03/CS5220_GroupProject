@@ -7,10 +7,11 @@ import { writeToDBMessage } from "../../FireBase/firebase-helper";
 import { Colors } from "../../Constants/colors";
 
 export default function ChatWindow({ route, navigation }) {
-  console.log(route);
+  const pushToken = route.params.pushToken;
+  // console.log(pushToken);
   const [message, setMessage] = useState({
-    senderName: '',
-    receiverName:route.params.receiver,
+    senderName: "",
+    receiverName: route.params.receiver,
     subject: "",
     detail: "",
     sender: route.params.SenderId,
@@ -27,10 +28,14 @@ export default function ChatWindow({ route, navigation }) {
   }
 
   async function submitMessageHandler() {
-    console.log("Send Message");
-    writeToDBMessage(message);
-    await sendPushNotification( message, pushToken )
-    navigation.replace("ChatBox");
+    try {
+      console.log("Send Message");
+      writeToDBMessage(message);
+      await sendPushNotification(message, pushToken);
+      navigation.replace("ChatBox");
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (

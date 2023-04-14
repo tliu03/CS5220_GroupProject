@@ -3,7 +3,7 @@ import React from "react";
 import Messages from "./Messages";
 
 export default function MessagesList({ messages, myMessage }) {
-  console.log("MessagesList", messages);
+  // console.log("MessagesList", messages);
   return (
     <View>
       <FlatList

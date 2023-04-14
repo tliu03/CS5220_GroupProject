@@ -65,14 +65,15 @@ export async function registerForPushNotificationsAsync() {
   return token;
 }
 
-export async function sendPushNotification({ messageContent, pushToken }) {
+export async function sendPushNotification(messageContent, pushToken) {
+  console.log(messageContent.senderName);
   const message = {
     to: pushToken,
     sound: "default",
-    title: "New Booking",
-    body: "You got a new booking!",
+    title: "New Message",
+    body: `You got a message from ${messageContent.senderName}`,
     data: {
-      url: "ChatDetail",
+      url: "MessageDetail",
       subject: messageContent.subject,
       message: messageContent.detail,
     },

@@ -1,8 +1,8 @@
 import "react-native-gesture-handler";
 import { StyleSheet } from "react-native";
-import { useEffect, useState, useRef } from "react";
+import { useEffect } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
@@ -26,6 +26,7 @@ import { Colors } from "./Constants/colors";
 import PostDetail from "./Components/Post/PostDetail/PostDetail";
 import EditProfile from "./Screens/EditProfile";
 import { registerForPushNotificationsAsync } from "./Components/Notification/NotificationManager";
+import MessageDetail from "./Components/Chat/MessageDetail";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -64,7 +65,27 @@ function BottomTab() {
   );
 }
 
-function AppDrawer() {
+function AppDrawer({ navigation }) {
+  useEffect(() => {
+    const subscription1 = Notifications.addNotificationReceivedListener(
+      (notification) => {
+        console.log(notification);
+      }
+    );
+    const subscription2 = Notifications.addNotificationResponseReceivedListener(
+      (response) => {
+        console.log(
+          "response received",
+          response.notification.request.content.data.url
+        );
+        navigation.navigate(response.notification.request.content.data.url);
+      }
+    );
+    return () => {
+      subscription1.remove();
+      subscription2.remove();
+    };
+  }, []);
   return (
     <Drawer.Navigator
       screenOptions={({ navigation }) => ({
@@ -100,32 +121,12 @@ function AppDrawer() {
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
-    shouldPlaySound: true,
+    shouldPlaySound: false,
     shouldSetBadge: true,
   }),
 });
 
-export default function App({ navigation }) {
-  const notificationListener = useRef();
-  const responseListener = useRef();
-
-  useEffect(() => {
-    notificationListener.current =
-      Notifications.addNotificationReceivedListener();
-
-    responseListener.current =
-      Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log(response);
-      });
-
-    return () => {
-      Notifications.removeNotificationSubscription(
-        notificationListener.current
-      );
-      Notifications.removeNotificationSubscription(responseListener.current);
-    };
-  }, []);
-
+export default function App() {
   return (
     <SafeAreaProvider>
       <NavigationContainer
@@ -184,6 +185,7 @@ export default function App({ navigation }) {
           />
           <Stack.Screen name="ChatBox" component={ChatBox} />
           <Stack.Screen name="ChatWindow" component={ChatWindow} />
+          <Stack.Screen name="MessageDetail" component={MessageDetail} />
           <Stack.Screen
             name="Map"
             component={Map}

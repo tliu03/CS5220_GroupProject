@@ -16,14 +16,11 @@ export default function ChatBox() {
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       if (querySnapshot.empty) {
         setMessagesReceived([]);
-        // console.log("empty");
       } else {
         let docs = [];
         querySnapshot.docs.forEach((snap) => {
-          // console.log(snap.id);
           docs.push({ ...snap.data(), id: snap.id });
         });
-        // console.log(docs);
         setMessagesReceived(docs);
       }
     });
@@ -42,14 +39,11 @@ export default function ChatBox() {
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       if (querySnapshot.empty) {
         setMessagesSent([]);
-        // console.log("empty");
       } else {
         let docs = [];
         querySnapshot.docs.forEach((snap) => {
-          // console.log(snap.id);
           docs.push({ ...snap.data(), id: snap.id });
         });
-        // console.log(docs);
         setMessagesSent(docs);
       }
     });
