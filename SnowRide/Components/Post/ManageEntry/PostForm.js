@@ -15,15 +15,17 @@ import { registerForPushNotificationsAsync } from "../../Notification/Notificati
 export default function PostForm({ route, navigation }) {
   // console.log(route.params);
   const post = route.params;
+  // console.log(post);
   const [postEntry, setPostEntry] = useState({
     category: post.category ? post.category : "",
     date: post.date ? post.date : "",
     destination: post.destination ? post.destination : "",
     pickupLocation: post.pickupLocation ? post.pickupLocation : "",
-    price: post.price ? +post.price : 0,
-    availableSpots: post.availableSpots ? +post.availableSpots : 0,
+    price: post.price ? parseInt(post.price) : 0,
+    availableSpots: post.availableSpots ? parseInt(post.availableSpots) : 0,
     equipmentRoom: post.equipmentRoom ? "yes" : "no",
   });
+  // console.log("postentry", postEntry);
 
   function entryInputHandler(inputIdentifier, enteredValue) {
     setPostEntry((currValue) => {
@@ -52,8 +54,8 @@ export default function PostForm({ route, navigation }) {
       date: postEntry.date,
       destination: postEntry.destination,
       pickupLocation: postEntry.pickupLocation,
-      price: +postEntry.price,
-      availableSpots: +postEntry.availableSpots,
+      price: Number(postEntry.price),
+      availableSpots: Number(postEntry.availableSpots),
       equipmentRoom: postEntry.equipmentRoom,
     };
     const dateIsValid = entryData.date.length > 0;
@@ -87,8 +89,38 @@ export default function PostForm({ route, navigation }) {
   }
 
   function submitChangeHanlder() {
-    updateDB(post.id, postEntry);
-    navigation.navigate("Home");
+    const entryData = {
+      category: postEntry.category,
+      date: postEntry.date,
+      destination: postEntry.destination,
+      pickupLocation: postEntry.pickupLocation,
+      price: Number(postEntry.price),
+      availableSpots: Number(postEntry.availableSpots),
+      equipmentRoom: postEntry.equipmentRoom,
+    };
+    const dateIsValid = entryData.date.length > 0;
+    const availableSpotsIsValid =
+      !isNaN(entryData.availableSpots) && entryData.availableSpots >= 1;
+    const destinationIsValid = entryData.destination.trim().length > 0;
+    const pickupLocationIsValid = entryData.pickupLocation.trim().length > 0;
+    const priceIsValid = !isNaN(entryData.price);
+    const equipmentRoomIsValid =
+      entryData.equipmentRoom === "yes" || entryData.equipmentRoom === "no";
+
+    if (
+      !dateIsValid ||
+      !availableSpotsIsValid ||
+      !destinationIsValid ||
+      !pickupLocationIsValid ||
+      !priceIsValid ||
+      !equipmentRoomIsValid
+    ) {
+      Alert.alert("Invalid Input, Please Re-enter");
+    } else {
+      console.log("post:", entryData);
+      updateDB(post.id, entryData);
+      navigation.navigate("Home");
+    }
   }
 
   return (
@@ -146,7 +178,7 @@ export default function PostForm({ route, navigation }) {
                   textInputConfig={{
                     keybordType: "decimal-pad",
                     onChangeText: entryInputHandler.bind(this, "price"),
-                    value: postEntry.price,
+                    value: parseInt(postEntry.price),
                   }}
                 />
               )}
@@ -160,7 +192,7 @@ export default function PostForm({ route, navigation }) {
                 textInputConfig={{
                   keybordType: "numeric",
                   onChangeText: entryInputHandler.bind(this, "availableSpots"),
-                  value: postEntry.availableSpots,
+                  value: parseInt(postEntry.availableSpots),
                 }}
               />
               <Input

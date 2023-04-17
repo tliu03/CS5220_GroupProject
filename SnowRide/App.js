@@ -1,6 +1,6 @@
 import "react-native-gesture-handler";
 import { StyleSheet } from "react-native";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
@@ -25,8 +25,11 @@ import Map from "./Components/Post/ManageEntry/Map";
 import { Colors } from "./Constants/colors";
 import PostDetail from "./Components/Post/PostDetail/PostDetail";
 import EditProfile from "./Screens/EditProfile";
-import { registerForPushNotificationsAsync } from "./Components/Notification/NotificationManager";
 import MessageDetail from "./Components/Chat/MessageDetail";
+import UserBooking from "./Components/User/UserBooking";
+import Weather from "./Components/API/Weather";
+import { auth } from "./FireBase/firebase-setup";
+import { onAuthStateChanged } from "firebase/auth";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
@@ -113,7 +116,8 @@ function AppDrawer({ navigation }) {
       />
       <Drawer.Screen name="My Profile" component={UserProfile} />
       <Drawer.Screen name="My Posts" component={UserPost} />
-      <Drawer.Screen name="My Bookings" component={UserPost} />
+      <Drawer.Screen name="My Bookings" component={UserBooking} />
+      <Drawer.Screen name="Weather" component={Weather} />
     </Drawer.Navigator>
   );
 }
@@ -127,6 +131,75 @@ Notifications.setNotificationHandler({
 });
 
 export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // console.log(auth);
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
+      }
+    });
+  }, []);
+  const AuthStack = (
+    <>
+      <Stack.Screen
+        name="Welcome"
+        options={{ headerShown: false }}
+        component={Welcome}
+      />
+      <Stack.Screen
+        name="LogIn"
+        component={LoginScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SignUp"
+        component={SignUpScreen}
+        options={{ headerShown: false }}
+      />
+    </>
+  );
+
+  const AppStack = (
+    <>
+      <Stack.Screen
+        name="Home"
+        component={AppDrawer}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen name="PostDetails" component={PostDetail} />
+      <Stack.Screen name="ConfrimBook" component={Confirmation} />
+      <Stack.Screen
+        name="AddPost"
+        component={PostForm}
+        options={{ headerShown: true }}
+      />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfile}
+        options={{
+          headerTitle: "Edit Your Profile",
+          headerBackTitleVisible: false,
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: Colors.primary100,
+            shadowColor: "#fff",
+            elevation: 0,
+          },
+        }}
+      />
+      <Stack.Screen name="ChatBox" component={ChatBox} />
+      <Stack.Screen name="ChatWindow" component={ChatWindow} />
+      <Stack.Screen name="MessageDetail" component={MessageDetail} />
+      <Stack.Screen
+        name="Map"
+        component={Map}
+        // options={{ headerShown: true }}
+      />
+    </>
+  );
   return (
     <SafeAreaProvider>
       <NavigationContainer
@@ -141,56 +214,7 @@ export default function App() {
             headerTintColor: Colors.tertiary100,
           }}
         >
-          <Stack.Screen
-            name="Welcome"
-            options={{ headerShown: false }}
-            component={Welcome}
-          />
-          <Stack.Screen name="PostDetails" component={PostDetail} />
-          <Stack.Screen name="ConfrimBook" component={Confirmation} />
-          <Stack.Screen
-            name="LogIn"
-            component={LoginScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="SignUp"
-            component={SignUpScreen}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Home"
-            component={AppDrawer}
-            options={{ headerShown: false }}
-          />
-
-          <Stack.Screen
-            name="AddPost"
-            component={PostForm}
-            options={{ headerShown: true }}
-          />
-          <Stack.Screen
-            name="EditProfile"
-            component={EditProfile}
-            options={{
-              headerTitle: "Edit Your Profile",
-              headerBackTitleVisible: false,
-              headerTitleAlign: "center",
-              headerStyle: {
-                backgroundColor: Colors.primary100,
-                shadowColor: "#fff",
-                elevation: 0,
-              },
-            }}
-          />
-          <Stack.Screen name="ChatBox" component={ChatBox} />
-          <Stack.Screen name="ChatWindow" component={ChatWindow} />
-          <Stack.Screen name="MessageDetail" component={MessageDetail} />
-          <Stack.Screen
-            name="Map"
-            component={Map}
-            // options={{ headerShown: true }}
-          />
+          {isAuthenticated ? AppStack : AuthStack}
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

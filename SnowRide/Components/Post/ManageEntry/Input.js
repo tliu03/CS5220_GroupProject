@@ -5,7 +5,7 @@ import MapView, { Marker } from "react-native-maps";
 import Button from "../../UI/Button";
 import OptionPicker from "./OptionPicker";
 import DatePicker from "react-native-datepicker";
-import LocationPicker from "./LocationPicker";
+import LocationPicker from "../../API/LocationPicker";
 import Map from "./Map";
 
 export default function Input({
@@ -39,7 +39,7 @@ export default function Input({
           <>
             <View style={[inputStyle, styles.location]}>
               <TextInput {...textInputConfig} style={{ flex: 4 }} />
-              <LocationPicker style={{ flex: 1 }} />
+              {/* <LocationPicker style={{ flex: 1 }} /> */}
             </View>
           </>
         )}

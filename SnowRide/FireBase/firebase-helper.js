@@ -11,6 +11,7 @@ import { firestore, auth } from "./firebase-setup";
 
 export async function writeToDB(post) {
   try {
+    console.log(post);
     const docRef = await addDoc(collection(firestore, "posts"), {
       ...post,
       user: auth.currentUser.uid,
@@ -44,9 +45,30 @@ export async function writeToDBMessage(message) {
 
 export async function updateDB(id, newData) {
   try {
+    console.log(newData);
     const updateRef = await updateDoc(doc(firestore, "posts", id), newData);
   } catch (err) {
     console.log(err);
+  }
+}
+
+export async function getPostInfo(id) {
+  try {
+    const post = await getDoc(doc(firestore, "posts", id));
+    // console.log(post._document.data.value.mapValue.fields);
+    const postInfo = {
+      date: post._document.data.value.mapValue.fields.date.stringValue,
+      pickupLocation:
+        post._document.data.value.mapValue.fields.pickupLocation.stringValue,
+      destination:
+        post._document.data.value.mapValue.fields.destination.stringValue,
+      price: parseFloat(
+        post._document.data.value.mapValue.fields.price.stringValue
+      ),
+    };
+    return postInfo;
+  } catch (err) {
+    console.log("GetUser", err);
   }
 }
 
