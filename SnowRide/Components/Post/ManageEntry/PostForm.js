@@ -20,8 +20,8 @@ export default function PostForm({ route, navigation }) {
     date: post.date ? post.date : "",
     destination: post.destination ? post.destination : "",
     pickupLocation: post.pickupLocation ? post.pickupLocation : "",
-    price: post.price ? +post.price : 0,
-    availableSpots: post.availableSpots ? +post.availableSpots : 0,
+    price: post.price ? parseInt(post.price) : 0,
+    availableSpots: post.availableSpots ? parseInt(post.availableSpots) : 0,
     equipmentRoom: post.equipmentRoom ? "yes" : "no",
   });
 
@@ -52,8 +52,8 @@ export default function PostForm({ route, navigation }) {
       date: postEntry.date,
       destination: postEntry.destination,
       pickupLocation: postEntry.pickupLocation,
-      price: +postEntry.price,
-      availableSpots: +postEntry.availableSpots,
+      price: Number(postEntry.price),
+      availableSpots: Number(postEntry.availableSpots),
       equipmentRoom: postEntry.equipmentRoom,
     };
     const dateIsValid = entryData.date.length > 0;
@@ -87,6 +87,7 @@ export default function PostForm({ route, navigation }) {
   }
 
   function submitChangeHanlder() {
+    console.log("post:", postEntry);
     updateDB(post.id, postEntry);
     navigation.navigate("Home");
   }

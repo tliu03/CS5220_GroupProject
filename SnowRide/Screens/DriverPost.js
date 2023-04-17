@@ -13,7 +13,8 @@ export default function DriverPost({ navigation }) {
   useEffect(() => {
     const q = query(
       collection(firestore, "posts"),
-      where("category", "==", "driver")
+      where("category", "==", "driver"),
+      where("availableSpots", ">=", 1)
       // and(where("availableSpots", ">=", 1), where("category", "==", "driver"))
     );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {

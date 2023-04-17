@@ -11,6 +11,7 @@ import { firestore, auth } from "./firebase-setup";
 
 export async function writeToDB(post) {
   try {
+    console.log(post);
     const docRef = await addDoc(collection(firestore, "posts"), {
       ...post,
       user: auth.currentUser.uid,
@@ -44,6 +45,7 @@ export async function writeToDBMessage(message) {
 
 export async function updateDB(id, newData) {
   try {
+    console.log(newData);
     const updateRef = await updateDoc(doc(firestore, "posts", id), newData);
   } catch (err) {
     console.log(err);

@@ -27,6 +27,7 @@ import PostDetail from "./Components/Post/PostDetail/PostDetail";
 import EditProfile from "./Screens/EditProfile";
 import MessageDetail from "./Components/Chat/MessageDetail";
 import UserBooking from "./Components/User/UserBooking";
+import Weather from "./Components/API/Weather";
 import { auth } from "./FireBase/firebase-setup";
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -116,6 +117,7 @@ function AppDrawer({ navigation }) {
       <Drawer.Screen name="My Profile" component={UserProfile} />
       <Drawer.Screen name="My Posts" component={UserPost} />
       <Drawer.Screen name="My Bookings" component={UserBooking} />
+      <Drawer.Screen name="Weather" component={Weather} />
     </Drawer.Navigator>
   );
 }
