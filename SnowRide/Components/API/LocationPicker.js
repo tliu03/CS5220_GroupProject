@@ -112,8 +112,6 @@ const styles = StyleSheet.create({
   },
   mapContainer: {
     width: "100%",
-    // marginVertical: 10,
-
     alignItems: "center",
     justifyContent: "center",
   },
@@ -122,7 +120,7 @@ const styles = StyleSheet.create({
     height: 300,
   },
   markerTitle: {
-    marginTop: 20,
+    // marginTop: 20,
     fontSize: 18,
     fontWeight: "bold",
   },
