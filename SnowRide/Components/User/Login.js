@@ -8,7 +8,7 @@ import {
   Pressable,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { auth } from "../../FireBase/firebase-setup";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
@@ -18,14 +18,14 @@ export default function LoginScreen() {
 
   const navigation = useNavigation();
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        navigation.navigate("Home");
-      }
-    });
-    return unsubscribe;
-  }, []);
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       navigation.navigate("Home");
+  //     }
+  //   });
+  //   return unsubscribe;
+  // }, []);
 
   const SignUpHandler = () => {
     navigation.replace("SignUp");
@@ -34,7 +34,7 @@ export default function LoginScreen() {
   const loginHandler = async () => {
     try {
       const userCred = await signInWithEmailAndPassword(auth, email, password);
-      console.log("@login: ", userCred);
+      // console.log("@login: ", userCred);
     } catch (err) {
       console.log("login err ", err);
     }
