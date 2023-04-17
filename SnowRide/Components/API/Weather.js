@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
 import LocationPicker from "./LocationPicker";
 import { Geocoding } from "react-native-geocoding";
+import { Colors } from "../../Constants/colors";
 
 export default function Weather() {
   const [location, setLocation] = useState(null);
@@ -38,36 +39,40 @@ export default function Weather() {
   }, [weatherData]);
 
   return (
-    <View style={styles.container}>
-      <LocationPicker
-        location={location}
-        setLocation={setLocation}
-        setShowWeather={setShowWeather}
-        checkWeather={checkWeatherHandler}
-      />
-      {weatherData ? (
-        <>
-          <Text style={styles.title}>{address}</Text>
-          <Text style={styles.subtitle}>
-            Current Weather: <Text>Temp: {weatherData.current.temp} C</Text>;
+    <ScrollView style={styles.page}>
+      <View style={styles.container}>
+        <LocationPicker
+          location={location}
+          setLocation={setLocation}
+          setShowWeather={setShowWeather}
+          checkWeather={checkWeatherHandler}
+        />
+        {weatherData ? (
+          <>
+            {/* <Text style={styles.title}>{address}</Text> */}
+            <Text style={styles.subtitle}>Current Weather:</Text>
+            <Text>Temp: {weatherData.current.temp} C</Text>
             <Text>Feels Like: {weatherData.current.temp}; </Text>
             <Text>
               UV Index:
-              {weatherData.current.uvi};
+              {weatherData.current.uvi}
             </Text>
-            <Text>Visibility: {weatherData.current.visibility}</Text>;{" "}
+            <Text>Visibility: {weatherData.current.visibility}</Text>
             <Text>Wind Speed: {weatherData.current.wind_speed}; </Text>
             <Text>Snow: {weatherData.current.snow}</Text>
-          </Text>
-        </>
-      ) : (
-        <Text>Loading...</Text>
-      )}
-    </View>
+          </>
+        ) : (
+          <Text>Pick Your Location First...</Text>
+        )}
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  page: {
+    backgroundColor: Colors.secondary100,
+  },
   container: {
     flex: 1,
     justifyContent: "center",
