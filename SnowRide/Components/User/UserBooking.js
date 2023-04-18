@@ -6,7 +6,8 @@ import { getPostInfo } from "../../FireBase/firebase-helper";
 import PostItem from "../Post/PostDetail/PostItem";
 
 export default function UserBooking() {
-  const [bookings, setBookings] = useState();
+  const [bookings, setBookings] = useState(null);
+  console.log(auth.currentUser.uid);
 
   useEffect(() => {
     const q = query(
@@ -15,7 +16,7 @@ export default function UserBooking() {
     );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       if (querySnapshot.empty) {
-        setBookings([]);
+        setBookings(null);
         // console.log("empty");
       } else {
         let docs = [];
@@ -33,11 +34,12 @@ export default function UserBooking() {
   }, []);
 
   return (
-    <View>
-      <Text>UserBookings</Text>
-      <View>
+    <View style={styles.container}>
+      {bookings ? (
         <BookingList bookings={bookings} />
-      </View>
+      ) : (
+        <Text>No Booking's Yet, Please Make a Booking First!</Text>
+      )}
     </View>
   );
 }
@@ -55,17 +57,24 @@ function BookingList({ bookings }) {
 }
 
 function Booking({ booking }) {
-  let post;
-  useLayoutEffect(() => {
+  const [post, setPost] = useState(null);
+  useEffect(() => {
     async function getPost() {
-      post = await getPostInfo(booking.postId);
+      const data = await getPostInfo(booking.postId);
+      setPost(data);
       console.log("post", post);
     }
     getPost();
   }, []);
 
   // console.log("booking", booking);
-  // return <PostItem post={post} />;
+  return <>{post && <PostItem post={post} bookingHistory={true} />}</>;
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    // justifyContent: "center",
+    // alignItems: "center",
+  },
+});

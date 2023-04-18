@@ -3,8 +3,9 @@ import React from "react";
 import { Colors } from "../../../Constants/colors";
 import { useNavigation } from "@react-navigation/native";
 
-export default function PostItem({ post, showCategory }) {
+export default function PostItem({ post, showCategory, bookingHistory }) {
   // const date = formatDateTime(post.date);
+  console.log("post from post Item", post);
   const navigation = useNavigation();
 
   function checkPostHanlder() {
@@ -15,7 +16,7 @@ export default function PostItem({ post, showCategory }) {
     <View style={styles.container}>
       <Pressable
         style={({ pressed }) => pressed && styles.pressed}
-        onPress={checkPostHanlder}
+        onPress={bookingHistory ? null : checkPostHanlder}
       >
         {showCategory && <Text>Category: {post.category}</Text>}
         <Text>Destination: {post.destination}</Text>
@@ -33,6 +34,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     marginVertical: 10,
     padding: 15,
+    // width: '100%'
   },
   pressed: {
     opacity: 0.75,

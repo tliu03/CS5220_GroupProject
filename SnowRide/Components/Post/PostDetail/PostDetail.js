@@ -9,12 +9,21 @@ export default function PostDetail({ route, navigation }) {
   const post = route.params;
 
   async function bookConfirmationHandler() {
-    const user = await getUserInfo(post.user);
-    navigation.navigate("ConfrimBook", {
-      ...post,
-      bookedByUserfirstname: user.name.mapValue.fields.firstname.stringValue,
-      pushToken: user.expoPushToken.stringValue,
-    });
+    try {
+      const user = await getUserInfo(post.user);
+      if (!user.name) {
+        Alert.alert("Please Complete Your Profile First!");
+        navigation.navigate("My Profile");
+        return;
+      }
+      navigation.navigate("ConfrimBook", {
+        ...post,
+        bookedByUserfirstname: user.name.mapValue.fields.firstname.stringValue,
+        pushToken: user.expoPushToken.stringValue,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async function initialChatHandler() {
