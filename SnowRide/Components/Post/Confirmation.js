@@ -34,30 +34,36 @@ export default function Confirmation({ route, navigation }) {
       );
       return;
     }
-
-    await writeToDBBooking({
-      postId: post.id,
-      postPostedBy: post.user,
-      bookedSpot: seatNeeded,
-      postBookedBy: auth.currentUser.uid,
-      bookedByUserfirstname: post.bookedByUserfirstname,
-    });
-    await updateDB(post.id, {
-      ...post,
-      availableSpots: post.availableSpots - seatNeeded,
-    });
-    // set up notification here: 1) notify the post_owner, there's a booking;
-    await sendPushNotificationBooking(
-      {
+    try {
+      await writeToDBBooking({
         postId: post.id,
         postPostedBy: post.user,
         bookedSpot: seatNeeded,
         postBookedBy: auth.currentUser.uid,
         bookedByUserfirstname: post.bookedByUserfirstname,
-      },
-      route.params.pushToken
-    );
-    navigation.navigate("My Bookings");
+      });
+      // console.log("Wrote to DB");
+      await updateDB(post.id, {
+        ...post,
+        availableSpots: post.availableSpots - seatNeeded,
+      });
+      // console.log("Updated DB");
+      // set up notification here: 1) notify the post_owner, there's a booking;
+      await sendPushNotificationBooking(
+        {
+          postId: post.id,
+          postPostedBy: post.user,
+          bookedSpot: seatNeeded,
+          postBookedBy: auth.currentUser.uid,
+          bookedByUserfirstname: post.bookedByUserfirstname,
+        },
+        route.params.pushToken
+      );
+      navigation.navigate("My Bookings");
+      // console.log("Sent Notification");
+    } catch (err) {
+      console.log("Confirming Booking Error", err);
+    }
   }
 
   return (

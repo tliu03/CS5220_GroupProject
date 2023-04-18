@@ -24,6 +24,7 @@ export async function writeToDB(post) {
 
 export async function writeToDBBooking(booking) {
   try {
+    console.log(booking);
     const docRef = await addDoc(collection(firestore, "bookings"), booking);
     // console.log(docRef.id);
   } catch (err) {
