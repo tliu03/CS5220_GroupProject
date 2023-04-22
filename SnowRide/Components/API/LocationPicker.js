@@ -79,17 +79,19 @@ export default function LocationPicker({
       </Button>
       <View style={styles.mapContainer}>
         <MapView style={styles.map} onPress={handleMapPress}>
-          <Marker
-            coordinate={location}
-            title="Marker Title"
-            description="Marker Description"
-            initialRegion={{
-              latitude: location ? location.latitude : 37.78825,
-              longitude: location ? location.longitude : -122.4324,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}
-          />
+          {location && (
+            <Marker
+              coordinate={location}
+              title="Marker Title"
+              description="Marker Description"
+              initialRegion={{
+                latitude: location ? location.latitude : 37.78825,
+                longitude: location ? location.longitude : -122.4324,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+              }}
+            />
+          )}
         </MapView>
         <Text style={styles.markerTitle}>{markerTitle}</Text>
         <Button onPress={checkWeatherHandler}>Check Weather</Button>

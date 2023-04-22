@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 
 export default function PostItem({ post, showCategory, bookingHistory }) {
   // const date = formatDateTime(post.date);
-  console.log("post from post Item", post);
+  // console.log("post from post Item", post);
   const navigation = useNavigation();
 
   function checkPostHanlder() {
