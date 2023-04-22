@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, TextInput } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Button from '../Components/UI/Button'
 import FormButton from '../Components/UI/FormButton';
 
@@ -11,6 +11,22 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 const EditProfile = () => {
 
   const [userData, setUserData] = useState(null);
+  const [image, setImage] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [transferred, setTransferred] = useState(0);
+
+  const getUser = async() => {
+    const currentUser = await firestore()
+    .collection('users')
+    .doc(auth().currentUser.uid)
+    .get()
+    .then((documentSnapshot) => {
+      if( documentSnapshot.exists ) {
+        console.log('User Data', documentSnapshot.data());
+        setUserData(documentSnapshot.data());
+      }
+    })
+  }
 
   const handleUpdate = async() => {
     let imgUrl = await uploadImage();
@@ -39,6 +55,49 @@ const EditProfile = () => {
       );
     })
   }
+
+  const uploadImage = async () => {
+    if( image == null ) {
+      return null;
+    }
+    const uploadUri = image;
+    let filename = uploadUri.substring(uploadUri.lastIndexOf('/') + 1);
+
+    const extension = filename.split('.').pop(); 
+    const name = filename.split('.').slice(0, -1).join('.');
+    filename = name + Date.now() + '.' + extension;
+
+    setUploading(true);
+    setTransferred(0);
+
+    const storageRef = storage().ref(`photos/${filename}`);
+    const task = storageRef.putFile(uploadUri);
+
+    task.on('state_changed', (taskSnapshot) => {
+      console.log(
+        `${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`,
+      );
+      setTransferred(
+        Math.round(taskSnapshot.bytesTransferred / taskSnapshot.totalBytes) *
+          100,
+      );
+    });
+
+    try {
+      await task;
+      const url = await storageRef.getDownloadURL();
+      setUploading(false);
+      setImage(null);
+      return url;
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   return (
     <View style={styles.container}>
