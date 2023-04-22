@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, TextInput } from 'react-native'
 import React, { useState } from 'react'
 import Button from '../Components/UI/Button'
+import FormButton from '../Components/UI/FormButton';
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -10,35 +11,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 const EditProfile = () => {
 
   const [userData, setUserData] = useState(null);
-
-  // const handleUpdate = async() => {
-  //   let imgUrl = await uploadImage();
-
-  //   if( imgUrl == null && userData.userImg ) {
-  //     imgUrl = userData.userImg;
-  //   }
-
-  //   firestore()
-  //   .collection('users')
-  //   .doc(user.uid)
-  //   .update({
-  //     fname: userData.fname,
-  //     lname: userData.lname,
-  //     about: userData.about,
-  //     phone: userData.phone,
-  //     country: userData.country,
-  //     city: userData.city,
-  //     userImg: imgUrl,
-  //   })
-  //   .then(() => {
-  //     console.log('User Updated!');
-  //     Alert.alert(
-  //       'Profile Updated!',
-  //       'Your profile has been updated successfully.'
-  //     );
-  //   })
-  // }
-
 
   return (
     <View style={styles.container}>
@@ -117,10 +89,10 @@ const EditProfile = () => {
             style={styles.textInput}
           />
         </View>
-      {/* <Button
-        title="Click Here"
-        onPress={handleUpdate}
-      /> */}
+      <FormButton
+        buttonTitle="Update"
+        onPress={() => alert('Update')}
+      />
     </View>
   )
 }
