@@ -19,7 +19,7 @@ export default function SignUpScreen({ navigation }) {
   const [confirmPassword, setConfirmPassword] = useState(null);
 
   const LoginHandler = () => {
-    navigation.replace("LogIn");
+    navigation.navigate("LogIn");
   };
 
   const signupHandler = async () => {

@@ -28,7 +28,7 @@ export default function LoginScreen() {
   // }, []);
 
   const SignUpHandler = () => {
-    navigation.replace("SignUp");
+    navigation.navigate("SignUp");
   };
 
   const loginHandler = async () => {

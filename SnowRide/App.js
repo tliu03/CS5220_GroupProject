@@ -1,20 +1,25 @@
 import "react-native-gesture-handler";
 import { StyleSheet } from "react-native";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import * as Notifications from "expo-notifications";
-import * as Device from "expo-device";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+// import * as Device from "expo-device";
+
+import OnboardingScreen from "./Screens/OnboardingScreen";
 import Welcome from "./Screens/Welcome";
 import ChatBox from "./Screens/ChatBox";
 import ChatWindow from "./Components/Chat/ChatWindow";
 import DriverPost from "./Screens/DriverPost";
 import PassengerPost from "./Screens/PassengerPost";
-// import PostOverview from "./Routes/homeStack";
+import EditProfile from "./Screens/EditProfile";
+
 import LoginScreen from "./Components/User/Login";
 import SignUpScreen from "./Components/User/SignUp";
 import UserPost from "./Components/User/UserPost";
@@ -22,18 +27,19 @@ import UserProfile from "./Components/User/UserProfile";
 import PostForm from "./Components/Post/ManageEntry/PostForm";
 import Confirmation from "./Components/Post/Confirmation";
 import Map from "./Components/Post/ManageEntry/Map";
-import { Colors } from "./Constants/colors";
 import PostDetail from "./Components/Post/PostDetail/PostDetail";
-import EditProfile from "./Screens/EditProfile";
 import MessageDetail from "./Components/Chat/MessageDetail";
 import UserBooking from "./Components/User/UserBooking";
 import Weather from "./Components/API/Weather";
+import { Colors } from "./Constants/colors";
+
 import { auth } from "./FireBase/firebase-setup";
 import { onAuthStateChanged } from "firebase/auth";
 
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
+const OnboardStack = createStackNavigator();
 
 function BottomTab() {
   return (
@@ -131,8 +137,21 @@ Notifications.setNotificationHandler({
 });
 
 export default function App() {
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  // console.log(auth);
+  const [isFirstLaunch, setIsFirstLaunch] = React.useState(null);
+
+  useEffect(() => {
+    AsyncStorage.getItem('alreadyLaunched').then(value => {
+      if (value == null) {
+        AsyncStorage.setItem('alreadyLaunched', 'true'); // No need to wait for `setItem` to finish, although you might want to handle errors
+        setIsFirstLaunch(true);
+      } else {
+        setIsFirstLaunch(false);
+      }
+    }); // Add some error handling, also you can simply do setIsFirstLaunch(null)
+  }, []);
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -142,6 +161,9 @@ export default function App() {
       }
     });
   }, []);
+    // console.log(auth);
+
+
   const AuthStack = (
     <>
       <Stack.Screen
@@ -200,25 +222,39 @@ export default function App() {
       />
     </>
   );
-  return (
-    <SafeAreaProvider>
-      <NavigationContainer
-        screenOptions={{
-          headerStyle: { backgroundColor: Colors.secondary100 },
-          headerTintColor: Colors.tertiary100,
-        }}
-      >
-        <Stack.Navigator
+
+  if (isFirstLaunch === null) {
+    return null;
+  } else if (isFirstLaunch == true) {
+    return (
+      <NavigationContainer>
+        <OnboardStack.Navigator screenOptions={{ headerShown: false }}>
+          <OnboardStack.Screen name="Onboarding" component={OnboardingScreen} />
+          <OnboardStack.Screen name="Login" component={LoginScreen} />
+        </OnboardStack.Navigator>
+      </NavigationContainer>
+    );
+  } else {
+    return (
+      <SafeAreaProvider>
+        <NavigationContainer
           screenOptions={{
-            headerStyle: { backgroundColor: Colors.primary100 },
+            headerStyle: { backgroundColor: Colors.secondary100 },
             headerTintColor: Colors.tertiary100,
           }}
         >
-          {isAuthenticated ? AppStack : AuthStack}
-        </Stack.Navigator>
-      </NavigationContainer>
-    </SafeAreaProvider>
-  );
+          <Stack.Navigator
+            screenOptions={{
+              headerStyle: { backgroundColor: Colors.primary100 },
+              headerTintColor: Colors.tertiary100,
+            }}
+          >
+            {isAuthenticated ? AppStack : AuthStack}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
