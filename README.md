@@ -10,7 +10,7 @@ Jingling Ma, Luocheng Zhu, Shaohua(Teresa) Liu
 
 ### Contribution
 
-- Shaohua(Teresa) Liu: Firebase setup and CRUD operations, components, navigation between screens, Notification use
+- Shaohua(Teresa) Liu: Firebase setup and CRUD operations, components, navigation between screens, Notification use, Location Use and Weather API
 - Luocheng Zhu: Sign up, Log in, Edit Profile, Drawer navigation, and Camera use
 - Jingjing Ma: Unify styles, Readme, location use, Geocoding api use
 
