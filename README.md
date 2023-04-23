@@ -59,22 +59,21 @@ Jingjing Ma, Luocheng Zhu, Shaohua(Teresa) Liu
   <img src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/driverPost.png" width="200px">
   <img src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/passengerPost.png" width="200px">
 
-- Book or chat with driver
+- Book or chat with driver  
   <img src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/postDeatil.png" width="200px">
   <img src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/comfirmBook.png" width="200px">
   <img src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/chatBox.png" width="200px">
 
-- Add new driver/passenger posts
+- Add new driver/passenger posts  
   <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/addDriverPost1.png">
   <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/addPassengerPost1.png">
 
-<!-- addDriverPost1, addPassengerPost1, confirmBook here. -->
+<!-- addDriverPost1, addPassengerPost1, confirmBook here -->
 
 ### Screen 3: My Posts
 
 - Access my post detail, update or delete my posts  
-<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/myPost.png">
-<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/myPostDetails.png">
+<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/myPost.png"><img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/myPostDetails.png">
 <!-- add myPost, myPostDetails -->
 
 ### Screen 4: My Bookings
