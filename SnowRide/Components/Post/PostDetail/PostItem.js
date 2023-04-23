@@ -4,8 +4,11 @@ import { Colors } from "../../../Constants/colors";
 import { useNavigation } from "@react-navigation/native";
 import { formatDateTime } from "../../../Utils/date";
 
-export default function PostItem({ post }) {
-  // const date = formatDateTime(post.date);
+export default function PostItem({ post, showCategory, bookingHistory }) {
+  console.log("p", post.date);
+  const date = formatDateTime(post.date);
+  console.log("date", date);
+  // console.log("post from post Item", post);
   const navigation = useNavigation();
 
   function checkPostHanlder() {
@@ -16,11 +19,12 @@ export default function PostItem({ post }) {
     <View style={styles.container}>
       <Pressable
         style={({ pressed }) => pressed && styles.pressed}
-        onPress={checkPostHanlder}
+        onPress={bookingHistory ? () => {} : checkPostHanlder}
       >
+        {showCategory && <Text>Category: {post.category}</Text>}
         <Text>Destination: {post.destination}</Text>
         <Text>Pick Up Location: {post.pickupLocation}</Text>
-        <Text>Date: {post.date}</Text>
+        <Text>Date: {date}</Text>
       </Pressable>
     </View>
   );
@@ -33,6 +37,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     marginVertical: 10,
     padding: 15,
+    // width: '100%'
   },
   pressed: {
     opacity: 0.75,

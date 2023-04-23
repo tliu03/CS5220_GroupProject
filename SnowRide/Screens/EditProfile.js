@@ -1,7 +1,9 @@
+
 import { StyleSheet, Text, View, TextInput } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import Button from '../Components/UI/Button'
 import FormButton from '../Components/UI/FormButton';
+
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -14,6 +16,7 @@ const EditProfile = () => {
   const [image, setImage] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [transferred, setTransferred] = useState(0);
+
 
   const getUser = async() => {
     const currentUser = await firestore()
@@ -101,7 +104,14 @@ const EditProfile = () => {
 
   return (
     <View style={styles.container}>
-      <Text>EditProfile</Text>
+      <View>
+        {/* <Button
+          title="Choose Profile Picture"
+          onPress={handleChoosePhoto}
+        /> */}
+        <ImageManager imageUriHandler={imageUriHandler} />
+
+      </View>
       <View style={styles.action}>
           <FontAwesome name="user-o" color="#333333" size={20} />
           <TextInput

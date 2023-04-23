@@ -4,11 +4,14 @@ import {
   doc,
   deleteDoc,
   updateDoc,
+  setDoc,
+  getDoc,
 } from "firebase/firestore";
 import { firestore, auth } from "./firebase-setup";
 
 export async function writeToDB(post) {
   try {
+    console.log(post);
     const docRef = await addDoc(collection(firestore, "posts"), {
       ...post,
       user: auth.currentUser.uid,
@@ -19,18 +22,90 @@ export async function writeToDB(post) {
   }
 }
 
-export async function updateDB(id, newData) {
+export async function writeToDBBooking(booking) {
   try {
-    const updateRef = await updateDoc(doc(firestore, "posts", id), newData);
-    console.log("updated");
+    console.log(booking);
+    const docRef = await addDoc(collection(firestore, "bookings"), booking);
+    // console.log(docRef.id);
   } catch (err) {
     console.log(err);
+  }
+}
+
+export async function writeToDBMessage(message) {
+  try {
+    const docRef = await addDoc(collection(firestore, "messages"), {
+      ...message,
+      time: new Date(),
+    });
+    // console.log(docRef.id);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function updateDB(id, newData) {
+  try {
+    console.log(newData);
+    const updateRef = await updateDoc(doc(firestore, "posts", id), newData);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+// export async function getPostInfo(id) {
+//   try {
+//     const post = await getDoc(doc(firestore, "posts", id));
+//     const postInfo = {
+//       date: new Date(
+//         post._document.data.value.mapValue.fields.date.timestampValue
+//       ).valueOf(),
+//       pickupLocation:
+//         post._document.data.value.mapValue.fields.pickupLocation.stringValue,
+//       destination:
+//         post._document.data.value.mapValue.fields.destination.stringValue,
+//       price: parseFloat(
+//         post._document.data.value.mapValue.fields.price.stringValue
+//       ),
+//     };
+//     return postInfo;
+//   } catch (err) {
+//     console.log("GetUser", err);
+//   }
+// }
+
+export async function getUserInfo(id) {
+  try {
+    const user = await getDoc(doc(firestore, "users", id));
+    return user._document.data.value.mapValue.fields;
+    // return user.data;
+  } catch (err) {
+    console.log("GetUser", err);
+  }
+}
+
+export async function saveUserInfo(data) {
+  try {
+    await setDoc(doc(firestore, "users", auth.currentUser.uid), data, {
+      merge: true,
+    });
+    console.log("updated userInfo");
+  } catch (err) {
+    console.log("SaveUserInfo", err);
   }
 }
 
 export async function deleteFromDB(id) {
   try {
     await deleteDoc(doc(firestore, "posts", id));
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export async function deleteFromDBMessage(id) {
+  try {
+    await deleteDoc(doc(firestore, "messages", id));
   } catch (err) {
     console.log(err);
   }
