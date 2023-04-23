@@ -73,18 +73,18 @@ Jingjing Ma, Luocheng Zhu, Shaohua(Teresa) Liu
 ### Screen 4: My Posts
 
 - Access my post detail, update or delete my posts  
- <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/myPost.png">
+<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/myPost.png">
 <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/myPostDetails.png">
-<!-- add myPost, myPostDetails -->
+<!-- add myPost, myPostDetails. -->
 
 ### Screen 5: My Bookings
 
 - Book a post and access my bookings  
- <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/myBookings.png">
+<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/myBookings.png">
 <!-- add myBookings -->
 
 ### Screen 6: Weather
 
 - Check the weather at your location  
- <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/weather.png">
+<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/weather.png">
 <!-- add weather -->
