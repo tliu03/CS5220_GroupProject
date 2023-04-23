@@ -6,7 +6,7 @@ SnowRide
 
 ### Team Members
 
-Jingling Ma, Luocheng Zhu, Shaohua(Teresa) Liu
+Jingjing Ma, Luocheng Zhu, Shaohua(Teresa) Liu
 
 ### Contribution
 
@@ -29,6 +29,7 @@ Jingling Ma, Luocheng Zhu, Shaohua(Teresa) Liu
 
 - You are a passenger looking for a skiride to Cypress Mountain.
 - You are a driver looking for passengers to share the ride to Whistler.
+  git
 
 ## App Progress
 
@@ -36,44 +37,54 @@ Jingling Ma, Luocheng Zhu, Shaohua(Teresa) Liu
 - Iteration 2 update: added userProfile and the following functionality: Camera use, Location use, Notification, Geocoding api use
 - Iteration 3 update: added weather api, fixed error
 
-### Screen 1: My Profile
+### Screen 1: Starting
 
-User log in, sign up, profile, edit profile  
+- User log in, sign up
+  <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/welcome.png">
+  <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/signUp.png">
+  <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/logIn.png">
+
+### Screen 2: My Profile
+
 <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/mainPage.png">
-<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/welcome.png">
-<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/signUp.png">
-<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/logIn.png">
+- User profile, edit profile  
 <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationTwo/SnowRide/assets/UserProfile.png">
-<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationTwo/SnowRide/assets/EditProfile.png">
-
+<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationTwo/SnowRide/assets/EditProfile.png">  
+  
 <!-- add mainPage.png here -->
 
-### Screen 2: SnowRides
+### Screen 3: SnowRides
 
-Look through driver/passenger posts, you can book or chat with driver. You can also add new driver/passenger posts from here  
-<img src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/driverPost.png" width="200px">
-<img src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/passengerPost.png" width="200px">
-<img src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/postDeatil.png" width="200px">
-<img src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/comfirmBook.png" width="200px">
-<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/addDriverPost1.png">
-<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/addPassengerPost1.png">  
-addDriverPost1, addPassengerPost1, confirmBook here
+- Look through driver/passenger posts  
+  <img src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/driverPost.png" width="200px">
+  <img src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/passengerPost.png" width="200px">
+
+- Book or chat with driver
+  <img src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/postDeatil.png" width="200px">
+  <img src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/comfirmBook.png" width="200px">
+  <img src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/chatBox.png" width="200px">
+
+- Add new driver/passenger posts
+  <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/addDriverPost1.png">
+  <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/addPassengerPost1.png">
+
+<!-- addDriverPost1, addPassengerPost1, confirmBook here -->
 
 ### Screen 3: My Posts
 
-Access my post detail, edit, update or delete my posts  
+- Access my post detail, update or delete my posts  
 <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/myPost.png">
-<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/myPostDetails.png">  
-add myPost, myPostDetails
+<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/myPostDetails.png">
+<!-- add myPost, myPostDetails -->
 
 ### Screen 4: My Bookings
 
-Book a post and access my bookings  
-<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/myBookings.png">  
-add myBookings
+- Book a post and access my bookings  
+<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/myBookings.png">
+<!-- add myBookings -->
 
 ### Screen 5: Weather
 
-Check weather of your location  
-<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/weather.png">  
-add weather
+- Check the weather at your location  
+<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/weather.png">
+<!-- add weather -->
