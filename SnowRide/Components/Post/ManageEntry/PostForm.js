@@ -16,9 +16,13 @@ export default function PostForm({ route, navigation }) {
   // console.log(route.params);
   const post = route.params;
   // console.log(post);
+  const [date, setDate] = useState(new Date());
+  // if (post.date) {
+  //   setDate(new Date(post.date));
+  // }
   const [postEntry, setPostEntry] = useState({
     category: post.category ? post.category : "",
-    date: post.date ? post.date : new Date(),
+    // date: post.date ? post.date : new Date(),
     destination: post.destination ? post.destination : "",
     pickupLocation: post.pickupLocation ? post.pickupLocation : "",
     price: post.price ? parseInt(post.price) : 0,
@@ -36,9 +40,9 @@ export default function PostForm({ route, navigation }) {
     });
   }
 
-  function onDateChange(event, selectedDate) {
-    const currentDate = selectedDate;
-  }
+  // function onDateChange(event, selectedDate) {
+  //   const currentDate = selectedDate;
+  // }
 
   function resetFormHandler() {
     setPostEntry({
@@ -55,14 +59,16 @@ export default function PostForm({ route, navigation }) {
   async function submitFormHanlder() {
     const entryData = {
       category: postEntry.category,
-      date: postEntry.date,
+      date: date,
       destination: postEntry.destination,
       pickupLocation: postEntry.pickupLocation,
       price: Number(postEntry.price),
       availableSpots: Number(postEntry.availableSpots),
       equipmentRoom: postEntry.equipmentRoom,
     };
-    const dateIsValid = entryData.date.length > 0;
+    console.log();
+    const dateIsValid =
+      new Date(entryData.date).valueOf() > new Date().valueOf();
     const availableSpotsIsValid =
       !isNaN(entryData.availableSpots) && entryData.availableSpots >= 1;
     const destinationIsValid = entryData.destination.trim().length > 0;
@@ -70,7 +76,14 @@ export default function PostForm({ route, navigation }) {
     const priceIsValid = !isNaN(entryData.price);
     const equipmentRoomIsValid =
       entryData.equipmentRoom === "yes" || entryData.equipmentRoom === "no";
-
+    console.log(
+      dateIsValid,
+      availableSpotsIsValid,
+      destinationIsValid,
+      pickupLocationIsValid,
+      priceIsValid,
+      equipmentRoomIsValid
+    );
     if (
       !dateIsValid ||
       !availableSpotsIsValid ||
@@ -150,14 +163,10 @@ export default function PostForm({ route, navigation }) {
               <Input
                 label="Date"
                 timePicker={true}
-                // textInputConfig={{
-                //   date: new Date(),
-                //   mode: "datetime",
-                //   // format: "YYYY-MM-DD-HH:mm",
-                //   onChange: entryInputHandler.bind(this, "date"),
-                //   useNativeDriver: true,
-                //   value: postEntry.date,
-                // }}
+                textInputConfig={{
+                  date: date,
+                  setDate: setDate,
+                }}
               />
               <Input
                 label="Destination"

@@ -3,10 +3,12 @@ import { Colors } from "../../../Constants/colors";
 import Button from "../../UI/Button";
 import { deleteFromDB, getUserInfo } from "../../../FireBase/firebase-helper";
 import { auth } from "../../../FireBase/firebase-setup";
+import { formatDateTime } from "../../../Utils/date";
 
 // post item detail
 export default function PostDetail({ route, navigation }) {
   const post = route.params;
+  const date = formatDateTime(post.date);
 
   async function bookConfirmationHandler() {
     try {
@@ -66,7 +68,7 @@ export default function PostDetail({ route, navigation }) {
       <View>
         <Text>Destination: {post.destination}</Text>
         <Text>Pick Up Location: {post.pickupLocation}</Text>
-        <Text>Date: {post.date}</Text>
+        <Text>Date: {date}</Text>
         <Text>
           Spots: {post.availableSpots}{" "}
           {post.availableSpots === 1 ? <Text>seat</Text> : <Text>seats</Text>}
@@ -98,7 +100,7 @@ export default function PostDetail({ route, navigation }) {
       <View>
         <Text>Destination: {post.destination}</Text>
         <Text>Pick Up Location: {post.pickupLocation}</Text>
-        <Text>Date: {post.date}</Text>
+        <Text>Date: {date}</Text>
         <Text>Seat/s Needed: {post.availableSpots}</Text>
         <Text>
           Need Room for Equipments:{" "}

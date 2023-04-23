@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import { useState, useLayoutEffect, useEffect } from "react";
-import { onSnapshot, collection, query, where, and } from "firebase/firestore";
+import { onSnapshot, collection, query, where, doc } from "firebase/firestore";
 import { firestore, auth } from "../../FireBase/firebase-setup";
 import { getPostInfo } from "../../FireBase/firebase-helper";
 import PostItem from "../Post/PostDetail/PostItem";
@@ -58,16 +58,25 @@ function BookingList({ bookings }) {
 
 function Booking({ booking }) {
   const [post, setPost] = useState(null);
+
   useEffect(() => {
-    async function getPost() {
-      const data = await getPostInfo(booking.postId);
-      setPost(data);
-      console.log("post", post);
-    }
-    getPost();
+    const unsub = onSnapshot(
+      doc(firestore, "posts", booking.postId),
+      (querySnapshot) => {
+        if (querySnapshot.empty) {
+          setPost(null);
+          // console.log("empty");
+        } else {
+          setPost(querySnapshot.data());
+        }
+      }
+    );
+    return () => {
+      unsub();
+    };
   }, []);
 
-  // console.log("booking", booking);
+  console.log("post", post);
   return <>{post && <PostItem post={post} bookingHistory={true} />}</>;
 }
 

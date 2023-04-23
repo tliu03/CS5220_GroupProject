@@ -3,8 +3,7 @@ import { useState } from "react";
 import IconButton from "../../UI/IconButton";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-export default function DatetimePicker() {
-  const [date, setDate] = useState(new Date(1598051730000));
+export default function DatetimePicker({ date, setDate }) {
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
 
