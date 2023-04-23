@@ -18,7 +18,7 @@ export default function PostForm({ route, navigation }) {
   // console.log(post);
   const [postEntry, setPostEntry] = useState({
     category: post.category ? post.category : "",
-    date: post.date ? post.date : "",
+    date: post.date ? post.date : new Date(),
     destination: post.destination ? post.destination : "",
     pickupLocation: post.pickupLocation ? post.pickupLocation : "",
     price: post.price ? parseInt(post.price) : 0,
@@ -34,6 +34,10 @@ export default function PostForm({ route, navigation }) {
         [inputIdentifier]: enteredValue,
       };
     });
+  }
+
+  function onDateChange(event, selectedDate) {
+    const currentDate = selectedDate;
   }
 
   function resetFormHandler() {
@@ -146,14 +150,14 @@ export default function PostForm({ route, navigation }) {
               <Input
                 label="Date"
                 timePicker={true}
-                textInputConfig={{
-                  date: postEntry.date,
-                  mode: "datetime",
-                  format: "YYYY-MM-DD-HH:mm",
-                  onDateChange: entryInputHandler.bind(this, "date"),
-                  useNativeDriver: true,
-                  value: postEntry.date,
-                }}
+                // textInputConfig={{
+                //   date: new Date(),
+                //   mode: "datetime",
+                //   // format: "YYYY-MM-DD-HH:mm",
+                //   onChange: entryInputHandler.bind(this, "date"),
+                //   useNativeDriver: true,
+                //   value: postEntry.date,
+                // }}
               />
               <Input
                 label="Destination"

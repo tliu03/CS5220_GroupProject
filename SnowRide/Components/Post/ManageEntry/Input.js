@@ -1,12 +1,9 @@
 import { View, Text, StyleSheet, TextInput } from "react-native";
 import { useState } from "react";
 import { Colors } from "../../../Constants/colors";
-import MapView, { Marker } from "react-native-maps";
 import Button from "../../UI/Button";
 import OptionPicker from "./OptionPicker";
-import DatePicker from "react-native-datepicker";
-import LocationPicker from "../../API/LocationPicker";
-import Map from "./Map";
+import DatetimePicker from "./DatetimePicker";
 
 export default function Input({
   label,
@@ -21,6 +18,12 @@ export default function Input({
   if (textInputConfig && textInputConfig.multiline) {
     inputStyle.push(styles.inputMultiline);
   }
+
+  // <DatePicker
+  //   style={inputStyle}
+  //   customStyles={styles.customStyles}
+  //   {...textInputConfig}
+  // />
   return (
     <>
       <View style={styles.inputContainer}>
@@ -28,13 +31,7 @@ export default function Input({
         {inputBox && <TextInput style={inputStyle} {...textInputConfig} />}
 
         {optionBox && <OptionPicker style={inputStyle} {...textInputConfig} />}
-        {timePicker && (
-          <DatePicker
-            style={inputStyle}
-            customStyles={styles.customStyles}
-            {...textInputConfig}
-          />
-        )}
+        {timePicker && <DatetimePicker />}
         {locationInput && (
           <>
             <View style={[inputStyle, styles.location]}>
