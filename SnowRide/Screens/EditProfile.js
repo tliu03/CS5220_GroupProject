@@ -1,9 +1,9 @@
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
-import React, { useState } from 'react';
-// import Button from '../Components/UI/Button'
-import ImagePicker from 'react-native-image-picker';
-// import { launchImageLibrary } from "react-native-image-picker";
-import ImageManager from '../Components/User/ImageManager';
+
+import { StyleSheet, Text, View, TextInput } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import Button from '../Components/UI/Button'
+import FormButton from '../Components/UI/FormButton';
+
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -13,50 +13,94 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 const EditProfile = () => {
 
   const [userData, setUserData] = useState(null);
-  const [imageUri, setImageUri] = useState("");
-  const imageUriHandler = (uri) => {
-    setImageUri(uri);
+  const [image, setImage] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [transferred, setTransferred] = useState(0);
+
+
+  const getUser = async() => {
+    const currentUser = await firestore()
+    .collection('users')
+    .doc(auth().currentUser.uid)
+    .get()
+    .then((documentSnapshot) => {
+      if( documentSnapshot.exists ) {
+        console.log('User Data', documentSnapshot.data());
+        setUserData(documentSnapshot.data());
+      }
+    })
+  }
+
+  const handleUpdate = async() => {
+    let imgUrl = await uploadImage();
+
+    if( imgUrl == null && userData.userImg ) {
+      imgUrl = userData.userImg;
+    }
+
+    firestore()
+    .collection('users')
+    .doc(user.uid)
+    .update({
+      fname: userData.fname,
+      lname: userData.lname,
+      about: userData.about,
+      phone: userData.phone,
+      country: userData.country,
+      city: userData.city,
+      userImg: imgUrl,
+    })
+    .then(() => {
+      console.log('User Updated!');
+      Alert.alert(
+        'Profile Updated!',
+        'Your profile has been updated successfully.'
+      );
+    })
+  }
+
+  const uploadImage = async () => {
+    if( image == null ) {
+      return null;
+    }
+    const uploadUri = image;
+    let filename = uploadUri.substring(uploadUri.lastIndexOf('/') + 1);
+
+    const extension = filename.split('.').pop(); 
+    const name = filename.split('.').slice(0, -1).join('.');
+    filename = name + Date.now() + '.' + extension;
+
+    setUploading(true);
+    setTransferred(0);
+
+    const storageRef = storage().ref(`photos/${filename}`);
+    const task = storageRef.putFile(uploadUri);
+
+    task.on('state_changed', (taskSnapshot) => {
+      console.log(
+        `${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`,
+      );
+      setTransferred(
+        Math.round(taskSnapshot.bytesTransferred / taskSnapshot.totalBytes) *
+          100,
+      );
+    });
+
+    try {
+      await task;
+      const url = await storageRef.getDownloadURL();
+      setUploading(false);
+      setImage(null);
+      return url;
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
   };
-  // handleChoosePhoto = () => {
-  //   const options = {
-  //     // noData: true,
-  //   };
-  //   ImagePicker.launchImageLibrary(options, response => {
-  //     // if (response.uri) {
-  //     //   setUserData({ ...userData, userImg: response });
-  //   //   }
-  //     console.log("response", response);
-  //   });
-  // }
 
-  // const handleUpdate = async() => {
-  //   let imgUrl = await uploadImage();
-
-  //   if( imgUrl == null && userData.userImg ) {
-  //     imgUrl = userData.userImg;
-  //   }
-
-  //   firestore()
-  //   .collection('users')
-  //   .doc(user.uid)
-  //   .update({
-  //     fname: userData.fname,
-  //     lname: userData.lname,
-  //     about: userData.about,
-  //     phone: userData.phone,
-  //     country: userData.country,
-  //     city: userData.city,
-  //     userImg: imgUrl,
-  //   })
-  //   .then(() => {
-  //     console.log('User Updated!');
-  //     Alert.alert(
-  //       'Profile Updated!',
-  //       'Your profile has been updated successfully.'
-  //     );
-  //   })
-  // }
-
+  useEffect(() => {
+    getUser();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -142,10 +186,10 @@ const EditProfile = () => {
             style={styles.textInput}
           />
         </View>
-      {/* <Button
-        title="Click Here"
+      <FormButton
+        buttonTitle="Update"
         onPress={handleUpdate}
-      /> */}
+      />
     </View>
   )
 }
