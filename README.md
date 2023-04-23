@@ -39,18 +39,18 @@ Jingjing Ma, Luocheng Zhu, Shaohua(Teresa) Liu
 
 ### Screen 1: Starting
 
-- User log in, sign up
+- User log in, sign up  
   <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/welcome.png">
   <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/signUp.png">
   <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationOne/SnowRide/assets/logIn.png">
 
 ### Screen 2: My Profile
 
-<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/mainPage.png">
 - User profile, edit profile  
-<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationTwo/SnowRide/assets/UserProfile.png">
-<img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationTwo/SnowRide/assets/EditProfile.png">  
-  
+  <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/mainPage.png">
+  <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationTwo/SnowRide/assets/UserProfile.png">
+  <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationTwo/SnowRide/assets/EditProfile.png">
+
 <!-- add mainPage.png here -->
 
 ### Screen 3: SnowRides
@@ -68,7 +68,7 @@ Jingjing Ma, Luocheng Zhu, Shaohua(Teresa) Liu
   <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/addDriverPost1.png">
   <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/addPassengerPost1.png">
 
-<!-- addDriverPost1, addPassengerPost1, confirmBook here -->
+<!-- addDriverPost1, addPassengerPost1, confirmBook here. -->
 
 ### Screen 3: My Posts
 
