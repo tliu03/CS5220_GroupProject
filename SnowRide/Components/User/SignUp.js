@@ -36,6 +36,7 @@ export default function SignUpScreen({ navigation }) {
       navigation.navigate("Home");
     } catch (err) {
       console.log("Auth error ", err);
+      Alert.alert("Please Try Again!");
     }
   };
 

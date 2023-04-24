@@ -5,9 +5,9 @@ import { useNavigation } from "@react-navigation/native";
 import { formatDateTime } from "../../../Utils/date";
 
 export default function PostItem({ post, showCategory, bookingHistory }) {
-  console.log("p", post.date);
+  // console.log("p", post.date);
   const date = formatDateTime(post.date);
-  console.log("date", date);
+  // console.log("date", date);
   // console.log("post from post Item", post);
   const navigation = useNavigation();
 

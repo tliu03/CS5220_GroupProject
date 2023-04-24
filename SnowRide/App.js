@@ -3,13 +3,13 @@ import { StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator } from "@react-navigation/stack";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import * as Notifications from "expo-notifications";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 // import * as Device from "expo-device";
 
 import OnboardingScreen from "./Screens/OnboardingScreen";
@@ -18,7 +18,6 @@ import ChatBox from "./Screens/ChatBox";
 import ChatWindow from "./Components/Chat/ChatWindow";
 import DriverPost from "./Screens/DriverPost";
 import PassengerPost from "./Screens/PassengerPost";
-import EditProfile from "./Screens/EditProfile";
 
 import LoginScreen from "./Components/User/Login";
 import SignUpScreen from "./Components/User/SignUp";
@@ -31,6 +30,7 @@ import PostDetail from "./Components/Post/PostDetail/PostDetail";
 import MessageDetail from "./Components/Chat/MessageDetail";
 import UserBooking from "./Components/User/UserBooking";
 import Weather from "./Components/API/Weather";
+import EditProfile from "./Components/User/EditProfile";
 import { Colors } from "./Constants/colors";
 
 import { auth } from "./FireBase/firebase-setup";
@@ -137,14 +137,13 @@ Notifications.setNotificationHandler({
 });
 
 export default function App() {
-
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isFirstLaunch, setIsFirstLaunch] = React.useState(null);
 
   useEffect(() => {
-    AsyncStorage.getItem('alreadyLaunched').then(value => {
+    AsyncStorage.getItem("alreadyLaunched").then((value) => {
       if (value == null) {
-        AsyncStorage.setItem('alreadyLaunched', 'true'); // No need to wait for `setItem` to finish, although you might want to handle errors
+        AsyncStorage.setItem("alreadyLaunched", "true"); // No need to wait for `setItem` to finish, although you might want to handle errors
         setIsFirstLaunch(true);
       } else {
         setIsFirstLaunch(false);
@@ -161,8 +160,7 @@ export default function App() {
       }
     });
   }, []);
-    // console.log(auth);
-
+  // console.log(auth);
 
   const AuthStack = (
     <>

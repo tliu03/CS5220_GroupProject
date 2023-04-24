@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   Pressable,
+  Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
@@ -37,6 +38,7 @@ export default function LoginScreen() {
       // console.log("@login: ", userCred);
     } catch (err) {
       console.log("login err ", err);
+      Alert.alert("Login Failed, Please Try Again.");
     }
   };
 

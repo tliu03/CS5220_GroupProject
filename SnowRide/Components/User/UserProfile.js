@@ -1,26 +1,74 @@
-import { auth } from "../../FireBase/firebase-setup";
 import Button from "../UI/Button";
 import { View, Text, Image, StyleSheet } from "react-native";
-import React from "react";
+import { useState, useEffect } from "react";
+import { onSnapshot, doc } from "firebase/firestore";
+import { firestore, auth } from "../../FireBase/firebase-setup";
+import { getUserInfo } from "../../FireBase/firebase-helper";
 
 export default function UserProfile({ navigation }) {
+  const [user, setUser] = useState({
+    name: { firstname: "", lastname: "" },
+    description: "",
+    phone: "",
+    country: "",
+    city: "",
+  });
+  console.log("curr_user", auth.currentUser.uid);
+  useEffect(() => {
+    async function getuser() {
+      try {
+        const userProfile = await getUserInfo(auth.currentUser.uid);
+        console.log("user from firebase", userProfile);
+        // setUser(userProfile);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getuser();
+  }, []);
+
   function MyPostHandler() {
     navigation.navigate("UserPosts");
   }
-  console.log(auth.currentUser.uid);
 
   function EditProfileHandler() {
-    navigation.navigate("EditProfile");
+    console.log(user);
+    navigation.navigate("EditProfile", user);
   }
   function LogOutHandler() {
     auth.signOut();
   }
 
+  // useEffect(() => {
+  //   const unsub = onSnapshot(
+  //     doc(firestore, "users", auth.currentUser.uid),
+  //     (querySnapshot) => {
+  //       if (querySnapshot.empty) {
+  //         setUser(null);
+  //         // console.log("empty");
+  //       } else {
+  //         console.log(querySnapshot);
+  //         setUser(querySnapshot.data());
+  //         console.log(user);
+  //       }
+  //     }
+  //   );
+  //   return () => {
+  //     unsub();
+  //   };
+  // }, []);
+
   return (
     <View style={styles.container}>
       <Image style={styles.userImg} source={require("../../assets/user.png")} />
-      <Text style={styles.userName}>Adam</Text>
-      <Text style={styles.aboutUser}>User Description</Text>
+      <Text style={styles.userName}>
+        {user.name ? user.name.firstname : "complete your profile first"}
+      </Text>
+      <Text style={styles.aboutUser}>
+        {user.description
+          ? user.description.stringValue
+          : "complete your profile first"}
+      </Text>
       <Text>{auth.currentUser.email}</Text>
       {/* <Text>{auth.currentUser.uid}</Text> */}
       <View style={styles.userBtnWrapper}>

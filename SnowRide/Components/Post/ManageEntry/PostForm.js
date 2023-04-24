@@ -8,8 +8,10 @@ import {
   writeToDB,
   updateDB,
   saveUserInfo,
+  getUserInfo,
 } from "../../../FireBase/firebase-helper";
 import { registerForPushNotificationsAsync } from "../../Notification/NotificationManager";
+import { auth } from "../../../FireBase/firebase-setup";
 
 // Add form
 export default function PostForm({ route, navigation }) {
@@ -94,10 +96,20 @@ export default function PostForm({ route, navigation }) {
     ) {
       Alert.alert("Invalid Input, Please Re-enter");
     } else {
-      writeToDB(entryData);
-      const token = await registerForPushNotificationsAsync();
-      saveUserInfo({ expoPushToken: token });
-      navigation.navigate("Home");
+      try {
+        const user = getUserInfo(auth.currentUser.uid);
+        if (!user.name) {
+          Alert.alert("Please Complete Your Profile First!");
+          navigation.navigate("My Profile");
+          return;
+        }
+        writeToDB(entryData);
+        const token = await registerForPushNotificationsAsync();
+        saveUserInfo({ expoPushToken: token });
+        navigation.navigate("Home");
+      } catch (err) {
+        console.log(err);
+      }
     }
   }
 

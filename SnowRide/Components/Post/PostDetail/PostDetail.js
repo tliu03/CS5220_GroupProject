@@ -12,7 +12,9 @@ export default function PostDetail({ route, navigation }) {
 
   async function bookConfirmationHandler() {
     try {
+      console.log("post user", post.user);
       const user = await getUserInfo(post.user);
+      // console.log(user);
       if (!user.name) {
         Alert.alert("Please Complete Your Profile First!");
         navigation.navigate("My Profile");
@@ -29,15 +31,24 @@ export default function PostDetail({ route, navigation }) {
   }
 
   async function initialChatHandler() {
-    const user = await getUserInfo(post.user);
-    // console.log(user.expoPushToken.stringValue);
-    // console.log(user.name.mapValue.fields.firstname.stringValue);
-    navigation.navigate("ChatWindow", {
-      ReceiverId: post.user,
-      receiver: user.name.mapValue.fields.firstname.stringValue,
-      SenderId: auth.currentUser.uid,
-      pushToken: user.expoPushToken.stringValue,
-    });
+    try {
+      const user = await getUserInfo(post.user);
+      // console.log(user.expoPushToken.stringValue);
+      // console.log(user.name.mapValue.fields.firstname.stringValue);
+      if (!user) {
+        Alert.alert("Please Complete Your Profile First!");
+        navigation.navigate("My Profile");
+        return;
+      }
+      navigation.navigate("ChatWindow", {
+        ReceiverId: post.user,
+        receiver: user.name.mapValue.fields.firstname.stringValue,
+        SenderId: auth.currentUser.uid,
+        pushToken: user.expoPushToken.stringValue,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   function EditPostHandler() {
