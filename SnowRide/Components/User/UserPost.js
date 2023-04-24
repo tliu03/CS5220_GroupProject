@@ -21,10 +21,10 @@ export default function UserPost({ UserID }) {
           let docs = [];
           // we want to update goals array with the data THAT we get in this array
           querySnapshot.docs.forEach((snap) => {
-            console.log(snap.id);
+            // console.log(snap.id);
             docs.push({ ...snap.data(), id: snap.id });
           });
-          console.log(docs);
+          // console.log(docs);
           setMyposts(docs);
         }
       },
@@ -39,7 +39,7 @@ export default function UserPost({ UserID }) {
 
   return (
     <View style={styles.container}>
-      <PostList posts={myPosts} myPosts={true} />
+      <PostList posts={myPosts} myPosts={true} showCategory={true} />
     </View>
   );
 }
@@ -47,7 +47,7 @@ export default function UserPost({ UserID }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginVertical: 100,
+    marginVertical: 40,
     marginHorizontal: 20,
   },
 });

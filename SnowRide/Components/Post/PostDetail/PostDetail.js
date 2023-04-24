@@ -1,19 +1,54 @@
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable, Alert } from "react-native";
 import { Colors } from "../../../Constants/colors";
 import Button from "../../UI/Button";
-import { deleteFromDB } from "../../../FireBase/firebase-helper";
+import { deleteFromDB, getUserInfo } from "../../../FireBase/firebase-helper";
 import { auth } from "../../../FireBase/firebase-setup";
+import { formatDateTime } from "../../../Utils/date";
 
 // post item detail
 export default function PostDetail({ route, navigation }) {
   const post = route.params;
+  const date = formatDateTime(post.date);
 
-  function bookConfirmationHandler() {
-    console.log("book");
+  async function bookConfirmationHandler() {
+    try {
+      // console.log("post user", post.user);
+      const user = await getUserInfo(auth.currentUser.uid);
+      // console.log("my infor from postdetail", user);
+      if (!user.name.firstname) {
+        Alert.alert("Please Complete Your Profile First!");
+        navigation.navigate("My Profile");
+        return;
+      }
+      navigation.navigate("ConfrimBook", {
+        ...post,
+        bookedByUserfirstname: user.name.firstname,
+        pushToken: user.expoPushToken,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
-  function initialChatHandler() {
-    console.log("chat initiated");
+  async function initialChatHandler() {
+    try {
+      const user = await getUserInfo(auth.currentUser.uid);
+      // console.log(user.expoPushToken.stringValue);
+      // console.log(user.name.mapValue.fields.firstname.stringValue);
+      if (!user.name.firstname) {
+        Alert.alert("Please Complete Your Profile First!");
+        navigation.navigate("My Profile");
+        return;
+      }
+      navigation.navigate("ChatWindow", {
+        ReceiverId: post.user,
+        receiver: user.name.firstname,
+        SenderId: auth.currentUser.uid,
+        pushToken: user.expoPushToken,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   function EditPostHandler() {
@@ -22,7 +57,7 @@ export default function PostDetail({ route, navigation }) {
 
   function DeletePostHandler() {
     deleteFromDB(post.id);
-    navigation.navigate("UserPosts");
+    navigation.navigate("Home");
   }
 
   let PostItemView, myPostView;
@@ -44,7 +79,7 @@ export default function PostDetail({ route, navigation }) {
       <View>
         <Text>Destination: {post.destination}</Text>
         <Text>Pick Up Location: {post.pickupLocation}</Text>
-        <Text>Date: {post.date}</Text>
+        <Text>Date: {date}</Text>
         <Text>
           Spots: {post.availableSpots}{" "}
           {post.availableSpots === 1 ? <Text>seat</Text> : <Text>seats</Text>}
@@ -76,7 +111,7 @@ export default function PostDetail({ route, navigation }) {
       <View>
         <Text>Destination: {post.destination}</Text>
         <Text>Pick Up Location: {post.pickupLocation}</Text>
-        <Text>Date: {post.date}</Text>
+        <Text>Date: {date}</Text>
         <Text>Seat/s Needed: {post.availableSpots}</Text>
         <Text>
           Need Room for Equipments:{" "}

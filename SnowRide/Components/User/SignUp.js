@@ -12,6 +12,8 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
 import { auth } from "../../FireBase/firebase-setup";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { saveUserInfo } from "../../FireBase/firebase-helper";
+import { registerForPushNotificationsAsync } from "../Notification/NotificationManager";
 
 export default function SignUpScreen({ navigation }) {
   const [email, setEmail] = useState(null);
@@ -19,7 +21,7 @@ export default function SignUpScreen({ navigation }) {
   const [confirmPassword, setConfirmPassword] = useState(null);
 
   const LoginHandler = () => {
-    navigation.replace("LogIn");
+    navigation.navigate("LogIn");
   };
 
   const signupHandler = async () => {
@@ -33,9 +35,21 @@ export default function SignUpScreen({ navigation }) {
         password
       );
       // console.log(userCred);
-      navigation.navigate("Posts");
+      const token = await registerForPushNotificationsAsync();
+      saveUserInfo({
+        expoPushToken: token,
+        name: { firstname: null, lastname: "" },
+        description: "",
+        phone: "",
+        country: "",
+        city: "",
+        userImg:
+          "https://firebasestorage.googleapis.com/v0/b/cs5520-assignment-b5bbb.appspot.com/o/user.png?alt=media&token=5f35540e-bdda-4857-8847-8627eef2794c",
+      });
+      navigation.navigate("Home");
     } catch (err) {
       console.log("Auth error ", err);
+      Alert.alert("Please Try Again!");
     }
   };
 
