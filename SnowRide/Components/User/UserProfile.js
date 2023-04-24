@@ -14,22 +14,6 @@ export default function UserProfile({ navigation }) {
     city: "",
   });
   console.log("curr_user", auth.currentUser.uid);
-  useEffect(() => {
-    async function getuser() {
-      try {
-        const userProfile = await getUserInfo(auth.currentUser.uid);
-        console.log("user from firebase", userProfile);
-        // setUser(userProfile);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    getuser();
-  }, []);
-
-  function MyPostHandler() {
-    navigation.navigate("UserPosts");
-  }
 
   function EditProfileHandler() {
     console.log(user);
@@ -39,24 +23,24 @@ export default function UserProfile({ navigation }) {
     auth.signOut();
   }
 
-  // useEffect(() => {
-  //   const unsub = onSnapshot(
-  //     doc(firestore, "users", auth.currentUser.uid),
-  //     (querySnapshot) => {
-  //       if (querySnapshot.empty) {
-  //         setUser(null);
-  //         // console.log("empty");
-  //       } else {
-  //         console.log(querySnapshot);
-  //         setUser(querySnapshot.data());
-  //         console.log(user);
-  //       }
-  //     }
-  //   );
-  //   return () => {
-  //     unsub();
-  //   };
-  // }, []);
+  useEffect(() => {
+    const unsub = onSnapshot(
+      doc(firestore, "users", auth.currentUser.uid),
+      (querySnapshot) => {
+        if (querySnapshot.empty) {
+          setUser(null);
+          // console.log("empty");
+        } else {
+          console.log(querySnapshot);
+          setUser(querySnapshot.data());
+          console.log(user);
+        }
+      }
+    );
+    return () => {
+      unsub();
+    };
+  }, []);
 
   return (
     <View style={styles.container}>
