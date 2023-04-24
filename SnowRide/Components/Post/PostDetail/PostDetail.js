@@ -12,18 +12,18 @@ export default function PostDetail({ route, navigation }) {
 
   async function bookConfirmationHandler() {
     try {
-      console.log("post user", post.user);
-      const user = await getUserInfo(post.user);
-      // console.log(user);
-      if (!user.name) {
+      // console.log("post user", post.user);
+      const user = await getUserInfo(auth.currentUser.uid);
+      // console.log("my infor from postdetail", user);
+      if (!user.name.firstname) {
         Alert.alert("Please Complete Your Profile First!");
         navigation.navigate("My Profile");
         return;
       }
       navigation.navigate("ConfrimBook", {
         ...post,
-        bookedByUserfirstname: user.name.mapValue.fields.firstname.stringValue,
-        pushToken: user.expoPushToken.stringValue,
+        bookedByUserfirstname: user.name.firstname,
+        pushToken: user.expoPushToken,
       });
     } catch (err) {
       console.log(err);
@@ -32,19 +32,19 @@ export default function PostDetail({ route, navigation }) {
 
   async function initialChatHandler() {
     try {
-      const user = await getUserInfo(post.user);
+      const user = await getUserInfo(auth.currentUser.uid);
       // console.log(user.expoPushToken.stringValue);
       // console.log(user.name.mapValue.fields.firstname.stringValue);
-      if (!user) {
+      if (!user.name.firstname) {
         Alert.alert("Please Complete Your Profile First!");
         navigation.navigate("My Profile");
         return;
       }
       navigation.navigate("ChatWindow", {
         ReceiverId: post.user,
-        receiver: user.name.mapValue.fields.firstname.stringValue,
+        receiver: user.name.firstname,
         SenderId: auth.currentUser.uid,
-        pushToken: user.expoPushToken.stringValue,
+        pushToken: user.expoPushToken,
       });
     } catch (err) {
       console.log(err);

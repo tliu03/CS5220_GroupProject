@@ -1,4 +1,10 @@
-import { StyleSheet, Text, View, TextInput } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  KeyboardAvoidingView,
+} from "react-native";
 import React, { useState, useEffect } from "react";
 import Button from "../UI/Button";
 import FormButton from "../UI/FormButton";
@@ -17,45 +23,31 @@ const EditProfile = ({ navigation, route }) => {
   const [userData, setUserData] = useState({
     name: {
       firstname: user.name.firstname ? user.name.firstname : "",
-      lastname: user.name.lastname ? user.name.lastname : "",
+      lastname: user.name.lastname,
     },
-    description: user.description ? user.description : "",
-    phone: user.phone ? user.phone : "",
-    country: user.country ? user.country : "",
-    city: user.city ? user.city : "",
+    description: user.description,
+    phone: user.phone,
+    country: user.country,
+    city: user.city,
+    userImg: user.userImg,
   });
   const [image, setImage] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [transferred, setTransferred] = useState(0);
+  // const [imageUri, setImageUri] = useState("");
+  const imageUriHandler = (uri) => {
+    setUserData({ ...userData, userImg: uri });
+  };
 
   const handleUpdate = async () => {
     // console.log(userData);
-    saveUserInfo(userData);
-    // let imgUrl = await uploadImage();
 
-    // if (imgUrl == null && userData.userImg) {
-    //   imgUrl = userData.userImg;
-    // }
+    let imgUrl = await uploadImage();
 
-    // firestore()
-    //   .collection("users")
-    //   .doc(user.uid)
-    //   .update({
-    //     fname: userData.fname,
-    //     lname: userData.lname,
-    //     about: userData.about,
-    //     phone: userData.phone,
-    //     country: userData.country,
-    //     city: userData.city,
-    //     userImg: imgUrl,
-    //   })
-    //   .then(() => {
-    //     console.log("User Updated!");
-    //     Alert.alert(
-    //       "Profile Updated!",
-    //       "Your profile has been updated successfully."
-    //     );
-    //   });
+    if (imgUrl == null && userData.userImg) {
+      imgUrl = userData.userImg;
+    }
+    saveUserInfo({ ...userData });
   };
 
   const uploadImage = async () => {
@@ -98,13 +90,13 @@ const EditProfile = ({ navigation, route }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView behavior="padding" style={styles.container}>
       <View>
         {/* <Button
           title="Choose Profile Picture"
           onPress={handleChoosePhoto}
         /> */}
-        {/* <ImageManager imageUriHandler={imageUriHandler} /> */}
+        <ImageManager imageUriHandler={imageUriHandler} />
       </View>
       <View style={styles.action}>
         <FontAwesome name="user-o" color="#333333" size={20} />
@@ -192,7 +184,7 @@ const EditProfile = ({ navigation, route }) => {
       </View>
       <Button onPress={handleUpdate}>Update</Button>
       {/* <FormButton buttonTitle="Update" onPress={handleUpdate} /> */}
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

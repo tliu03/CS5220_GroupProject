@@ -56,19 +56,7 @@ export async function updateDB(id, newData) {
 // export async function getPostInfo(id) {
 //   try {
 //     const post = await getDoc(doc(firestore, "posts", id));
-//     const postInfo = {
-//       date: new Date(
-//         post._document.data.value.mapValue.fields.date.timestampValue
-//       ).valueOf(),
-//       pickupLocation:
-//         post._document.data.value.mapValue.fields.pickupLocation.stringValue,
-//       destination:
-//         post._document.data.value.mapValue.fields.destination.stringValue,
-//       price: parseFloat(
-//         post._document.data.value.mapValue.fields.price.stringValue
-//       ),
-//     };
-//     return postInfo;
+//     return post.data();
 //   } catch (err) {
 //     console.log("GetUser", err);
 //   }
@@ -77,8 +65,8 @@ export async function updateDB(id, newData) {
 export async function getUserInfo(id) {
   try {
     const user = await getDoc(doc(firestore, "users", id));
-    return user._document.data.value.mapValue.fields;
-    // return user.data;
+    const userData = user.data();
+    return userData;
   } catch (err) {
     console.log("GetUser", err);
   }

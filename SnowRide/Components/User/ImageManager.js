@@ -12,7 +12,6 @@ export default function ImageManager({ imageUriHandler }) {
       return true;
     }
     const permissionResult = await requestPermission();
-    // this will be user's choice:
     return permissionResult.granted;
   }
 

@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { onSnapshot, doc } from "firebase/firestore";
 import { firestore, auth } from "../../FireBase/firebase-setup";
 import { getUserInfo } from "../../FireBase/firebase-helper";
+import { ref, getDownloadURL } from "firebase/storage";
+import { storage } from "../../FireBase/firebase-setup";
 
 export default function UserProfile({ navigation }) {
   const [user, setUser] = useState({
@@ -12,8 +14,9 @@ export default function UserProfile({ navigation }) {
     phone: "",
     country: "",
     city: "",
+    userImg: null,
   });
-  console.log("curr_user", auth.currentUser.uid);
+  // console.log("curr_user", auth.currentUser.uid);
 
   function EditProfileHandler() {
     console.log(user);
@@ -31,9 +34,9 @@ export default function UserProfile({ navigation }) {
           setUser(null);
           // console.log("empty");
         } else {
-          console.log(querySnapshot);
+          // console.log(querySnapshot);
           setUser(querySnapshot.data());
-          console.log(user);
+          console.log("user data", user);
         }
       }
     );
@@ -42,9 +45,30 @@ export default function UserProfile({ navigation }) {
     };
   }, []);
 
+  // const [imageURL, setImageURL] = useState(user.userImg);
+  // useEffect(() => {
+  //   async function getImageURL() {
+  //     try {
+  //       const reference = ref(storage, );
+  //       const url = await getDownloadURL(reference);
+  //       setImageURL(url);
+  //     } catch (err) {
+  //       console.log("download image ", error);
+  //     }
+  //   }
+  //   getImageURL();
+  // }, []);
+
   return (
     <View style={styles.container}>
-      <Image style={styles.userImg} source={require("../../assets/user.png")} />
+      {user.userImg ? (
+        <Image style={styles.userImg} source={{ uri: user.userImg }} />
+      ) : (
+        <Image
+          style={styles.userImg}
+          source={require("../../assets/user.png")}
+        />
+      )}
       <Text style={styles.userName}>
         {user.name ? user.name.firstname : "complete your profile first"}
       </Text>

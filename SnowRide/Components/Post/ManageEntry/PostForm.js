@@ -97,15 +97,14 @@ export default function PostForm({ route, navigation }) {
       Alert.alert("Invalid Input, Please Re-enter");
     } else {
       try {
-        const user = getUserInfo(auth.currentUser.uid);
-        if (!user.name) {
+        const user = await getUserInfo(auth.currentUser.uid);
+        // console.log("my infor from postdetail", user);
+        if (!user.name.firstname) {
           Alert.alert("Please Complete Your Profile First!");
           navigation.navigate("My Profile");
           return;
         }
         writeToDB(entryData);
-        const token = await registerForPushNotificationsAsync();
-        saveUserInfo({ expoPushToken: token });
         navigation.navigate("Home");
       } catch (err) {
         console.log(err);

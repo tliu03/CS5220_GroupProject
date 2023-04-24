@@ -138,7 +138,7 @@ Notifications.setNotificationHandler({
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isFirstLaunch, setIsFirstLaunch] = React.useState(null);
+  const [isFirstLaunch, setIsFirstLaunch] = useState(null);
 
   useEffect(() => {
     AsyncStorage.getItem("alreadyLaunched").then((value) => {
