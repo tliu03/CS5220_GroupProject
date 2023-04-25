@@ -160,15 +160,18 @@ export default function App() {
       }
     });
   }, []);
-  // console.log(auth);
 
   const AuthStack = (
     <>
-      <Stack.Screen
-        name="Welcome"
-        options={{ headerShown: false }}
-        component={Welcome}
-      />
+      {isFirstLaunch ? (
+        <Stack.Screen name="Onboarding" component={OnboardingScreen} />
+      ) : (
+        <Stack.Screen
+          name="Welcome"
+          options={{ headerShown: false }}
+          component={Welcome}
+        />
+      )}
       <Stack.Screen
         name="LogIn"
         component={LoginScreen}
@@ -221,38 +224,26 @@ export default function App() {
     </>
   );
 
-  if (isFirstLaunch === null) {
-    return null;
-  } else if (isFirstLaunch == true) {
-    return (
-      <NavigationContainer>
-        <OnboardStack.Navigator screenOptions={{ headerShown: false }}>
-          <OnboardStack.Screen name="Onboarding" component={OnboardingScreen} />
-          <OnboardStack.Screen name="Login" component={LoginScreen} />
-        </OnboardStack.Navigator>
-      </NavigationContainer>
-    );
-  } else {
-    return (
-      <SafeAreaProvider>
-        <NavigationContainer
+  // const AuthStack = isFirstLaunch ? WelcomeStack : LoginStack;
+  return (
+    <SafeAreaProvider>
+      <NavigationContainer
+        screenOptions={{
+          headerStyle: { backgroundColor: Colors.secondary100 },
+          headerTintColor: Colors.tertiary100,
+        }}
+      >
+        <Stack.Navigator
           screenOptions={{
-            headerStyle: { backgroundColor: Colors.secondary100 },
+            headerStyle: { backgroundColor: Colors.primary100 },
             headerTintColor: Colors.tertiary100,
           }}
         >
-          <Stack.Navigator
-            screenOptions={{
-              headerStyle: { backgroundColor: Colors.primary100 },
-              headerTintColor: Colors.tertiary100,
-            }}
-          >
-            {isAuthenticated ? AppStack : AuthStack}
-          </Stack.Navigator>
-        </NavigationContainer>
-      </SafeAreaProvider>
-    );
-  }
+          {isAuthenticated ? AppStack : AuthStack}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
+  );
 }
 
 const styles = StyleSheet.create({

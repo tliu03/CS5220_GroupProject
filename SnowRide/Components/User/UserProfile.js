@@ -14,9 +14,9 @@ export default function UserProfile({ navigation }) {
     phone: "",
     country: "",
     city: "",
-    userImg: null,
+    userImg: "",
   });
-  // console.log("curr_user", auth.currentUser.uid);
+  console.log("curr_user", auth.currentUser.uid, user);
 
   function EditProfileHandler() {
     console.log(user);
@@ -44,20 +44,6 @@ export default function UserProfile({ navigation }) {
       unsub();
     };
   }, []);
-
-  // const [imageURL, setImageURL] = useState(user.userImg);
-  // useEffect(() => {
-  //   async function getImageURL() {
-  //     try {
-  //       const reference = ref(storage, );
-  //       const url = await getDownloadURL(reference);
-  //       setImageURL(url);
-  //     } catch (err) {
-  //       console.log("download image ", error);
-  //     }
-  //   }
-  //   getImageURL();
-  // }, []);
 
   return (
     <View style={styles.container}>
