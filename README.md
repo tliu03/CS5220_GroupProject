@@ -19,6 +19,7 @@ Jingjing Ma, Luocheng Zhu, Shaohua(Teresa) Liu
 - SnowRide provides a perfect platform for those who want to go riding but do not have a car and those who drive but also want to share the gas cost.
 - As a passenger, start easily by selecting your destination, departure date and location. Just scroll down and choose your driver! The price is fixed so no worry of detouring. If there is no satisfying choice, you can simply add a new post and wait for the driver to contact you!
 - As a driver, post your trip information and the price. To look for passengers, just go over the list and see if the location is convenient for you to pick them up. Get in touch with them in the app, reach an agreement on details and make the deal!
+- Link to YouTube Video:https://www.youtube.com/watch?v=ZWjiNEurlpk 
 
 ### Target Audience
 
