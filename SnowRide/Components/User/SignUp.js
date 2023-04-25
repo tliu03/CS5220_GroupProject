@@ -27,6 +27,7 @@ export default function SignUpScreen({ navigation }) {
   const signupHandler = async () => {
     if (password !== confirmPassword) {
       Alert.alert("The passwords don't match");
+      return;
     }
     try {
       const userCred = await createUserWithEmailAndPassword(

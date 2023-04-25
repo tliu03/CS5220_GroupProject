@@ -21,7 +21,7 @@ export default function UserProfile({ navigation }) {
 
   function EditProfileHandler() {
     console.log(user);
-    navigation.navigate("EditProfile", user);
+    navigation.navigate("EditProfile", { ...user, userImg: imageURL });
   }
   function LogOutHandler() {
     auth.signOut();

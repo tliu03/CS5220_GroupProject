@@ -1,4 +1,10 @@
-import { Alert, StyleSheet, Text, View } from "react-native";
+import {
+  Alert,
+  StyleSheet,
+  Text,
+  View,
+  KeyboardAvoidingView,
+} from "react-native";
 import { useState } from "react";
 import Button from "../UI/Button";
 import Input from "../Post/ManageEntry/Input";
@@ -7,12 +13,12 @@ import { writeToDBMessage } from "../../FireBase/firebase-helper";
 import { Colors } from "../../Constants/colors";
 
 export default function ChatWindow({ route, navigation }) {
-  // console.log(route.params.senderName);
+  console.log(route.params);
   const replying = route.params.senderName;
   // console.log(replying);
   const pushToken = route.params.pushToken;
   const [message, setMessage] = useState({
-    senderName: replying ? route.params.receiverName : "",
+    senderName: replying ? route.params.receiverName : route.params.senderName,
     receiverName: replying ? route.params.senderName : route.params.receiver,
     subject: replying ? `Replying to Message ${route.params.subject}` : "",
     detail: "",
@@ -50,7 +56,7 @@ export default function ChatWindow({ route, navigation }) {
   }
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView behavior="padding" style={styles.container}>
       <Text style={styles.title}>Leave a Message</Text>
       <Input
         label="Your Name"
@@ -80,7 +86,7 @@ export default function ChatWindow({ route, navigation }) {
       <Button style={styles.buttonStyle} onPress={submitMessageHandler}>
         Submit
       </Button>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

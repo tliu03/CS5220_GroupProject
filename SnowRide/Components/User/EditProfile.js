@@ -4,6 +4,7 @@ import {
   View,
   TextInput,
   KeyboardAvoidingView,
+  Alert,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import Button from "../UI/Button";
@@ -49,20 +50,14 @@ const EditProfile = ({ navigation, route }) => {
         console.log(imageUri);
       }
       const newUserEntry = {
-        name: {
-          firstname: user.name.firstname ? user.name.firstname : "",
-          lastname: user.name.lastname,
-        },
-        description: user.description,
-        phone: user.phone,
-        country: user.country,
-        city: user.city,
+        ...userData,
         userImg: imageUri,
-      }
+      };
       // setUserData({ ...userData, userImg: imageUri });
       console.log("post fetch", newUserEntry);
       await saveUserInfo(newUserEntry);
-      console.log("uploaded");
+      Alert.alert("User Infor Updated Successfully!");
+      // console.log("uploaded");
       // console.log("post upload", userData);
     } catch (err) {
       console.log(err);
