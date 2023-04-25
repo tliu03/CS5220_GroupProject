@@ -51,7 +51,7 @@ const EditProfile = ({ navigation, route }) => {
       }
       const newUserEntry = {
         ...userData,
-        userImg: imageUri,
+        userImg: imageUri ? imageUri : user.userImg,
       };
       // setUserData({ ...userData, userImg: imageUri });
       console.log("post fetch", newUserEntry);

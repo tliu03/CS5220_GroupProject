@@ -14,16 +14,19 @@ export default function PostDetail({ route, navigation }) {
     try {
       // console.log("post user", post.user);
       const user = await getUserInfo(auth.currentUser.uid);
+      const postUser = await getUserInfo(post.user);
       // console.log("my infor from postdetail", user);
       if (!user.name.firstname) {
         Alert.alert("Please Complete Your Profile First!");
         navigation.navigate("My Profile");
         return;
       }
+      // console.log("post detail", user);
+      // console.log("token", postUser);
       navigation.navigate("ConfrimBook", {
         ...post,
         bookedByUserfirstname: user.name.firstname,
-        pushToken: user.expoPushToken,
+        pushToken: postUser.expoPushToken,
       });
     } catch (err) {
       console.log(err);
