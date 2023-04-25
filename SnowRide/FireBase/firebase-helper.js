@@ -7,7 +7,7 @@ import {
   setDoc,
   getDoc,
 } from "firebase/firestore";
-import { firestore, auth } from "./firebase-setup";
+import { firestore, auth, storage } from "./firebase-setup";
 
 export async function writeToDB(post) {
   try {

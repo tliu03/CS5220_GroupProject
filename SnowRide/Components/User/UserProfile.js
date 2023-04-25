@@ -1,6 +1,6 @@
 import Button from "../UI/Button";
 import { View, Text, Image, StyleSheet } from "react-native";
-import { useState, useEffect } from "react";
+import { useState, useLayoutEffect, useEffect } from "react";
 import { onSnapshot, doc } from "firebase/firestore";
 import { firestore, auth } from "../../FireBase/firebase-setup";
 import { getUserInfo } from "../../FireBase/firebase-helper";
@@ -8,15 +8,16 @@ import { ref, getDownloadURL } from "firebase/storage";
 import { storage } from "../../FireBase/firebase-setup";
 
 export default function UserProfile({ navigation }) {
+  const [imageURL, setImageURL] = useState("");
   const [user, setUser] = useState({
     name: { firstname: "", lastname: "" },
     description: "",
     phone: "",
     country: "",
     city: "",
-    userImg: "",
+    userImg: false,
   });
-  console.log("curr_user", auth.currentUser.uid, user);
+  // console.log("curr_user", auth.currentUser.uid, user);
 
   function EditProfileHandler() {
     console.log(user);
@@ -45,23 +46,38 @@ export default function UserProfile({ navigation }) {
     };
   }, []);
 
+  useEffect(() => {
+    async function getImageURL() {
+      try {
+        const reference = ref(storage, user.userImg);
+        const url = await getDownloadURL(reference);
+        setImageURL(url);
+        console.log(imageURL);
+      } catch (err) {
+        console.log("download image ", err);
+      }
+    }
+    getImageURL();
+  }, [user.userImg]);
+
   return (
     <View style={styles.container}>
-      {user.userImg ? (
+      {imageURL && <Image source={{ uri: imageURL }} style={styles.userImg} />}
+      {/* {user.userImg ? (
         <Image style={styles.userImg} source={{ uri: user.userImg }} />
       ) : (
         <Image
           style={styles.userImg}
-          source={require("../../assets/user.png")}
+          source={{
+            uri: "https://firebasestorage.googleapis.com/v0/b/cs5520-assignment-b5bbb.appspot.com/o/user.png?alt=media&token=ccd4270c-e0c7-4e53-a87f-88821fdd157a",
+          }}
         />
-      )}
+      )} */}
       <Text style={styles.userName}>
         {user.name ? user.name.firstname : "complete your profile first"}
       </Text>
       <Text style={styles.aboutUser}>
-        {user.description
-          ? user.description.stringValue
-          : "complete your profile first"}
+        {user.description ? user.description : "complete your profile first"}
       </Text>
       <Text>{auth.currentUser.email}</Text>
       {/* <Text>{auth.currentUser.uid}</Text> */}

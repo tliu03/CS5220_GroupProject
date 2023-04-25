@@ -44,7 +44,7 @@ export default function SignUpScreen({ navigation }) {
         country: "",
         city: "",
         userImg:
-          "https://firebasestorage.googleapis.com/v0/b/cs5520-assignment-b5bbb.appspot.com/o/user.png?alt=media&token=5f35540e-bdda-4857-8847-8627eef2794c",
+          "https://firebasestorage.googleapis.com/v0/b/cs5520-assignment-b5bbb.appspot.com/o/user.png?alt=media&token=ccd4270c-e0c7-4e53-a87f-88821fdd157a",
       });
       navigation.navigate("Home");
     } catch (err) {

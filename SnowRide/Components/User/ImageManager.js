@@ -25,6 +25,7 @@ export default function ImageManager({ imageUriHandler }) {
       const result = await ImagePicker.launchCameraAsync();
       if (result.assets.length) {
         let uri = result.assets[0].uri;
+        console.log("uri from imageManage", uri);
         setImageUri(uri);
         imageUriHandler(uri);
       }
