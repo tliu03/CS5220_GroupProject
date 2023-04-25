@@ -25,6 +25,7 @@ export default function SignUpScreen({ navigation }) {
   };
 
   const signupHandler = async () => {
+    let token;
     if (password !== confirmPassword) {
       Alert.alert("The passwords don't match");
       return;
@@ -36,9 +37,9 @@ export default function SignUpScreen({ navigation }) {
         password
       );
       // console.log(userCred);
-      const token = await registerForPushNotificationsAsync();
+      token = await registerForPushNotificationsAsync();
       saveUserInfo({
-        expoPushToken: token,
+        expoPushToken: token ? token : "",
         name: { firstname: null, lastname: "" },
         description: "",
         phone: "",
