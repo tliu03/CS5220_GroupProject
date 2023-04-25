@@ -31,7 +31,9 @@ export default function Input({
         {inputBox && <TextInput style={inputStyle} {...textInputConfig} />}
 
         {optionBox && <OptionPicker style={inputStyle} {...textInputConfig} />}
-        {timePicker && <DatetimePicker {...textInputConfig} />}
+        {timePicker && (
+          <DatetimePicker {...textInputConfig} style={inputStyle} />
+        )}
         {locationInput && (
           <>
             <View style={[inputStyle, styles.location]}>

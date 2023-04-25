@@ -22,13 +22,14 @@ export default function PostForm({ route, navigation }) {
   // if (post.date) {
   //   setDate(new Date(post.date));
   // }
+
   const [postEntry, setPostEntry] = useState({
     category: post.category ? post.category : "",
     // date: post.date ? post.date : new Date(),
     destination: post.destination ? post.destination : "",
     pickupLocation: post.pickupLocation ? post.pickupLocation : "",
-    price: post.price ? parseInt(post.price) : 0,
-    availableSpots: post.availableSpots ? parseInt(post.availableSpots) : 0,
+    price: post.price ? post.price : 0,
+    availableSpots: post.availableSpots ? post.availableSpots : 0,
     equipmentRoom: post.equipmentRoom ? "yes" : "no",
   });
   // console.log("postentry", postEntry);
@@ -68,7 +69,6 @@ export default function PostForm({ route, navigation }) {
       availableSpots: Number(postEntry.availableSpots),
       equipmentRoom: postEntry.equipmentRoom,
     };
-    console.log();
     const dateIsValid =
       new Date(entryData.date).valueOf() > new Date().valueOf();
     const availableSpotsIsValid =
@@ -78,14 +78,6 @@ export default function PostForm({ route, navigation }) {
     const priceIsValid = !isNaN(entryData.price);
     const equipmentRoomIsValid =
       entryData.equipmentRoom === "yes" || entryData.equipmentRoom === "no";
-    console.log(
-      dateIsValid,
-      availableSpotsIsValid,
-      destinationIsValid,
-      pickupLocationIsValid,
-      priceIsValid,
-      equipmentRoomIsValid
-    );
     if (
       !dateIsValid ||
       !availableSpotsIsValid ||
@@ -119,14 +111,16 @@ export default function PostForm({ route, navigation }) {
   function submitChangeHanlder() {
     const entryData = {
       category: postEntry.category,
-      date: postEntry.date,
+      date: date,
       destination: postEntry.destination,
       pickupLocation: postEntry.pickupLocation,
       price: Number(postEntry.price),
       availableSpots: Number(postEntry.availableSpots),
       equipmentRoom: postEntry.equipmentRoom,
     };
-    const dateIsValid = entryData.date.length > 0;
+    // console.log();
+    const dateIsValid =
+      new Date(entryData.date).valueOf() > new Date().valueOf();
     const availableSpotsIsValid =
       !isNaN(entryData.availableSpots) && entryData.availableSpots >= 1;
     const destinationIsValid = entryData.destination.trim().length > 0;
@@ -183,7 +177,9 @@ export default function PostForm({ route, navigation }) {
                 label="Destination"
                 locationInput={true}
                 textInputConfig={{
-                  onChangeText: entryInputHandler.bind(this, "destination"),
+                  onChangeText: (text) => {
+                    setPostEntry({ ...postEntry, destination: text });
+                  },
                   value: postEntry.destination,
                 }}
               />
@@ -191,7 +187,9 @@ export default function PostForm({ route, navigation }) {
                 label="Pick Up Location"
                 locationInput={true}
                 textInputConfig={{
-                  onChangeText: entryInputHandler.bind(this, "pickupLocation"),
+                  onChangeText: (text) => {
+                    setPostEntry({ ...postEntry, pickupLocation: text });
+                  },
                   value: postEntry.pickupLocation,
                 }}
               />
@@ -201,7 +199,9 @@ export default function PostForm({ route, navigation }) {
                   inputBox={true}
                   textInputConfig={{
                     keybordType: "decimal-pad",
-                    onChangeText: entryInputHandler.bind(this, "price"),
+                    onChangeText: (price) => {
+                      setPostEntry({ ...postEntry, price: price });
+                    },
                     value: parseInt(postEntry.price),
                   }}
                 />
@@ -215,7 +215,9 @@ export default function PostForm({ route, navigation }) {
                 inputBox={true}
                 textInputConfig={{
                   keybordType: "numeric",
-                  onChangeText: entryInputHandler.bind(this, "availableSpots"),
+                  onChangeText: (spot) => {
+                    setPostEntry({ ...postEntry, availableSpots: spot });
+                  },
                   value: parseInt(postEntry.availableSpots),
                 }}
               />
@@ -227,7 +229,9 @@ export default function PostForm({ route, navigation }) {
                 }
                 optionBox={true}
                 textInputConfig={{
-                  onSelect: entryInputHandler.bind(this, "equipmentRoom"),
+                  onSelect: (option) => {
+                    setPostEntry({ ...postEntry, equipmentRoom: option });
+                  },
                   value: postEntry.equipmentRoom,
                 }}
               />

@@ -3,7 +3,7 @@ import { useState } from "react";
 import IconButton from "../../UI/IconButton";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-export default function DatetimePicker({ date, setDate }) {
+export default function DatetimePicker({ date, setDate, style }) {
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
 
@@ -37,16 +37,22 @@ export default function DatetimePicker({ date, setDate }) {
   };
 
   return (
-    <View>
+    <View style={style}>
       {android && (
-        <View style={styles.timeButton}>
-          <IconButton
-            onPress={showDatepicker}
-            name="calendar-outline"
-            size={24}
-          />
-          <IconButton onPress={showTimepicker} name="time-outline" size={24} />
-          <Text>selected: {date.toLocaleString()}</Text>
+        <View>
+          <View style={styles.timeButtonContainer}>
+            <IconButton
+              onPress={showDatepicker}
+              name="calendar-outline"
+              size={24}
+            />
+            <IconButton
+              onPress={showTimepicker}
+              name="time-outline"
+              size={24}
+            />
+          </View>
+          <Text>{date.toLocaleString()}</Text>
           {show && (
             <DateTimePicker
               testID="dateTimePicker"
@@ -72,7 +78,8 @@ export default function DatetimePicker({ date, setDate }) {
 }
 
 const styles = StyleSheet.create({
-  timeButton: {
+  timeButtonContainer: {
     flexDirection: "row",
+    justifyContent: "center",
   },
 });
