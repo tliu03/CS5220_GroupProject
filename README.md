@@ -48,7 +48,7 @@ Jingjing Ma, Luocheng Zhu, Shaohua(Teresa) Liu
 
 - User profile, edit profile  
   <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/mainPage.png">
-  <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationTwo/SnowRide/assets/UserProfile.png">
+  <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationThree/SnowRide/assets/userT.png">
   <img width="200px" src="https://github.com/tliu03/CS5220_GroupProject/blob/IterationTwo/SnowRide/assets/EditProfile.png">
 
 <!-- add mainPage.png here -->
