@@ -25,8 +25,10 @@ export default function SignUpScreen({ navigation }) {
   };
 
   const signupHandler = async () => {
+    let token;
     if (password !== confirmPassword) {
       Alert.alert("The passwords don't match");
+      return;
     }
     try {
       const userCred = await createUserWithEmailAndPassword(
@@ -35,16 +37,16 @@ export default function SignUpScreen({ navigation }) {
         password
       );
       // console.log(userCred);
-      const token = await registerForPushNotificationsAsync();
+      token = await registerForPushNotificationsAsync();
       saveUserInfo({
-        expoPushToken: token,
+        expoPushToken: token ? token : "",
         name: { firstname: null, lastname: "" },
         description: "",
         phone: "",
         country: "",
         city: "",
         userImg:
-          "https://firebasestorage.googleapis.com/v0/b/cs5520-assignment-b5bbb.appspot.com/o/user.png?alt=media&token=5f35540e-bdda-4857-8847-8627eef2794c",
+          "https://firebasestorage.googleapis.com/v0/b/cs5520-assignment-b5bbb.appspot.com/o/user.png?alt=media&token=ccd4270c-e0c7-4e53-a87f-88821fdd157a",
       });
       navigation.navigate("Home");
     } catch (err) {

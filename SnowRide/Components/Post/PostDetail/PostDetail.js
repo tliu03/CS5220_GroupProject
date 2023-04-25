@@ -40,9 +40,10 @@ export default function PostDetail({ route, navigation }) {
         navigation.navigate("My Profile");
         return;
       }
+      const postUser = await getUserInfo(post.user);
       navigation.navigate("ChatWindow", {
         ReceiverId: post.user,
-        receiver: user.name.firstname,
+        receiver: postUser.name.firstname,
         SenderId: auth.currentUser.uid,
         pushToken: user.expoPushToken,
       });

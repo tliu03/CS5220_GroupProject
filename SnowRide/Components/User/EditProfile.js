@@ -4,17 +4,18 @@ import {
   View,
   TextInput,
   KeyboardAvoidingView,
+  Alert,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import Button from "../UI/Button";
 import FormButton from "../UI/FormButton";
 import ImageManager from "./ImageManager";
-
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Feather from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { auth } from "../../FireBase/firebase-setup";
+import { auth, storage } from "../../FireBase/firebase-setup";
+import { ref, uploadBytesResumable } from "firebase/storage";
 import { saveUserInfo } from "../../FireBase/firebase-helper";
 
 const EditProfile = ({ navigation, route }) => {
@@ -36,58 +37,46 @@ const EditProfile = ({ navigation, route }) => {
   const [transferred, setTransferred] = useState(0);
   // const [imageUri, setImageUri] = useState("");
   const imageUriHandler = (uri) => {
-    setUserData({ ...userData, userImg: uri });
+    setImage({ imgUri: uri });
   };
 
   const handleUpdate = async () => {
     // console.log(userData);
-
-    let imgUrl = await uploadImage();
-
-    if (imgUrl == null && userData.userImg) {
-      imgUrl = userData.userImg;
-    }
-    saveUserInfo({ ...userData });
-  };
-
-  const uploadImage = async () => {
-    if (image == null) {
-      return null;
-    }
-    const uploadUri = image;
-    let filename = uploadUri.substring(uploadUri.lastIndexOf("/") + 1);
-
-    const extension = filename.split(".").pop();
-    const name = filename.split(".").slice(0, -1).join(".");
-    filename = name + Date.now() + "." + extension;
-
-    setUploading(true);
-    setTransferred(0);
-
-    const storageRef = storage().ref(`photos/${filename}`);
-    const task = storageRef.putFile(uploadUri);
-
-    task.on("state_changed", (taskSnapshot) => {
-      console.log(
-        `${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`
-      );
-      setTransferred(
-        Math.round(taskSnapshot.bytesTransferred / taskSnapshot.totalBytes) *
-          100
-      );
-    });
-
     try {
-      await task;
-      const url = await storageRef.getDownloadURL();
-      setUploading(false);
-      setImage(null);
-      return url;
-    } catch (e) {
-      console.log(e);
-      return null;
+      let imageUri;
+      console.log("pre", userData);
+      if (image) {
+        imageUri = await fetchImageData(image.imgUri);
+        console.log(imageUri);
+      }
+      const newUserEntry = {
+        ...userData,
+        userImg: imageUri,
+      };
+      // setUserData({ ...userData, userImg: imageUri });
+      console.log("post fetch", newUserEntry);
+      await saveUserInfo(newUserEntry);
+      Alert.alert("User Infor Updated Successfully!");
+      // console.log("uploaded");
+      // console.log("post upload", userData);
+    } catch (err) {
+      console.log(err);
     }
   };
+
+  async function fetchImageData(uri) {
+    try {
+      console.log("local", uri); //local uri on the device
+      const response = await fetch(uri);
+      const imageBlob = await response.blob(); //image data
+      const imageName = uri.substring(uri.lastIndexOf("/") + 1);
+      const imageRef = await ref(storage, `images/${imageName}`);
+      const uploadResult = await uploadBytesResumable(imageRef, imageBlob);
+      return uploadResult.metadata.fullPath; //path to the image on the storage
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <KeyboardAvoidingView behavior="padding" style={styles.container}>
